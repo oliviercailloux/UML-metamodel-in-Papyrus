@@ -595,6 +595,154 @@ endif)</body>
         </ownedParameter>
       </ownedOperation>
     </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="Class" name="Class">
+      <ownedComment xmi:type="uml:Comment" xmi:id="Class-_ownedComment.0" annotatedElement="Class">
+        <body>A Class classifies a set of objects and specifies the features that characterize the structure and behavior of those objects.  A Class may have an internal structure and Ports.</body>
+      </ownedComment>
+      <ownedRule xmi:type="uml:Constraint" xmi:id="Class-passive_class" name="passive_class" constrainedElement="Class">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Class-passive_class-_ownedComment.0" annotatedElement="Class-passive_class">
+          <body>Only an active Class may own Receptions and have a classifierBehavior.</body>
+        </ownedComment>
+        <specification xmi:type="uml:OpaqueExpression" xmi:id="Class-passive_class-_specification">
+          <language>OCL</language>
+          <body>not isActive implies (ownedReception->isEmpty() and classifierBehavior = null)</body>
+        </specification>
+      </ownedRule>
+      <generalization xmi:type="uml:Generalization" xmi:id="Class-_generalization.0" general="BehavioredClassifier"/>
+      <generalization xmi:type="uml:Generalization" xmi:id="Class-_generalization.1" general="EncapsulatedClassifier"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="Class-extension" name="extension" type="Extension" isReadOnly="true" isDerived="true" association="A_extension_metaclass">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Class-extension-_ownedComment.0" annotatedElement="Class-extension">
+          <body>This property is used when the Class is acting as a metaclass. It references the Extensions that specify additional properties of the metaclass. The property is derived from the Extensions whose memberEnds are typed by the Class.</body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Class-extension-_lowerValue"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Class-extension-_upperValue" value="*"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="Class-isAbstract" name="isAbstract" redefinedProperty="Classifier-isAbstract">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Class-isAbstract-_ownedComment.0" annotatedElement="Class-isAbstract">
+          <body>If true, the Class does not provide a complete declaration and cannot be instantiated. An abstract Class is typically used as a target of Associations or Generalizations.</body>
+        </ownedComment>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+        <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="Class-isAbstract-_defaultValue"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="Class-isActive" name="isActive">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Class-isActive-_ownedComment.0" annotatedElement="Class-isActive">
+          <body>Determines whether an object specified by this Class is active or not. If true, then the owning Class is referred to as an active Class. If false, then such a Class is referred to as a passive Class.</body>
+        </ownedComment>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+        <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="Class-isActive-_defaultValue"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="Class-nestedClassifier" name="nestedClassifier" type="Classifier" isOrdered="true" aggregation="composite" subsettedProperty="A_redefinitionContext_redefinableElement-redefinableElement Namespace-ownedMember" association="A_nestedClassifier_nestingClass">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Class-nestedClassifier-_ownedComment.0" annotatedElement="Class-nestedClassifier">
+          <body>The Classifiers owned by the Class that are not ownedBehaviors.</body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Class-nestedClassifier-_lowerValue"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Class-nestedClassifier-_upperValue" value="*"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="Class-ownedAttribute" name="ownedAttribute" type="Property" isOrdered="true" aggregation="composite" redefinedProperty="StructuredClassifier-ownedAttribute" subsettedProperty="Classifier-attribute Namespace-ownedMember" association="A_ownedAttribute_class">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Class-ownedAttribute-_ownedComment.0" annotatedElement="Class-ownedAttribute">
+          <body>The attributes (i.e., the Properties) owned by the Class.</body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Class-ownedAttribute-_lowerValue"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Class-ownedAttribute-_upperValue" value="*"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="Class-ownedOperation" name="ownedOperation" type="Operation" isOrdered="true" aggregation="composite" subsettedProperty="A_redefinitionContext_redefinableElement-redefinableElement Classifier-feature Namespace-ownedMember" association="A_ownedOperation_class">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Class-ownedOperation-_ownedComment.0" annotatedElement="Class-ownedOperation">
+          <body>The Operations owned by the Class.</body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Class-ownedOperation-_lowerValue"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Class-ownedOperation-_upperValue" value="*"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="Class-ownedReception" name="ownedReception" type="Reception" aggregation="composite" subsettedProperty="Classifier-feature Namespace-ownedMember" association="A_ownedReception_class">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Class-ownedReception-_ownedComment.0" annotatedElement="Class-ownedReception">
+          <body>The Receptions owned by the Class.</body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Class-ownedReception-_lowerValue"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Class-ownedReception-_upperValue" value="*"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="Class-superClass" name="superClass" type="Class" isDerived="true" redefinedProperty="Classifier-general" association="A_superClass_class">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Class-superClass-_ownedComment.0" annotatedElement="Class-superClass">
+          <body>The superclasses of a Class, derived from its Generalizations.</body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Class-superClass-_lowerValue"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Class-superClass-_upperValue" value="*"/>
+      </ownedAttribute>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="Class-createOwnedOperation" name="createOwnedOperation">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Class-createOwnedOperation-_ownedComment.0" annotatedElement="Class-createOwnedOperation">
+          <body>Creates an operation with the specified name, parameter names, parameter types, and return type (or null) as an owned operation of this class.</body>
+        </ownedComment>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="Class-createOwnedOperation-_ownedParameter.0" type="Operation" direction="return"/>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="Class-createOwnedOperation-name" name="name" effect="read">
+          <ownedComment xmi:type="uml:Comment" xmi:id="Class-createOwnedOperation-name-_ownedComment.0" annotatedElement="Class-createOwnedOperation-name">
+            <body>The name for the new operation, or null.</body>
+          </ownedComment>
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Class-createOwnedOperation-name-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Class-createOwnedOperation-name-_upperValue" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="Class-createOwnedOperation-parameterNames" name="parameterNames" effect="read">
+          <ownedComment xmi:type="uml:Comment" xmi:id="Class-createOwnedOperation-parameterNames-_ownedComment.0" annotatedElement="Class-createOwnedOperation-parameterNames">
+            <body>The parameter names for the new operation, or null.</body>
+          </ownedComment>
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Class-createOwnedOperation-parameterNames-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Class-createOwnedOperation-parameterNames-_upperValue" value="*"/>
+        </ownedParameter>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="Class-createOwnedOperation-parameterTypes" name="parameterTypes" type="Type" effect="read">
+          <ownedComment xmi:type="uml:Comment" xmi:id="Class-createOwnedOperation-parameterTypes-_ownedComment.0" annotatedElement="Class-createOwnedOperation-parameterTypes">
+            <body>The parameter types for the new operation, or null.</body>
+          </ownedComment>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Class-createOwnedOperation-parameterTypes-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Class-createOwnedOperation-parameterTypes-_upperValue" value="*"/>
+        </ownedParameter>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="Class-createOwnedOperation-returnType" name="returnType" type="Type" effect="read">
+          <ownedComment xmi:type="uml:Comment" xmi:id="Class-createOwnedOperation-returnType-_ownedComment.0" annotatedElement="Class-createOwnedOperation-returnType">
+            <body>The return type for the new operation, or null.</body>
+          </ownedComment>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Class-createOwnedOperation-returnType-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Class-createOwnedOperation-returnType-_upperValue" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="Class-isMetaclass" name="isMetaclass" isQuery="true">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Class-isMetaclass-_ownedComment.0" annotatedElement="Class-isMetaclass">
+          <body>Determines whether this class is a metaclass.</body>
+        </ownedComment>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="Class-isMetaclass-_ownedParameter.0" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="Class-extension.1" name="extension" visibility="protected" bodyCondition="Class-extension.1-spec" isQuery="true">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Class-extension.1-_ownedComment.0" annotatedElement="Class-extension.1">
+          <body>Derivation for Class::/extension : Extension</body>
+        </ownedComment>
+        <ownedRule xmi:type="uml:Constraint" xmi:id="Class-extension.1-spec" name="spec" constrainedElement="Class-extension.1 Class-extension">
+          <specification xmi:type="uml:OpaqueExpression" xmi:id="Class-extension.1-spec-_specification">
+            <language>OCL</language>
+            <body>result = (Extension.allInstances()->select(ext | &#xD;
+  let endTypes : Sequence(Classifier) = ext.memberEnd->collect(type.oclAsType(Classifier)) in&#xD;
+  endTypes->includes(self) or endTypes.allParents()->includes(self) ))</body>
+          </specification>
+        </ownedRule>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="Class-extension.1-result" name="result" type="Extension" direction="return">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Class-extension.1-result-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Class-extension.1-result-_upperValue" value="*"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="Class-superClass.1" name="superClass" visibility="protected" bodyCondition="Class-superClass.1-spec" isQuery="true">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Class-superClass.1-_ownedComment.0" annotatedElement="Class-superClass.1">
+          <body>Derivation for Class::/superClass : Class</body>
+        </ownedComment>
+        <ownedRule xmi:type="uml:Constraint" xmi:id="Class-superClass.1-spec" name="spec" constrainedElement="Class-superClass.1 Class-superClass">
+          <specification xmi:type="uml:OpaqueExpression" xmi:id="Class-superClass.1-spec-_specification">
+            <language>OCL</language>
+            <body>result = (self.general()->select(oclIsKindOf(Class))->collect(oclAsType(Class))->asSet())</body>
+          </specification>
+        </ownedRule>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="Class-superClass.1-result" name="result" type="Class" direction="return">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Class-superClass.1-result-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Class-superClass.1-result-_upperValue" value="*"/>
+        </ownedParameter>
+      </ownedOperation>
+    </packagedElement>
     <packagedElement xmi:type="uml:Association" xmi:id="A_client_clientDependency" name="A_client_clientDependency" visibility="private" memberEnd="A_client_clientDependency-client NamedElement-clientDependency">
       <ownedEnd xmi:type="uml:Property" xmi:id="A_client_clientDependency-client" name="client" visibility="private" type="NamedElement" association="A_client_clientDependency">
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="A_client_clientDependency-client-_upperValue" value="*"/>
@@ -15440,154 +15588,6 @@ endif)</body>
       </ownedRule>
       <generalization xmi:type="uml:Generalization" xmi:id="AssociationClass-_generalization.0" general="Class"/>
       <generalization xmi:type="uml:Generalization" xmi:id="AssociationClass-_generalization.1" general="Association"/>
-    </packagedElement>
-    <packagedElement xmi:type="uml:Class" xmi:id="Class" name="Class">
-      <ownedComment xmi:type="uml:Comment" xmi:id="Class-_ownedComment.0" annotatedElement="Class">
-        <body>A Class classifies a set of objects and specifies the features that characterize the structure and behavior of those objects.  A Class may have an internal structure and Ports.</body>
-      </ownedComment>
-      <ownedRule xmi:type="uml:Constraint" xmi:id="Class-passive_class" name="passive_class" constrainedElement="Class">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Class-passive_class-_ownedComment.0" annotatedElement="Class-passive_class">
-          <body>Only an active Class may own Receptions and have a classifierBehavior.</body>
-        </ownedComment>
-        <specification xmi:type="uml:OpaqueExpression" xmi:id="Class-passive_class-_specification">
-          <language>OCL</language>
-          <body>not isActive implies (ownedReception->isEmpty() and classifierBehavior = null)</body>
-        </specification>
-      </ownedRule>
-      <generalization xmi:type="uml:Generalization" xmi:id="Class-_generalization.0" general="BehavioredClassifier"/>
-      <generalization xmi:type="uml:Generalization" xmi:id="Class-_generalization.1" general="EncapsulatedClassifier"/>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="Class-extension" name="extension" type="Extension" isReadOnly="true" isDerived="true" association="A_extension_metaclass">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Class-extension-_ownedComment.0" annotatedElement="Class-extension">
-          <body>This property is used when the Class is acting as a metaclass. It references the Extensions that specify additional properties of the metaclass. The property is derived from the Extensions whose memberEnds are typed by the Class.</body>
-        </ownedComment>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Class-extension-_lowerValue"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Class-extension-_upperValue" value="*"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="Class-isAbstract" name="isAbstract" redefinedProperty="Classifier-isAbstract">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Class-isAbstract-_ownedComment.0" annotatedElement="Class-isAbstract">
-          <body>If true, the Class does not provide a complete declaration and cannot be instantiated. An abstract Class is typically used as a target of Associations or Generalizations.</body>
-        </ownedComment>
-        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
-        <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="Class-isAbstract-_defaultValue"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="Class-isActive" name="isActive">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Class-isActive-_ownedComment.0" annotatedElement="Class-isActive">
-          <body>Determines whether an object specified by this Class is active or not. If true, then the owning Class is referred to as an active Class. If false, then such a Class is referred to as a passive Class.</body>
-        </ownedComment>
-        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
-        <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="Class-isActive-_defaultValue"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="Class-nestedClassifier" name="nestedClassifier" type="Classifier" isOrdered="true" aggregation="composite" subsettedProperty="A_redefinitionContext_redefinableElement-redefinableElement Namespace-ownedMember" association="A_nestedClassifier_nestingClass">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Class-nestedClassifier-_ownedComment.0" annotatedElement="Class-nestedClassifier">
-          <body>The Classifiers owned by the Class that are not ownedBehaviors.</body>
-        </ownedComment>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Class-nestedClassifier-_lowerValue"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Class-nestedClassifier-_upperValue" value="*"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="Class-ownedAttribute" name="ownedAttribute" type="Property" isOrdered="true" aggregation="composite" redefinedProperty="StructuredClassifier-ownedAttribute" subsettedProperty="Classifier-attribute Namespace-ownedMember" association="A_ownedAttribute_class">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Class-ownedAttribute-_ownedComment.0" annotatedElement="Class-ownedAttribute">
-          <body>The attributes (i.e., the Properties) owned by the Class.</body>
-        </ownedComment>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Class-ownedAttribute-_lowerValue"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Class-ownedAttribute-_upperValue" value="*"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="Class-ownedOperation" name="ownedOperation" type="Operation" isOrdered="true" aggregation="composite" subsettedProperty="A_redefinitionContext_redefinableElement-redefinableElement Classifier-feature Namespace-ownedMember" association="A_ownedOperation_class">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Class-ownedOperation-_ownedComment.0" annotatedElement="Class-ownedOperation">
-          <body>The Operations owned by the Class.</body>
-        </ownedComment>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Class-ownedOperation-_lowerValue"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Class-ownedOperation-_upperValue" value="*"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="Class-ownedReception" name="ownedReception" type="Reception" aggregation="composite" subsettedProperty="Classifier-feature Namespace-ownedMember" association="A_ownedReception_class">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Class-ownedReception-_ownedComment.0" annotatedElement="Class-ownedReception">
-          <body>The Receptions owned by the Class.</body>
-        </ownedComment>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Class-ownedReception-_lowerValue"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Class-ownedReception-_upperValue" value="*"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="Class-superClass" name="superClass" type="Class" isDerived="true" redefinedProperty="Classifier-general" association="A_superClass_class">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Class-superClass-_ownedComment.0" annotatedElement="Class-superClass">
-          <body>The superclasses of a Class, derived from its Generalizations.</body>
-        </ownedComment>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Class-superClass-_lowerValue"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Class-superClass-_upperValue" value="*"/>
-      </ownedAttribute>
-      <ownedOperation xmi:type="uml:Operation" xmi:id="Class-createOwnedOperation" name="createOwnedOperation">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Class-createOwnedOperation-_ownedComment.0" annotatedElement="Class-createOwnedOperation">
-          <body>Creates an operation with the specified name, parameter names, parameter types, and return type (or null) as an owned operation of this class.</body>
-        </ownedComment>
-        <ownedParameter xmi:type="uml:Parameter" xmi:id="Class-createOwnedOperation-_ownedParameter.0" type="Operation" direction="return"/>
-        <ownedParameter xmi:type="uml:Parameter" xmi:id="Class-createOwnedOperation-name" name="name" effect="read">
-          <ownedComment xmi:type="uml:Comment" xmi:id="Class-createOwnedOperation-name-_ownedComment.0" annotatedElement="Class-createOwnedOperation-name">
-            <body>The name for the new operation, or null.</body>
-          </ownedComment>
-          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Class-createOwnedOperation-name-_lowerValue"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Class-createOwnedOperation-name-_upperValue" value="1"/>
-        </ownedParameter>
-        <ownedParameter xmi:type="uml:Parameter" xmi:id="Class-createOwnedOperation-parameterNames" name="parameterNames" effect="read">
-          <ownedComment xmi:type="uml:Comment" xmi:id="Class-createOwnedOperation-parameterNames-_ownedComment.0" annotatedElement="Class-createOwnedOperation-parameterNames">
-            <body>The parameter names for the new operation, or null.</body>
-          </ownedComment>
-          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Class-createOwnedOperation-parameterNames-_lowerValue"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Class-createOwnedOperation-parameterNames-_upperValue" value="*"/>
-        </ownedParameter>
-        <ownedParameter xmi:type="uml:Parameter" xmi:id="Class-createOwnedOperation-parameterTypes" name="parameterTypes" type="Type" effect="read">
-          <ownedComment xmi:type="uml:Comment" xmi:id="Class-createOwnedOperation-parameterTypes-_ownedComment.0" annotatedElement="Class-createOwnedOperation-parameterTypes">
-            <body>The parameter types for the new operation, or null.</body>
-          </ownedComment>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Class-createOwnedOperation-parameterTypes-_lowerValue"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Class-createOwnedOperation-parameterTypes-_upperValue" value="*"/>
-        </ownedParameter>
-        <ownedParameter xmi:type="uml:Parameter" xmi:id="Class-createOwnedOperation-returnType" name="returnType" type="Type" effect="read">
-          <ownedComment xmi:type="uml:Comment" xmi:id="Class-createOwnedOperation-returnType-_ownedComment.0" annotatedElement="Class-createOwnedOperation-returnType">
-            <body>The return type for the new operation, or null.</body>
-          </ownedComment>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Class-createOwnedOperation-returnType-_lowerValue"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Class-createOwnedOperation-returnType-_upperValue" value="1"/>
-        </ownedParameter>
-      </ownedOperation>
-      <ownedOperation xmi:type="uml:Operation" xmi:id="Class-isMetaclass" name="isMetaclass" isQuery="true">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Class-isMetaclass-_ownedComment.0" annotatedElement="Class-isMetaclass">
-          <body>Determines whether this class is a metaclass.</body>
-        </ownedComment>
-        <ownedParameter xmi:type="uml:Parameter" xmi:id="Class-isMetaclass-_ownedParameter.0" direction="return">
-          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
-        </ownedParameter>
-      </ownedOperation>
-      <ownedOperation xmi:type="uml:Operation" xmi:id="Class-extension.1" name="extension" visibility="protected" bodyCondition="Class-extension.1-spec" isQuery="true">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Class-extension.1-_ownedComment.0" annotatedElement="Class-extension.1">
-          <body>Derivation for Class::/extension : Extension</body>
-        </ownedComment>
-        <ownedRule xmi:type="uml:Constraint" xmi:id="Class-extension.1-spec" name="spec" constrainedElement="Class-extension.1 Class-extension">
-          <specification xmi:type="uml:OpaqueExpression" xmi:id="Class-extension.1-spec-_specification">
-            <language>OCL</language>
-            <body>result = (Extension.allInstances()->select(ext | &#xD;
-  let endTypes : Sequence(Classifier) = ext.memberEnd->collect(type.oclAsType(Classifier)) in&#xD;
-  endTypes->includes(self) or endTypes.allParents()->includes(self) ))</body>
-          </specification>
-        </ownedRule>
-        <ownedParameter xmi:type="uml:Parameter" xmi:id="Class-extension.1-result" name="result" type="Extension" direction="return">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Class-extension.1-result-_lowerValue"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Class-extension.1-result-_upperValue" value="*"/>
-        </ownedParameter>
-      </ownedOperation>
-      <ownedOperation xmi:type="uml:Operation" xmi:id="Class-superClass.1" name="superClass" visibility="protected" bodyCondition="Class-superClass.1-spec" isQuery="true">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Class-superClass.1-_ownedComment.0" annotatedElement="Class-superClass.1">
-          <body>Derivation for Class::/superClass : Class</body>
-        </ownedComment>
-        <ownedRule xmi:type="uml:Constraint" xmi:id="Class-superClass.1-spec" name="spec" constrainedElement="Class-superClass.1 Class-superClass">
-          <specification xmi:type="uml:OpaqueExpression" xmi:id="Class-superClass.1-spec-_specification">
-            <language>OCL</language>
-            <body>result = (self.general()->select(oclIsKindOf(Class))->collect(oclAsType(Class))->asSet())</body>
-          </specification>
-        </ownedRule>
-        <ownedParameter xmi:type="uml:Parameter" xmi:id="Class-superClass.1-result" name="result" type="Class" direction="return">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Class-superClass.1-result-_lowerValue"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Class-superClass.1-result-_upperValue" value="*"/>
-        </ownedParameter>
-      </ownedOperation>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="Collaboration" name="Collaboration">
       <ownedComment xmi:type="uml:Comment" xmi:id="Collaboration-_ownedComment.0" annotatedElement="Collaboration">
