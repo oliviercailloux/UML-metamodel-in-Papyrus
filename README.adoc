@@ -1,0 +1,19 @@
+= UML metamodel in Papyrus
+
+Using Eclipse version of the UML metamodel, found in the `org.eclipse.uml2.uml.resources` Eclipse plug-in (source https://git.eclipse.org/c/uml2/org.eclipse.uml2.git/tree/plugins/org.eclipse.uml2.uml.resources/metamodels[here]).
+
+Can be used to show the UML metamodel, for example, illustrate that a UML `Class` is a `BehavioredClassifier`, itself a `Classifier`; that a `UseCase` also is a `BehavioredClassifier`, …
+
+== Quick start
+Import this project into an Eclipse version containing Papyrus. Open the `Model Explorer` view, and from the `Project Explorer` view, open the `UML metamodel in Papyrus.di` file to let Papyrus display the content of your model in the `Model Explorer` view. Using the `Model Explorer` view, you can now create diagrams, and move elements from the `UML` metamodel into your diagrams.
+
+Read these https://github.com/oliviercailloux/UML/blob/master/Papyrus/README.adoc[tutorials] to get started with Papyrus.
+
+== Create from scratch
+To create this project from scratch, do the following.
+
+* Create a new project
+* Copy the `UML.metamodel.uml` file inside that project (source link here above, or https://help.eclipse.org/latest/topic/org.eclipse.pde.doc.user/guide/tools/import_wizards/import_wizards.htm[import] the `org.eclipse.uml2.uml.resources` plug-in into your Eclipse workspace)
+* Create a new Papyrus model
+* In the `Model Explorer` view, right-click your root model element, `Import` / `Import Package From User Model`, select the `UML.metamodel.uml` file, choose `Import`
+
