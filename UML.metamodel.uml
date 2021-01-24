@@ -884,6 +884,96 @@ endif)</body>
         </ownedComment>
       </ownedAttribute>
     </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="UseCase" name="UseCase">
+      <ownedComment xmi:type="uml:Comment" xmi:id="UseCase-_ownedComment.0" annotatedElement="UseCase">
+        <body>A UseCase specifies a set of actions performed by its subjects, which yields an observable result that is of value for one or more Actors or other stakeholders of each subject.</body>
+      </ownedComment>
+      <ownedRule xmi:type="uml:Constraint" xmi:id="UseCase-binary_associations" name="binary_associations" constrainedElement="UseCase">
+        <ownedComment xmi:type="uml:Comment" xmi:id="UseCase-binary_associations-_ownedComment.0" annotatedElement="UseCase-binary_associations">
+          <body>UseCases can only be involved in binary Associations.</body>
+        </ownedComment>
+        <specification xmi:type="uml:OpaqueExpression" xmi:id="UseCase-binary_associations-_specification">
+          <language>OCL</language>
+          <body>Association.allInstances()->forAll(a | a.memberEnd.type->includes(self) implies a.memberEnd->size() = 2)</body>
+        </specification>
+      </ownedRule>
+      <ownedRule xmi:type="uml:Constraint" xmi:id="UseCase-no_association_to_use_case" name="no_association_to_use_case" constrainedElement="UseCase">
+        <ownedComment xmi:type="uml:Comment" xmi:id="UseCase-no_association_to_use_case-_ownedComment.0" annotatedElement="UseCase-no_association_to_use_case">
+          <body>UseCases cannot have Associations to UseCases specifying the same subject.</body>
+        </ownedComment>
+        <specification xmi:type="uml:OpaqueExpression" xmi:id="UseCase-no_association_to_use_case-_specification">
+          <language>OCL</language>
+          <body>Association.allInstances()->forAll(a | a.memberEnd.type->includes(self) implies &#xD;
+   (&#xD;
+   let usecases: Set(UseCase) = a.memberEnd.type->select(oclIsKindOf(UseCase))->collect(oclAsType(UseCase))->asSet() in&#xD;
+   usecases->size() > 1 implies usecases->collect(subject)->size() > 1&#xD;
+   )&#xD;
+)</body>
+        </specification>
+      </ownedRule>
+      <ownedRule xmi:type="uml:Constraint" xmi:id="UseCase-cannot_include_self" name="cannot_include_self" constrainedElement="UseCase">
+        <ownedComment xmi:type="uml:Comment" xmi:id="UseCase-cannot_include_self-_ownedComment.0" annotatedElement="UseCase-cannot_include_self">
+          <body>A UseCase cannot include UseCases that directly or indirectly include it.</body>
+        </ownedComment>
+        <specification xmi:type="uml:OpaqueExpression" xmi:id="UseCase-cannot_include_self-_specification">
+          <language>OCL</language>
+          <body>not allIncludedUseCases()->includes(self)</body>
+        </specification>
+      </ownedRule>
+      <ownedRule xmi:type="uml:Constraint" xmi:id="UseCase-must_have_name" name="must_have_name" constrainedElement="UseCase">
+        <ownedComment xmi:type="uml:Comment" xmi:id="UseCase-must_have_name-_ownedComment.0" annotatedElement="UseCase-must_have_name">
+          <body>A UseCase must have a name.</body>
+        </ownedComment>
+        <specification xmi:type="uml:OpaqueExpression" xmi:id="UseCase-must_have_name-_specification">
+          <language>OCL</language>
+          <body>name -> notEmpty ()</body>
+        </specification>
+      </ownedRule>
+      <generalization xmi:type="uml:Generalization" xmi:id="UseCase-_generalization.0" general="BehavioredClassifier"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="UseCase-extend" name="extend" type="Extend" aggregation="composite" subsettedProperty="A_source_directedRelationship-directedRelationship Namespace-ownedMember" association="A_extend_extension">
+        <ownedComment xmi:type="uml:Comment" xmi:id="UseCase-extend-_ownedComment.0" annotatedElement="UseCase-extend">
+          <body>The Extend relationships owned by this UseCase.</body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="UseCase-extend-_lowerValue"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="UseCase-extend-_upperValue" value="*"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="UseCase-extensionPoint" name="extensionPoint" type="ExtensionPoint" aggregation="composite" subsettedProperty="Namespace-ownedMember" association="A_extensionPoint_useCase">
+        <ownedComment xmi:type="uml:Comment" xmi:id="UseCase-extensionPoint-_ownedComment.0" annotatedElement="UseCase-extensionPoint">
+          <body>The ExtensionPoints owned by this UseCase.</body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="UseCase-extensionPoint-_lowerValue"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="UseCase-extensionPoint-_upperValue" value="*"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="UseCase-include" name="include" type="Include" aggregation="composite" subsettedProperty="A_source_directedRelationship-directedRelationship Namespace-ownedMember" association="A_include_includingCase">
+        <ownedComment xmi:type="uml:Comment" xmi:id="UseCase-include-_ownedComment.0" annotatedElement="UseCase-include">
+          <body>The Include relationships owned by this UseCase.</body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="UseCase-include-_lowerValue"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="UseCase-include-_upperValue" value="*"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="UseCase-subject" name="subject" type="Classifier" association="A_subject_useCase">
+        <ownedComment xmi:type="uml:Comment" xmi:id="UseCase-subject-_ownedComment.0" annotatedElement="UseCase-subject">
+          <body>The subjects to which this UseCase applies. Each subject or its parts realize all the UseCases that apply to it.</body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="UseCase-subject-_lowerValue"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="UseCase-subject-_upperValue" value="*"/>
+      </ownedAttribute>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="UseCase-allIncludedUseCases" name="allIncludedUseCases" bodyCondition="UseCase-allIncludedUseCases-spec" isQuery="true">
+        <ownedComment xmi:type="uml:Comment" xmi:id="UseCase-allIncludedUseCases-_ownedComment.0" annotatedElement="UseCase-allIncludedUseCases">
+          <body>The query allIncludedUseCases() returns the transitive closure of all UseCases (directly or indirectly) included by this UseCase.</body>
+        </ownedComment>
+        <ownedRule xmi:type="uml:Constraint" xmi:id="UseCase-allIncludedUseCases-spec" name="spec" constrainedElement="UseCase-allIncludedUseCases">
+          <specification xmi:type="uml:OpaqueExpression" xmi:id="UseCase-allIncludedUseCases-spec-_specification">
+            <language>OCL</language>
+            <body>result = (self.include.addition->union(self.include.addition->collect(uc | uc.allIncludedUseCases()))->asSet())</body>
+          </specification>
+        </ownedRule>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="UseCase-allIncludedUseCases-result" name="result" type="UseCase" direction="return">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="UseCase-allIncludedUseCases-result-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="UseCase-allIncludedUseCases-result-_upperValue" value="*"/>
+        </ownedParameter>
+      </ownedOperation>
+    </packagedElement>
     <packagedElement xmi:type="uml:Association" xmi:id="A_client_clientDependency" name="A_client_clientDependency" visibility="private" memberEnd="A_client_clientDependency-client NamedElement-clientDependency">
       <ownedEnd xmi:type="uml:Property" xmi:id="A_client_clientDependency-client" name="client" visibility="private" type="NamedElement" association="A_client_clientDependency">
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="A_client_clientDependency-client-_upperValue" value="*"/>
@@ -16601,96 +16691,6 @@ endif)</body>
           <body>The UseCase which includes the addition and owns the Include relationship.</body>
         </ownedComment>
       </ownedAttribute>
-    </packagedElement>
-    <packagedElement xmi:type="uml:Class" xmi:id="UseCase" name="UseCase">
-      <ownedComment xmi:type="uml:Comment" xmi:id="UseCase-_ownedComment.0" annotatedElement="UseCase">
-        <body>A UseCase specifies a set of actions performed by its subjects, which yields an observable result that is of value for one or more Actors or other stakeholders of each subject.</body>
-      </ownedComment>
-      <ownedRule xmi:type="uml:Constraint" xmi:id="UseCase-binary_associations" name="binary_associations" constrainedElement="UseCase">
-        <ownedComment xmi:type="uml:Comment" xmi:id="UseCase-binary_associations-_ownedComment.0" annotatedElement="UseCase-binary_associations">
-          <body>UseCases can only be involved in binary Associations.</body>
-        </ownedComment>
-        <specification xmi:type="uml:OpaqueExpression" xmi:id="UseCase-binary_associations-_specification">
-          <language>OCL</language>
-          <body>Association.allInstances()->forAll(a | a.memberEnd.type->includes(self) implies a.memberEnd->size() = 2)</body>
-        </specification>
-      </ownedRule>
-      <ownedRule xmi:type="uml:Constraint" xmi:id="UseCase-no_association_to_use_case" name="no_association_to_use_case" constrainedElement="UseCase">
-        <ownedComment xmi:type="uml:Comment" xmi:id="UseCase-no_association_to_use_case-_ownedComment.0" annotatedElement="UseCase-no_association_to_use_case">
-          <body>UseCases cannot have Associations to UseCases specifying the same subject.</body>
-        </ownedComment>
-        <specification xmi:type="uml:OpaqueExpression" xmi:id="UseCase-no_association_to_use_case-_specification">
-          <language>OCL</language>
-          <body>Association.allInstances()->forAll(a | a.memberEnd.type->includes(self) implies &#xD;
-   (&#xD;
-   let usecases: Set(UseCase) = a.memberEnd.type->select(oclIsKindOf(UseCase))->collect(oclAsType(UseCase))->asSet() in&#xD;
-   usecases->size() > 1 implies usecases->collect(subject)->size() > 1&#xD;
-   )&#xD;
-)</body>
-        </specification>
-      </ownedRule>
-      <ownedRule xmi:type="uml:Constraint" xmi:id="UseCase-cannot_include_self" name="cannot_include_self" constrainedElement="UseCase">
-        <ownedComment xmi:type="uml:Comment" xmi:id="UseCase-cannot_include_self-_ownedComment.0" annotatedElement="UseCase-cannot_include_self">
-          <body>A UseCase cannot include UseCases that directly or indirectly include it.</body>
-        </ownedComment>
-        <specification xmi:type="uml:OpaqueExpression" xmi:id="UseCase-cannot_include_self-_specification">
-          <language>OCL</language>
-          <body>not allIncludedUseCases()->includes(self)</body>
-        </specification>
-      </ownedRule>
-      <ownedRule xmi:type="uml:Constraint" xmi:id="UseCase-must_have_name" name="must_have_name" constrainedElement="UseCase">
-        <ownedComment xmi:type="uml:Comment" xmi:id="UseCase-must_have_name-_ownedComment.0" annotatedElement="UseCase-must_have_name">
-          <body>A UseCase must have a name.</body>
-        </ownedComment>
-        <specification xmi:type="uml:OpaqueExpression" xmi:id="UseCase-must_have_name-_specification">
-          <language>OCL</language>
-          <body>name -> notEmpty ()</body>
-        </specification>
-      </ownedRule>
-      <generalization xmi:type="uml:Generalization" xmi:id="UseCase-_generalization.0" general="BehavioredClassifier"/>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="UseCase-extend" name="extend" type="Extend" aggregation="composite" subsettedProperty="A_source_directedRelationship-directedRelationship Namespace-ownedMember" association="A_extend_extension">
-        <ownedComment xmi:type="uml:Comment" xmi:id="UseCase-extend-_ownedComment.0" annotatedElement="UseCase-extend">
-          <body>The Extend relationships owned by this UseCase.</body>
-        </ownedComment>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="UseCase-extend-_lowerValue"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="UseCase-extend-_upperValue" value="*"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="UseCase-extensionPoint" name="extensionPoint" type="ExtensionPoint" aggregation="composite" subsettedProperty="Namespace-ownedMember" association="A_extensionPoint_useCase">
-        <ownedComment xmi:type="uml:Comment" xmi:id="UseCase-extensionPoint-_ownedComment.0" annotatedElement="UseCase-extensionPoint">
-          <body>The ExtensionPoints owned by this UseCase.</body>
-        </ownedComment>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="UseCase-extensionPoint-_lowerValue"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="UseCase-extensionPoint-_upperValue" value="*"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="UseCase-include" name="include" type="Include" aggregation="composite" subsettedProperty="A_source_directedRelationship-directedRelationship Namespace-ownedMember" association="A_include_includingCase">
-        <ownedComment xmi:type="uml:Comment" xmi:id="UseCase-include-_ownedComment.0" annotatedElement="UseCase-include">
-          <body>The Include relationships owned by this UseCase.</body>
-        </ownedComment>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="UseCase-include-_lowerValue"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="UseCase-include-_upperValue" value="*"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="UseCase-subject" name="subject" type="Classifier" association="A_subject_useCase">
-        <ownedComment xmi:type="uml:Comment" xmi:id="UseCase-subject-_ownedComment.0" annotatedElement="UseCase-subject">
-          <body>The subjects to which this UseCase applies. Each subject or its parts realize all the UseCases that apply to it.</body>
-        </ownedComment>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="UseCase-subject-_lowerValue"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="UseCase-subject-_upperValue" value="*"/>
-      </ownedAttribute>
-      <ownedOperation xmi:type="uml:Operation" xmi:id="UseCase-allIncludedUseCases" name="allIncludedUseCases" bodyCondition="UseCase-allIncludedUseCases-spec" isQuery="true">
-        <ownedComment xmi:type="uml:Comment" xmi:id="UseCase-allIncludedUseCases-_ownedComment.0" annotatedElement="UseCase-allIncludedUseCases">
-          <body>The query allIncludedUseCases() returns the transitive closure of all UseCases (directly or indirectly) included by this UseCase.</body>
-        </ownedComment>
-        <ownedRule xmi:type="uml:Constraint" xmi:id="UseCase-allIncludedUseCases-spec" name="spec" constrainedElement="UseCase-allIncludedUseCases">
-          <specification xmi:type="uml:OpaqueExpression" xmi:id="UseCase-allIncludedUseCases-spec-_specification">
-            <language>OCL</language>
-            <body>result = (self.include.addition->union(self.include.addition->collect(uc | uc.allIncludedUseCases()))->asSet())</body>
-          </specification>
-        </ownedRule>
-        <ownedParameter xmi:type="uml:Parameter" xmi:id="UseCase-allIncludedUseCases-result" name="result" type="UseCase" direction="return">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="UseCase-allIncludedUseCases-result-_lowerValue"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="UseCase-allIncludedUseCases-result-_upperValue" value="*"/>
-        </ownedParameter>
-      </ownedOperation>
     </packagedElement>
     <packagedElement xmi:type="uml:Association" xmi:id="A_extensionPoint_useCase" name="A_extensionPoint_useCase" visibility="private" memberEnd="UseCase-extensionPoint ExtensionPoint-useCase"/>
     <packagedElement xmi:type="uml:Association" xmi:id="A_include_includingCase" name="A_include_includingCase" visibility="private" memberEnd="UseCase-include Include-includingCase"/>
