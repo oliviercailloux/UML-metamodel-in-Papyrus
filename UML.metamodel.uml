@@ -974,6 +974,113 @@ endif)</body>
         </ownedParameter>
       </ownedOperation>
     </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="Association" name="Association">
+      <ownedComment xmi:type="uml:Comment" xmi:id="Association-_ownedComment.0" annotatedElement="Association">
+        <body>A link is a tuple of values that refer to typed objects.  An Association classifies a set of links, each of which is an instance of the Association.  Each value in the link refers to an instance of the type of the corresponding end of the Association.</body>
+      </ownedComment>
+      <ownedRule xmi:type="uml:Constraint" xmi:id="Association-specialized_end_number" name="specialized_end_number" constrainedElement="Association">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Association-specialized_end_number-_ownedComment.0" annotatedElement="Association-specialized_end_number">
+          <body>An Association specializing another Association has the same number of ends as the other Association.</body>
+        </ownedComment>
+        <specification xmi:type="uml:OpaqueExpression" xmi:id="Association-specialized_end_number-_specification">
+          <language>OCL</language>
+          <body>parents()->select(oclIsKindOf(Association)).oclAsType(Association)->forAll(p | p.memberEnd->size() = self.memberEnd->size())</body>
+        </specification>
+      </ownedRule>
+      <ownedRule xmi:type="uml:Constraint" xmi:id="Association-specialized_end_types" name="specialized_end_types" constrainedElement="Association">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Association-specialized_end_types-_ownedComment.0" annotatedElement="Association-specialized_end_types">
+          <body>When an Association specializes another Association, every end of the specific Association corresponds to an end of the general Association, and the specific end reaches the same type or a subtype of the corresponding general end.</body>
+        </ownedComment>
+        <specification xmi:type="uml:OpaqueExpression" xmi:id="Association-specialized_end_types-_specification">
+          <language>OCL</language>
+          <body>Sequence{1..memberEnd->size()}->&#xD;
+	forAll(i | general->select(oclIsKindOf(Association)).oclAsType(Association)->&#xD;
+		forAll(ga | self.memberEnd->at(i).type.conformsTo(ga.memberEnd->at(i).type)))</body>
+        </specification>
+      </ownedRule>
+      <ownedRule xmi:type="uml:Constraint" xmi:id="Association-binary_associations" name="binary_associations" constrainedElement="Association">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Association-binary_associations-_ownedComment.0" annotatedElement="Association-binary_associations">
+          <body>Only binary Associations can be aggregations.</body>
+        </ownedComment>
+        <specification xmi:type="uml:OpaqueExpression" xmi:id="Association-binary_associations-_specification">
+          <language>OCL</language>
+          <body>memberEnd->exists(aggregation &lt;> AggregationKind::none) implies (memberEnd->size() = 2 and memberEnd->exists(aggregation = AggregationKind::none))</body>
+        </specification>
+      </ownedRule>
+      <ownedRule xmi:type="uml:Constraint" xmi:id="Association-association_ends" name="association_ends" constrainedElement="Association">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Association-association_ends-_ownedComment.0" annotatedElement="Association-association_ends">
+          <body>Ends of Associations with more than two ends must be owned by the Association itself.</body>
+        </ownedComment>
+        <specification xmi:type="uml:OpaqueExpression" xmi:id="Association-association_ends-_specification">
+          <language>OCL</language>
+          <body>memberEnd->size() > 2 implies ownedEnd->includesAll(memberEnd)</body>
+        </specification>
+      </ownedRule>
+      <ownedRule xmi:type="uml:Constraint" xmi:id="Association-ends_must_be_typed" name="ends_must_be_typed" constrainedElement="Association">
+        <specification xmi:type="uml:OpaqueExpression" xmi:id="Association-ends_must_be_typed-_specification">
+          <language>OCL</language>
+          <body>memberEnd->forAll(type->notEmpty())</body>
+        </specification>
+      </ownedRule>
+      <generalization xmi:type="uml:Generalization" xmi:id="Association-_generalization.0" general="Relationship"/>
+      <generalization xmi:type="uml:Generalization" xmi:id="Association-_generalization.1" general="Classifier"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="Association-endType" name="endType" type="Type" isReadOnly="true" isDerived="true" subsettedProperty="Relationship-relatedElement" association="A_endType_association">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Association-endType-_ownedComment.0" annotatedElement="Association-endType">
+          <body>The Classifiers that are used as types of the ends of the Association.</body>
+        </ownedComment>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Association-endType-_upperValue" value="*"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="Association-isDerived" name="isDerived">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Association-isDerived-_ownedComment.0" annotatedElement="Association-isDerived">
+          <body>Specifies whether the Association is derived from other model elements such as other Associations.</body>
+        </ownedComment>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+        <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="Association-isDerived-_defaultValue"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="Association-memberEnd" name="memberEnd" type="Property" isOrdered="true" subsettedProperty="Namespace-member" association="A_memberEnd_association">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Association-memberEnd-_ownedComment.0" annotatedElement="Association-memberEnd">
+          <body>Each end represents participation of instances of the Classifier connected to the end in links of the Association.</body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Association-memberEnd-_lowerValue" value="2"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Association-memberEnd-_upperValue" value="*"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="Association-navigableOwnedEnd" name="navigableOwnedEnd" type="Property" subsettedProperty="Association-ownedEnd" association="A_navigableOwnedEnd_association">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Association-navigableOwnedEnd-_ownedComment.0" annotatedElement="Association-navigableOwnedEnd">
+          <body>The navigable ends that are owned by the Association itself.</body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Association-navigableOwnedEnd-_lowerValue"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Association-navigableOwnedEnd-_upperValue" value="*"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="Association-ownedEnd" name="ownedEnd" type="Property" isOrdered="true" aggregation="composite" subsettedProperty="A_redefinitionContext_redefinableElement-redefinableElement Association-memberEnd Classifier-feature Namespace-ownedMember" association="A_ownedEnd_owningAssociation">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Association-ownedEnd-_ownedComment.0" annotatedElement="Association-ownedEnd">
+          <body>The ends that are owned by the Association itself.</body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Association-ownedEnd-_lowerValue"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Association-ownedEnd-_upperValue" value="*"/>
+      </ownedAttribute>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="Association-isBinary" name="isBinary">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Association-isBinary-_ownedComment.0" annotatedElement="Association-isBinary">
+          <body>Determines whether this association is a binary association, i.e. whether it has exactly two member ends.</body>
+        </ownedComment>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="Association-isBinary-_ownedParameter.0" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="Association-endType.1" name="endType" visibility="protected" bodyCondition="Association-endType.1-spec" isQuery="true">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Association-endType.1-_ownedComment.0" annotatedElement="Association-endType.1">
+          <body>endType is derived from the types of the member ends.</body>
+        </ownedComment>
+        <ownedRule xmi:type="uml:Constraint" xmi:id="Association-endType.1-spec" name="spec" constrainedElement="Association-endType.1 Association-endType">
+          <specification xmi:type="uml:OpaqueExpression" xmi:id="Association-endType.1-spec-_specification">
+            <language>OCL</language>
+            <body>result = (memberEnd->collect(type)->asSet())</body>
+          </specification>
+        </ownedRule>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="Association-endType.1-result" name="result" type="Type" direction="return">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Association-endType.1-result-_upperValue" value="*"/>
+        </ownedParameter>
+      </ownedOperation>
+    </packagedElement>
     <packagedElement xmi:type="uml:Association" xmi:id="A_client_clientDependency" name="A_client_clientDependency" visibility="private" memberEnd="A_client_clientDependency-client NamedElement-clientDependency">
       <ownedEnd xmi:type="uml:Property" xmi:id="A_client_clientDependency-client" name="client" visibility="private" type="NamedElement" association="A_client_clientDependency">
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="A_client_clientDependency-client-_upperValue" value="*"/>
@@ -15546,113 +15653,6 @@ endif)</body>
       <ownedEnd xmi:type="uml:Property" xmi:id="A_exit_connectionPointReference-connectionPointReference" name="connectionPointReference" type="ConnectionPointReference" association="A_exit_connectionPointReference">
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="A_exit_connectionPointReference-connectionPointReference-_lowerValue"/>
       </ownedEnd>
-    </packagedElement>
-    <packagedElement xmi:type="uml:Class" xmi:id="Association" name="Association">
-      <ownedComment xmi:type="uml:Comment" xmi:id="Association-_ownedComment.0" annotatedElement="Association">
-        <body>A link is a tuple of values that refer to typed objects.  An Association classifies a set of links, each of which is an instance of the Association.  Each value in the link refers to an instance of the type of the corresponding end of the Association.</body>
-      </ownedComment>
-      <ownedRule xmi:type="uml:Constraint" xmi:id="Association-specialized_end_number" name="specialized_end_number" constrainedElement="Association">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Association-specialized_end_number-_ownedComment.0" annotatedElement="Association-specialized_end_number">
-          <body>An Association specializing another Association has the same number of ends as the other Association.</body>
-        </ownedComment>
-        <specification xmi:type="uml:OpaqueExpression" xmi:id="Association-specialized_end_number-_specification">
-          <language>OCL</language>
-          <body>parents()->select(oclIsKindOf(Association)).oclAsType(Association)->forAll(p | p.memberEnd->size() = self.memberEnd->size())</body>
-        </specification>
-      </ownedRule>
-      <ownedRule xmi:type="uml:Constraint" xmi:id="Association-specialized_end_types" name="specialized_end_types" constrainedElement="Association">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Association-specialized_end_types-_ownedComment.0" annotatedElement="Association-specialized_end_types">
-          <body>When an Association specializes another Association, every end of the specific Association corresponds to an end of the general Association, and the specific end reaches the same type or a subtype of the corresponding general end.</body>
-        </ownedComment>
-        <specification xmi:type="uml:OpaqueExpression" xmi:id="Association-specialized_end_types-_specification">
-          <language>OCL</language>
-          <body>Sequence{1..memberEnd->size()}->&#xD;
-	forAll(i | general->select(oclIsKindOf(Association)).oclAsType(Association)->&#xD;
-		forAll(ga | self.memberEnd->at(i).type.conformsTo(ga.memberEnd->at(i).type)))</body>
-        </specification>
-      </ownedRule>
-      <ownedRule xmi:type="uml:Constraint" xmi:id="Association-binary_associations" name="binary_associations" constrainedElement="Association">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Association-binary_associations-_ownedComment.0" annotatedElement="Association-binary_associations">
-          <body>Only binary Associations can be aggregations.</body>
-        </ownedComment>
-        <specification xmi:type="uml:OpaqueExpression" xmi:id="Association-binary_associations-_specification">
-          <language>OCL</language>
-          <body>memberEnd->exists(aggregation &lt;> AggregationKind::none) implies (memberEnd->size() = 2 and memberEnd->exists(aggregation = AggregationKind::none))</body>
-        </specification>
-      </ownedRule>
-      <ownedRule xmi:type="uml:Constraint" xmi:id="Association-association_ends" name="association_ends" constrainedElement="Association">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Association-association_ends-_ownedComment.0" annotatedElement="Association-association_ends">
-          <body>Ends of Associations with more than two ends must be owned by the Association itself.</body>
-        </ownedComment>
-        <specification xmi:type="uml:OpaqueExpression" xmi:id="Association-association_ends-_specification">
-          <language>OCL</language>
-          <body>memberEnd->size() > 2 implies ownedEnd->includesAll(memberEnd)</body>
-        </specification>
-      </ownedRule>
-      <ownedRule xmi:type="uml:Constraint" xmi:id="Association-ends_must_be_typed" name="ends_must_be_typed" constrainedElement="Association">
-        <specification xmi:type="uml:OpaqueExpression" xmi:id="Association-ends_must_be_typed-_specification">
-          <language>OCL</language>
-          <body>memberEnd->forAll(type->notEmpty())</body>
-        </specification>
-      </ownedRule>
-      <generalization xmi:type="uml:Generalization" xmi:id="Association-_generalization.0" general="Relationship"/>
-      <generalization xmi:type="uml:Generalization" xmi:id="Association-_generalization.1" general="Classifier"/>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="Association-endType" name="endType" type="Type" isReadOnly="true" isDerived="true" subsettedProperty="Relationship-relatedElement" association="A_endType_association">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Association-endType-_ownedComment.0" annotatedElement="Association-endType">
-          <body>The Classifiers that are used as types of the ends of the Association.</body>
-        </ownedComment>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Association-endType-_upperValue" value="*"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="Association-isDerived" name="isDerived">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Association-isDerived-_ownedComment.0" annotatedElement="Association-isDerived">
-          <body>Specifies whether the Association is derived from other model elements such as other Associations.</body>
-        </ownedComment>
-        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
-        <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="Association-isDerived-_defaultValue"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="Association-memberEnd" name="memberEnd" type="Property" isOrdered="true" subsettedProperty="Namespace-member" association="A_memberEnd_association">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Association-memberEnd-_ownedComment.0" annotatedElement="Association-memberEnd">
-          <body>Each end represents participation of instances of the Classifier connected to the end in links of the Association.</body>
-        </ownedComment>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Association-memberEnd-_lowerValue" value="2"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Association-memberEnd-_upperValue" value="*"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="Association-navigableOwnedEnd" name="navigableOwnedEnd" type="Property" subsettedProperty="Association-ownedEnd" association="A_navigableOwnedEnd_association">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Association-navigableOwnedEnd-_ownedComment.0" annotatedElement="Association-navigableOwnedEnd">
-          <body>The navigable ends that are owned by the Association itself.</body>
-        </ownedComment>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Association-navigableOwnedEnd-_lowerValue"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Association-navigableOwnedEnd-_upperValue" value="*"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="Association-ownedEnd" name="ownedEnd" type="Property" isOrdered="true" aggregation="composite" subsettedProperty="A_redefinitionContext_redefinableElement-redefinableElement Association-memberEnd Classifier-feature Namespace-ownedMember" association="A_ownedEnd_owningAssociation">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Association-ownedEnd-_ownedComment.0" annotatedElement="Association-ownedEnd">
-          <body>The ends that are owned by the Association itself.</body>
-        </ownedComment>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Association-ownedEnd-_lowerValue"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Association-ownedEnd-_upperValue" value="*"/>
-      </ownedAttribute>
-      <ownedOperation xmi:type="uml:Operation" xmi:id="Association-isBinary" name="isBinary">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Association-isBinary-_ownedComment.0" annotatedElement="Association-isBinary">
-          <body>Determines whether this association is a binary association, i.e. whether it has exactly two member ends.</body>
-        </ownedComment>
-        <ownedParameter xmi:type="uml:Parameter" xmi:id="Association-isBinary-_ownedParameter.0" direction="return">
-          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
-        </ownedParameter>
-      </ownedOperation>
-      <ownedOperation xmi:type="uml:Operation" xmi:id="Association-endType.1" name="endType" visibility="protected" bodyCondition="Association-endType.1-spec" isQuery="true">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Association-endType.1-_ownedComment.0" annotatedElement="Association-endType.1">
-          <body>endType is derived from the types of the member ends.</body>
-        </ownedComment>
-        <ownedRule xmi:type="uml:Constraint" xmi:id="Association-endType.1-spec" name="spec" constrainedElement="Association-endType.1 Association-endType">
-          <specification xmi:type="uml:OpaqueExpression" xmi:id="Association-endType.1-spec-_specification">
-            <language>OCL</language>
-            <body>result = (memberEnd->collect(type)->asSet())</body>
-          </specification>
-        </ownedRule>
-        <ownedParameter xmi:type="uml:Parameter" xmi:id="Association-endType.1-result" name="result" type="Type" direction="return">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Association-endType.1-result-_upperValue" value="*"/>
-        </ownedParameter>
-      </ownedOperation>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="AssociationClass" name="AssociationClass">
       <ownedComment xmi:type="uml:Comment" xmi:id="AssociationClass-_ownedComment.0" annotatedElement="AssociationClass">
