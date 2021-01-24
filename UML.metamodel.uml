@@ -743,6 +743,147 @@ endif)</body>
         </ownedParameter>
       </ownedOperation>
     </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="Interface" name="Interface">
+      <ownedComment xmi:type="uml:Comment" xmi:id="Interface-_ownedComment.0" annotatedElement="Interface">
+        <body>Interfaces declare coherent services that are implemented by BehavioredClassifiers that implement the Interfaces via InterfaceRealizations.</body>
+      </ownedComment>
+      <ownedRule xmi:type="uml:Constraint" xmi:id="Interface-visibility" name="visibility" constrainedElement="Interface">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Interface-visibility-_ownedComment.0" annotatedElement="Interface-visibility">
+          <body>The visibility of all Features owned by an Interface must be public.</body>
+        </ownedComment>
+        <specification xmi:type="uml:OpaqueExpression" xmi:id="Interface-visibility-_specification">
+          <language>OCL</language>
+          <body>feature->forAll(visibility = VisibilityKind::public)</body>
+        </specification>
+      </ownedRule>
+      <generalization xmi:type="uml:Generalization" xmi:id="Interface-_generalization.0" general="Classifier"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="Interface-nestedClassifier" name="nestedClassifier" type="Classifier" isOrdered="true" aggregation="composite" subsettedProperty="A_redefinitionContext_redefinableElement-redefinableElement Namespace-ownedMember" association="A_nestedClassifier_interface">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Interface-nestedClassifier-_ownedComment.0" annotatedElement="Interface-nestedClassifier">
+          <body>References all the Classifiers that are defined (nested) within the Interface.</body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Interface-nestedClassifier-_lowerValue"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Interface-nestedClassifier-_upperValue" value="*"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="Interface-ownedAttribute" name="ownedAttribute" type="Property" isOrdered="true" aggregation="composite" subsettedProperty="Classifier-attribute Namespace-ownedMember" association="A_ownedAttribute_interface">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Interface-ownedAttribute-_ownedComment.0" annotatedElement="Interface-ownedAttribute">
+          <body>The attributes (i.e., the Properties) owned by the Interface.</body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Interface-ownedAttribute-_lowerValue"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Interface-ownedAttribute-_upperValue" value="*"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="Interface-ownedOperation" name="ownedOperation" type="Operation" isOrdered="true" aggregation="composite" subsettedProperty="A_redefinitionContext_redefinableElement-redefinableElement Classifier-feature Namespace-ownedMember" association="A_ownedOperation_interface">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Interface-ownedOperation-_ownedComment.0" annotatedElement="Interface-ownedOperation">
+          <body>The Operations owned by the Interface.</body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Interface-ownedOperation-_lowerValue"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Interface-ownedOperation-_upperValue" value="*"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="Interface-ownedReception" name="ownedReception" type="Reception" aggregation="composite" subsettedProperty="Classifier-feature Namespace-ownedMember" association="A_ownedReception_interface">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Interface-ownedReception-_ownedComment.0" annotatedElement="Interface-ownedReception">
+          <body>Receptions that objects providing this Interface are willing to accept.</body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Interface-ownedReception-_lowerValue"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Interface-ownedReception-_upperValue" value="*"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="Interface-protocol" name="protocol" type="ProtocolStateMachine" aggregation="composite" subsettedProperty="Namespace-ownedMember" association="A_protocol_interface">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Interface-protocol-_ownedComment.0" annotatedElement="Interface-protocol">
+          <body>References a ProtocolStateMachine specifying the legal sequences of the invocation of the BehavioralFeatures described in the Interface.</body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Interface-protocol-_lowerValue"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="Interface-redefinedInterface" name="redefinedInterface" type="Interface" subsettedProperty="Classifier-redefinedClassifier" association="A_redefinedInterface_interface">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Interface-redefinedInterface-_ownedComment.0" annotatedElement="Interface-redefinedInterface">
+          <body>References all the Interfaces redefined by this Interface.</body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Interface-redefinedInterface-_lowerValue"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Interface-redefinedInterface-_upperValue" value="*"/>
+      </ownedAttribute>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="Interface-createOwnedAttribute" name="createOwnedAttribute">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Interface-createOwnedAttribute-_ownedComment.0" annotatedElement="Interface-createOwnedAttribute">
+          <body>Creates a property with the specified name, type, lower bound, and upper bound as an owned attribute of this interface.</body>
+        </ownedComment>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="Interface-createOwnedAttribute-_ownedParameter.0" type="Property" direction="return"/>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="Interface-createOwnedAttribute-name" name="name" effect="read">
+          <ownedComment xmi:type="uml:Comment" xmi:id="Interface-createOwnedAttribute-name-_ownedComment.0" annotatedElement="Interface-createOwnedAttribute-name">
+            <body>The name for the new attribute, or null.</body>
+          </ownedComment>
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Interface-createOwnedAttribute-name-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Interface-createOwnedAttribute-name-_upperValue" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="Interface-createOwnedAttribute-type" name="type" type="Type" effect="read">
+          <ownedComment xmi:type="uml:Comment" xmi:id="Interface-createOwnedAttribute-type-_ownedComment.0" annotatedElement="Interface-createOwnedAttribute-type">
+            <body>The type for the new attribute, or null.</body>
+          </ownedComment>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Interface-createOwnedAttribute-type-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Interface-createOwnedAttribute-type-_upperValue" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="Interface-createOwnedAttribute-lower" name="lower" effect="read">
+          <ownedComment xmi:type="uml:Comment" xmi:id="Interface-createOwnedAttribute-lower-_ownedComment.0" annotatedElement="Interface-createOwnedAttribute-lower">
+            <body>The lower bound for the new attribute.</body>
+          </ownedComment>
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+        </ownedParameter>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="Interface-createOwnedAttribute-upper" name="upper" effect="read">
+          <ownedComment xmi:type="uml:Comment" xmi:id="Interface-createOwnedAttribute-upper-_ownedComment.0" annotatedElement="Interface-createOwnedAttribute-upper">
+            <body>The upper bound for the new attribute.</body>
+          </ownedComment>
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#UnlimitedNatural"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="Interface-createOwnedOperation" name="createOwnedOperation">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Interface-createOwnedOperation-_ownedComment.0" annotatedElement="Interface-createOwnedOperation">
+          <body>Creates an operation with the specified name, parameter names, parameter types, and return type (or null) as an owned operation of this interface.</body>
+        </ownedComment>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="Interface-createOwnedOperation-_ownedParameter.0" type="Operation" direction="return"/>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="Interface-createOwnedOperation-name" name="name" effect="read">
+          <ownedComment xmi:type="uml:Comment" xmi:id="Interface-createOwnedOperation-name-_ownedComment.0" annotatedElement="Interface-createOwnedOperation-name">
+            <body>The name for the new operation, or null.</body>
+          </ownedComment>
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Interface-createOwnedOperation-name-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Interface-createOwnedOperation-name-_upperValue" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="Interface-createOwnedOperation-parameterNames" name="parameterNames" effect="read">
+          <ownedComment xmi:type="uml:Comment" xmi:id="Interface-createOwnedOperation-parameterNames-_ownedComment.0" annotatedElement="Interface-createOwnedOperation-parameterNames">
+            <body>The parameter names for the new operation, or null.</body>
+          </ownedComment>
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Interface-createOwnedOperation-parameterNames-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Interface-createOwnedOperation-parameterNames-_upperValue" value="*"/>
+        </ownedParameter>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="Interface-createOwnedOperation-parameterTypes" name="parameterTypes" type="Type" effect="read">
+          <ownedComment xmi:type="uml:Comment" xmi:id="Interface-createOwnedOperation-parameterTypes-_ownedComment.0" annotatedElement="Interface-createOwnedOperation-parameterTypes">
+            <body>The parameter types for the new operation, or null.</body>
+          </ownedComment>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Interface-createOwnedOperation-parameterTypes-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Interface-createOwnedOperation-parameterTypes-_upperValue" value="*"/>
+        </ownedParameter>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="Interface-createOwnedOperation-returnType" name="returnType" type="Type" effect="read">
+          <ownedComment xmi:type="uml:Comment" xmi:id="Interface-createOwnedOperation-returnType-_ownedComment.0" annotatedElement="Interface-createOwnedOperation-returnType">
+            <body>The return type for the new operation, or null.</body>
+          </ownedComment>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Interface-createOwnedOperation-returnType-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Interface-createOwnedOperation-returnType-_upperValue" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="InterfaceRealization" name="InterfaceRealization">
+      <ownedComment xmi:type="uml:Comment" xmi:id="InterfaceRealization-_ownedComment.0" annotatedElement="InterfaceRealization">
+        <body>An InterfaceRealization is a specialized realization relationship between a BehavioredClassifier and an Interface. This relationship signifies that the realizing BehavioredClassifier conforms to the contract specified by the Interface.</body>
+      </ownedComment>
+      <generalization xmi:type="uml:Generalization" xmi:id="InterfaceRealization-_generalization.0" general="Realization"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="InterfaceRealization-contract" name="contract" type="Interface" subsettedProperty="Dependency-supplier" association="A_contract_interfaceRealization">
+        <ownedComment xmi:type="uml:Comment" xmi:id="InterfaceRealization-contract-_ownedComment.0" annotatedElement="InterfaceRealization-contract">
+          <body>References the Interface specifying the conformance contract.</body>
+        </ownedComment>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="InterfaceRealization-implementingClassifier" name="implementingClassifier" type="BehavioredClassifier" subsettedProperty="Dependency-client Element-owner" association="A_interfaceRealization_implementingClassifier">
+        <ownedComment xmi:type="uml:Comment" xmi:id="InterfaceRealization-implementingClassifier-_ownedComment.0" annotatedElement="InterfaceRealization-implementingClassifier">
+          <body>References the BehavioredClassifier that owns this InterfaceRealization, i.e., the BehavioredClassifier that realizes the Interface to which it refers.</body>
+        </ownedComment>
+      </ownedAttribute>
+    </packagedElement>
     <packagedElement xmi:type="uml:Association" xmi:id="A_client_clientDependency" name="A_client_clientDependency" visibility="private" memberEnd="A_client_clientDependency-client NamedElement-clientDependency">
       <ownedEnd xmi:type="uml:Property" xmi:id="A_client_clientDependency-client" name="client" visibility="private" type="NamedElement" association="A_client_clientDependency">
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="A_client_clientDependency-client-_upperValue" value="*"/>
@@ -13622,147 +13763,6 @@ and Classifier.allInstances()->forAll(c | c.allParents()->exists(oclIsKindOf(Ste
         </ownedRule>
         <ownedParameter xmi:type="uml:Parameter" xmi:id="EnumerationLiteral-classifier.1-result" name="result" type="Enumeration" direction="return"/>
       </ownedOperation>
-    </packagedElement>
-    <packagedElement xmi:type="uml:Class" xmi:id="Interface" name="Interface">
-      <ownedComment xmi:type="uml:Comment" xmi:id="Interface-_ownedComment.0" annotatedElement="Interface">
-        <body>Interfaces declare coherent services that are implemented by BehavioredClassifiers that implement the Interfaces via InterfaceRealizations.</body>
-      </ownedComment>
-      <ownedRule xmi:type="uml:Constraint" xmi:id="Interface-visibility" name="visibility" constrainedElement="Interface">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Interface-visibility-_ownedComment.0" annotatedElement="Interface-visibility">
-          <body>The visibility of all Features owned by an Interface must be public.</body>
-        </ownedComment>
-        <specification xmi:type="uml:OpaqueExpression" xmi:id="Interface-visibility-_specification">
-          <language>OCL</language>
-          <body>feature->forAll(visibility = VisibilityKind::public)</body>
-        </specification>
-      </ownedRule>
-      <generalization xmi:type="uml:Generalization" xmi:id="Interface-_generalization.0" general="Classifier"/>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="Interface-nestedClassifier" name="nestedClassifier" type="Classifier" isOrdered="true" aggregation="composite" subsettedProperty="A_redefinitionContext_redefinableElement-redefinableElement Namespace-ownedMember" association="A_nestedClassifier_interface">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Interface-nestedClassifier-_ownedComment.0" annotatedElement="Interface-nestedClassifier">
-          <body>References all the Classifiers that are defined (nested) within the Interface.</body>
-        </ownedComment>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Interface-nestedClassifier-_lowerValue"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Interface-nestedClassifier-_upperValue" value="*"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="Interface-ownedAttribute" name="ownedAttribute" type="Property" isOrdered="true" aggregation="composite" subsettedProperty="Classifier-attribute Namespace-ownedMember" association="A_ownedAttribute_interface">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Interface-ownedAttribute-_ownedComment.0" annotatedElement="Interface-ownedAttribute">
-          <body>The attributes (i.e., the Properties) owned by the Interface.</body>
-        </ownedComment>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Interface-ownedAttribute-_lowerValue"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Interface-ownedAttribute-_upperValue" value="*"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="Interface-ownedOperation" name="ownedOperation" type="Operation" isOrdered="true" aggregation="composite" subsettedProperty="A_redefinitionContext_redefinableElement-redefinableElement Classifier-feature Namespace-ownedMember" association="A_ownedOperation_interface">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Interface-ownedOperation-_ownedComment.0" annotatedElement="Interface-ownedOperation">
-          <body>The Operations owned by the Interface.</body>
-        </ownedComment>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Interface-ownedOperation-_lowerValue"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Interface-ownedOperation-_upperValue" value="*"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="Interface-ownedReception" name="ownedReception" type="Reception" aggregation="composite" subsettedProperty="Classifier-feature Namespace-ownedMember" association="A_ownedReception_interface">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Interface-ownedReception-_ownedComment.0" annotatedElement="Interface-ownedReception">
-          <body>Receptions that objects providing this Interface are willing to accept.</body>
-        </ownedComment>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Interface-ownedReception-_lowerValue"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Interface-ownedReception-_upperValue" value="*"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="Interface-protocol" name="protocol" type="ProtocolStateMachine" aggregation="composite" subsettedProperty="Namespace-ownedMember" association="A_protocol_interface">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Interface-protocol-_ownedComment.0" annotatedElement="Interface-protocol">
-          <body>References a ProtocolStateMachine specifying the legal sequences of the invocation of the BehavioralFeatures described in the Interface.</body>
-        </ownedComment>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Interface-protocol-_lowerValue"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="Interface-redefinedInterface" name="redefinedInterface" type="Interface" subsettedProperty="Classifier-redefinedClassifier" association="A_redefinedInterface_interface">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Interface-redefinedInterface-_ownedComment.0" annotatedElement="Interface-redefinedInterface">
-          <body>References all the Interfaces redefined by this Interface.</body>
-        </ownedComment>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Interface-redefinedInterface-_lowerValue"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Interface-redefinedInterface-_upperValue" value="*"/>
-      </ownedAttribute>
-      <ownedOperation xmi:type="uml:Operation" xmi:id="Interface-createOwnedAttribute" name="createOwnedAttribute">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Interface-createOwnedAttribute-_ownedComment.0" annotatedElement="Interface-createOwnedAttribute">
-          <body>Creates a property with the specified name, type, lower bound, and upper bound as an owned attribute of this interface.</body>
-        </ownedComment>
-        <ownedParameter xmi:type="uml:Parameter" xmi:id="Interface-createOwnedAttribute-_ownedParameter.0" type="Property" direction="return"/>
-        <ownedParameter xmi:type="uml:Parameter" xmi:id="Interface-createOwnedAttribute-name" name="name" effect="read">
-          <ownedComment xmi:type="uml:Comment" xmi:id="Interface-createOwnedAttribute-name-_ownedComment.0" annotatedElement="Interface-createOwnedAttribute-name">
-            <body>The name for the new attribute, or null.</body>
-          </ownedComment>
-          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Interface-createOwnedAttribute-name-_lowerValue"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Interface-createOwnedAttribute-name-_upperValue" value="1"/>
-        </ownedParameter>
-        <ownedParameter xmi:type="uml:Parameter" xmi:id="Interface-createOwnedAttribute-type" name="type" type="Type" effect="read">
-          <ownedComment xmi:type="uml:Comment" xmi:id="Interface-createOwnedAttribute-type-_ownedComment.0" annotatedElement="Interface-createOwnedAttribute-type">
-            <body>The type for the new attribute, or null.</body>
-          </ownedComment>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Interface-createOwnedAttribute-type-_lowerValue"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Interface-createOwnedAttribute-type-_upperValue" value="1"/>
-        </ownedParameter>
-        <ownedParameter xmi:type="uml:Parameter" xmi:id="Interface-createOwnedAttribute-lower" name="lower" effect="read">
-          <ownedComment xmi:type="uml:Comment" xmi:id="Interface-createOwnedAttribute-lower-_ownedComment.0" annotatedElement="Interface-createOwnedAttribute-lower">
-            <body>The lower bound for the new attribute.</body>
-          </ownedComment>
-          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
-        </ownedParameter>
-        <ownedParameter xmi:type="uml:Parameter" xmi:id="Interface-createOwnedAttribute-upper" name="upper" effect="read">
-          <ownedComment xmi:type="uml:Comment" xmi:id="Interface-createOwnedAttribute-upper-_ownedComment.0" annotatedElement="Interface-createOwnedAttribute-upper">
-            <body>The upper bound for the new attribute.</body>
-          </ownedComment>
-          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#UnlimitedNatural"/>
-        </ownedParameter>
-      </ownedOperation>
-      <ownedOperation xmi:type="uml:Operation" xmi:id="Interface-createOwnedOperation" name="createOwnedOperation">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Interface-createOwnedOperation-_ownedComment.0" annotatedElement="Interface-createOwnedOperation">
-          <body>Creates an operation with the specified name, parameter names, parameter types, and return type (or null) as an owned operation of this interface.</body>
-        </ownedComment>
-        <ownedParameter xmi:type="uml:Parameter" xmi:id="Interface-createOwnedOperation-_ownedParameter.0" type="Operation" direction="return"/>
-        <ownedParameter xmi:type="uml:Parameter" xmi:id="Interface-createOwnedOperation-name" name="name" effect="read">
-          <ownedComment xmi:type="uml:Comment" xmi:id="Interface-createOwnedOperation-name-_ownedComment.0" annotatedElement="Interface-createOwnedOperation-name">
-            <body>The name for the new operation, or null.</body>
-          </ownedComment>
-          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Interface-createOwnedOperation-name-_lowerValue"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Interface-createOwnedOperation-name-_upperValue" value="1"/>
-        </ownedParameter>
-        <ownedParameter xmi:type="uml:Parameter" xmi:id="Interface-createOwnedOperation-parameterNames" name="parameterNames" effect="read">
-          <ownedComment xmi:type="uml:Comment" xmi:id="Interface-createOwnedOperation-parameterNames-_ownedComment.0" annotatedElement="Interface-createOwnedOperation-parameterNames">
-            <body>The parameter names for the new operation, or null.</body>
-          </ownedComment>
-          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Interface-createOwnedOperation-parameterNames-_lowerValue"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Interface-createOwnedOperation-parameterNames-_upperValue" value="*"/>
-        </ownedParameter>
-        <ownedParameter xmi:type="uml:Parameter" xmi:id="Interface-createOwnedOperation-parameterTypes" name="parameterTypes" type="Type" effect="read">
-          <ownedComment xmi:type="uml:Comment" xmi:id="Interface-createOwnedOperation-parameterTypes-_ownedComment.0" annotatedElement="Interface-createOwnedOperation-parameterTypes">
-            <body>The parameter types for the new operation, or null.</body>
-          </ownedComment>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Interface-createOwnedOperation-parameterTypes-_lowerValue"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Interface-createOwnedOperation-parameterTypes-_upperValue" value="*"/>
-        </ownedParameter>
-        <ownedParameter xmi:type="uml:Parameter" xmi:id="Interface-createOwnedOperation-returnType" name="returnType" type="Type" effect="read">
-          <ownedComment xmi:type="uml:Comment" xmi:id="Interface-createOwnedOperation-returnType-_ownedComment.0" annotatedElement="Interface-createOwnedOperation-returnType">
-            <body>The return type for the new operation, or null.</body>
-          </ownedComment>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Interface-createOwnedOperation-returnType-_lowerValue"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Interface-createOwnedOperation-returnType-_upperValue" value="1"/>
-        </ownedParameter>
-      </ownedOperation>
-    </packagedElement>
-    <packagedElement xmi:type="uml:Class" xmi:id="InterfaceRealization" name="InterfaceRealization">
-      <ownedComment xmi:type="uml:Comment" xmi:id="InterfaceRealization-_ownedComment.0" annotatedElement="InterfaceRealization">
-        <body>An InterfaceRealization is a specialized realization relationship between a BehavioredClassifier and an Interface. This relationship signifies that the realizing BehavioredClassifier conforms to the contract specified by the Interface.</body>
-      </ownedComment>
-      <generalization xmi:type="uml:Generalization" xmi:id="InterfaceRealization-_generalization.0" general="Realization"/>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="InterfaceRealization-contract" name="contract" type="Interface" subsettedProperty="Dependency-supplier" association="A_contract_interfaceRealization">
-        <ownedComment xmi:type="uml:Comment" xmi:id="InterfaceRealization-contract-_ownedComment.0" annotatedElement="InterfaceRealization-contract">
-          <body>References the Interface specifying the conformance contract.</body>
-        </ownedComment>
-      </ownedAttribute>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="InterfaceRealization-implementingClassifier" name="implementingClassifier" type="BehavioredClassifier" subsettedProperty="Dependency-client Element-owner" association="A_interfaceRealization_implementingClassifier">
-        <ownedComment xmi:type="uml:Comment" xmi:id="InterfaceRealization-implementingClassifier-_ownedComment.0" annotatedElement="InterfaceRealization-implementingClassifier">
-          <body>References the BehavioredClassifier that owns this InterfaceRealization, i.e., the BehavioredClassifier that realizes the Interface to which it refers.</body>
-        </ownedComment>
-      </ownedAttribute>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="PrimitiveType" name="PrimitiveType">
       <ownedComment xmi:type="uml:Comment" xmi:id="PrimitiveType-_ownedComment.0" annotatedElement="PrimitiveType">
