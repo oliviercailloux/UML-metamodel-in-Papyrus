@@ -24,6 +24,577 @@
       <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
     </packageImport>
     <packagedElement xmi:type="uml:Package" xmi:id="_EGkOAF5aEeuC9dSppsphRQ" name="Main"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="Classifier" name="Classifier" isAbstract="true">
+      <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-_ownedComment.0" annotatedElement="Classifier">
+        <body>A Classifier represents a classification of instances according to their Features.</body>
+      </ownedComment>
+      <ownedRule xmi:type="uml:Constraint" xmi:id="Classifier-specialize_type" name="specialize_type" constrainedElement="Classifier">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-specialize_type-_ownedComment.0" annotatedElement="Classifier-specialize_type">
+          <body>A Classifier may only specialize Classifiers of a valid type.</body>
+        </ownedComment>
+        <specification xmi:type="uml:OpaqueExpression" xmi:id="Classifier-specialize_type-_specification">
+          <language>OCL</language>
+          <body>parents()->forAll(c | self.maySpecializeType(c))</body>
+        </specification>
+      </ownedRule>
+      <ownedRule xmi:type="uml:Constraint" xmi:id="Classifier-maps_to_generalization_set" name="maps_to_generalization_set" constrainedElement="Classifier">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-maps_to_generalization_set-_ownedComment.0" annotatedElement="Classifier-maps_to_generalization_set">
+          <body>The Classifier that maps to a GeneralizationSet may neither be a specific nor a general Classifier in any of the Generalization relationships defined for that GeneralizationSet. In other words, a power type may not be an instance of itself nor may its instances also be its subclasses.</body>
+        </ownedComment>
+        <specification xmi:type="uml:OpaqueExpression" xmi:id="Classifier-maps_to_generalization_set-_specification">
+          <language>OCL</language>
+          <body>powertypeExtent->forAll( gs | &#xD;
+  gs.generalization->forAll( gen | &#xD;
+    not (gen.general = self) and not gen.general.allParents()->includes(self) and not (gen.specific = self) and not self.allParents()->includes(gen.specific) &#xD;
+  ))</body>
+        </specification>
+      </ownedRule>
+      <ownedRule xmi:type="uml:Constraint" xmi:id="Classifier-non_final_parents" name="non_final_parents" constrainedElement="Classifier">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-non_final_parents-_ownedComment.0" annotatedElement="Classifier-non_final_parents">
+          <body>The parents of a Classifier must be non-final.</body>
+        </ownedComment>
+        <specification xmi:type="uml:OpaqueExpression" xmi:id="Classifier-non_final_parents-_specification">
+          <language>OCL</language>
+          <body>parents()->forAll(not isFinalSpecialization)</body>
+        </specification>
+      </ownedRule>
+      <ownedRule xmi:type="uml:Constraint" xmi:id="Classifier-no_cycles_in_generalization" name="no_cycles_in_generalization" constrainedElement="Classifier">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-no_cycles_in_generalization-_ownedComment.0" annotatedElement="Classifier-no_cycles_in_generalization">
+          <body>Generalization hierarchies must be directed and acyclical. A Classifier can not be both a transitively general and transitively specific Classifier of the same Classifier.</body>
+        </ownedComment>
+        <specification xmi:type="uml:OpaqueExpression" xmi:id="Classifier-no_cycles_in_generalization-_specification">
+          <language>OCL</language>
+          <body>not allParents()->includes(self)</body>
+        </specification>
+      </ownedRule>
+      <generalization xmi:type="uml:Generalization" xmi:id="Classifier-_generalization.0" general="Namespace"/>
+      <generalization xmi:type="uml:Generalization" xmi:id="Classifier-_generalization.1" general="Type"/>
+      <generalization xmi:type="uml:Generalization" xmi:id="Classifier-_generalization.2" general="TemplateableElement"/>
+      <generalization xmi:type="uml:Generalization" xmi:id="Classifier-_generalization.3" general="RedefinableElement"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="Classifier-attribute" name="attribute" type="Property" isOrdered="true" isReadOnly="true" isDerived="true" isDerivedUnion="true" subsettedProperty="A_redefinitionContext_redefinableElement-redefinableElement Classifier-feature" association="A_attribute_classifier">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-attribute-_ownedComment.0" annotatedElement="Classifier-attribute">
+          <body>All of the Properties that are direct (i.e., not inherited or imported) attributes of the Classifier.</body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Classifier-attribute-_lowerValue"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Classifier-attribute-_upperValue" value="*"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="Classifier-collaborationUse" name="collaborationUse" type="CollaborationUse" aggregation="composite" subsettedProperty="Element-ownedElement" association="A_collaborationUse_classifier">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-collaborationUse-_ownedComment.0" annotatedElement="Classifier-collaborationUse">
+          <body>The CollaborationUses owned by the Classifier.</body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Classifier-collaborationUse-_lowerValue"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Classifier-collaborationUse-_upperValue" value="*"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="Classifier-feature" name="feature" type="Feature" isReadOnly="true" isDerived="true" isDerivedUnion="true" subsettedProperty="Namespace-member" association="A_feature_featuringClassifier">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-feature-_ownedComment.0" annotatedElement="Classifier-feature">
+          <body>Specifies each Feature directly defined in the classifier. Note that there may be members of the Classifier that are of the type Feature but are not included, e.g., inherited features.</body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Classifier-feature-_lowerValue"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Classifier-feature-_upperValue" value="*"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="Classifier-general" name="general" type="Classifier" isDerived="true" association="A_general_classifier">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-general-_ownedComment.0" annotatedElement="Classifier-general">
+          <body>The generalizing Classifiers for this Classifier.</body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Classifier-general-_lowerValue"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Classifier-general-_upperValue" value="*"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="Classifier-generalization" name="generalization" type="Generalization" aggregation="composite" subsettedProperty="A_source_directedRelationship-directedRelationship Element-ownedElement" association="A_generalization_specific">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-generalization-_ownedComment.0" annotatedElement="Classifier-generalization">
+          <body>The Generalization relationships for this Classifier. These Generalizations navigate to more general Classifiers in the generalization hierarchy.</body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Classifier-generalization-_lowerValue"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Classifier-generalization-_upperValue" value="*"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="Classifier-inheritedMember" name="inheritedMember" type="NamedElement" isReadOnly="true" isDerived="true" subsettedProperty="Namespace-member" association="A_inheritedMember_inheritingClassifier">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-inheritedMember-_ownedComment.0" annotatedElement="Classifier-inheritedMember">
+          <body>All elements inherited by this Classifier from its general Classifiers.</body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Classifier-inheritedMember-_lowerValue"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Classifier-inheritedMember-_upperValue" value="*"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="Classifier-isAbstract" name="isAbstract">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-isAbstract-_ownedComment.0" annotatedElement="Classifier-isAbstract">
+          <body>If true, the Classifier can only be instantiated by instantiating one of its specializations. An abstract Classifier is intended to be used by other Classifiers e.g., as the target of Associations or Generalizations.</body>
+        </ownedComment>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+        <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="Classifier-isAbstract-_defaultValue"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="Classifier-isFinalSpecialization" name="isFinalSpecialization">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-isFinalSpecialization-_ownedComment.0" annotatedElement="Classifier-isFinalSpecialization">
+          <body>If true, the Classifier cannot be specialized.</body>
+        </ownedComment>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+        <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="Classifier-isFinalSpecialization-_defaultValue"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="Classifier-ownedTemplateSignature" name="ownedTemplateSignature" type="RedefinableTemplateSignature" aggregation="composite" redefinedProperty="TemplateableElement-ownedTemplateSignature" subsettedProperty="A_redefinitionContext_redefinableElement-redefinableElement" association="A_ownedTemplateSignature_classifier">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-ownedTemplateSignature-_ownedComment.0" annotatedElement="Classifier-ownedTemplateSignature">
+          <body>The optional RedefinableTemplateSignature specifying the formal template parameters.</body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Classifier-ownedTemplateSignature-_lowerValue"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="Classifier-ownedUseCase" name="ownedUseCase" type="UseCase" aggregation="composite" subsettedProperty="Namespace-ownedMember" association="A_ownedUseCase_classifier">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-ownedUseCase-_ownedComment.0" annotatedElement="Classifier-ownedUseCase">
+          <body>The UseCases owned by this classifier.</body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Classifier-ownedUseCase-_lowerValue"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Classifier-ownedUseCase-_upperValue" value="*"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="Classifier-powertypeExtent" name="powertypeExtent" type="GeneralizationSet" association="A_powertypeExtent_powertype">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-powertypeExtent-_ownedComment.0" annotatedElement="Classifier-powertypeExtent">
+          <body>The GeneralizationSet of which this Classifier is a power type.</body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Classifier-powertypeExtent-_lowerValue"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Classifier-powertypeExtent-_upperValue" value="*"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="Classifier-redefinedClassifier" name="redefinedClassifier" type="Classifier" subsettedProperty="RedefinableElement-redefinedElement" association="A_redefinedClassifier_classifier">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-redefinedClassifier-_ownedComment.0" annotatedElement="Classifier-redefinedClassifier">
+          <body>The Classifiers redefined by this Classifier.</body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Classifier-redefinedClassifier-_lowerValue"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Classifier-redefinedClassifier-_upperValue" value="*"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="Classifier-representation" name="representation" type="CollaborationUse" subsettedProperty="Classifier-collaborationUse" association="A_representation_classifier">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-representation-_ownedComment.0" annotatedElement="Classifier-representation">
+          <body>A CollaborationUse which indicates the Collaboration that represents this Classifier.</body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Classifier-representation-_lowerValue"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="Classifier-substitution" name="substitution" type="Substitution" aggregation="composite" subsettedProperty="Element-ownedElement NamedElement-clientDependency" association="A_substitution_substitutingClassifier">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-substitution-_ownedComment.0" annotatedElement="Classifier-substitution">
+          <body>The Substitutions owned by this Classifier.</body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Classifier-substitution-_lowerValue"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Classifier-substitution-_upperValue" value="*"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="Classifier-templateParameter" name="templateParameter" type="ClassifierTemplateParameter" redefinedProperty="ParameterableElement-templateParameter" association="A_classifier_templateParameter_parameteredElement">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-templateParameter-_ownedComment.0" annotatedElement="Classifier-templateParameter">
+          <body>TheClassifierTemplateParameter that exposes this element as a formal parameter.</body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Classifier-templateParameter-_lowerValue"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="Classifier-useCase" name="useCase" type="UseCase" association="A_subject_useCase">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-useCase-_ownedComment.0" annotatedElement="Classifier-useCase">
+          <body>The set of UseCases for which this Classifier is the subject.</body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Classifier-useCase-_lowerValue"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Classifier-useCase-_upperValue" value="*"/>
+      </ownedAttribute>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="Classifier-getAllAttributes" name="getAllAttributes" isQuery="true">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-getAllAttributes-_ownedComment.0" annotatedElement="Classifier-getAllAttributes">
+          <body>Retrieves all the attributes of this classifier, including those inherited from its parents.</body>
+        </ownedComment>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="Classifier-getAllAttributes-_ownedParameter.0" type="Property" direction="return">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Classifier-getAllAttributes-_ownedParameter.0-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Classifier-getAllAttributes-_ownedParameter.0-_upperValue" value="*"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="Classifier-getAllOperations" name="getAllOperations" isQuery="true">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-getAllOperations-_ownedComment.0" annotatedElement="Classifier-getAllOperations">
+          <body>Retrieves all the operations of this classifier, including those inherited from its parents.</body>
+        </ownedComment>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="Classifier-getAllOperations-_ownedParameter.0" type="Operation" direction="return">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Classifier-getAllOperations-_ownedParameter.0-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Classifier-getAllOperations-_ownedParameter.0-_upperValue" value="*"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="Classifier-getAllUsedInterfaces" name="getAllUsedInterfaces">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-getAllUsedInterfaces-_ownedComment.0" annotatedElement="Classifier-getAllUsedInterfaces">
+          <body>Retrieves all the interfaces on which this classifier or any of its parents has a usage dependency.</body>
+        </ownedComment>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="Classifier-getAllUsedInterfaces-_ownedParameter.0" type="Interface" direction="return">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Classifier-getAllUsedInterfaces-_ownedParameter.0-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Classifier-getAllUsedInterfaces-_ownedParameter.0-_upperValue" value="*"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="Classifier-getOperation" name="getOperation" isQuery="true">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-getOperation-_ownedComment.0" annotatedElement="Classifier-getOperation">
+          <body>Retrieves the first operation with the specified name, parameter names, and parameter types from this classifier.</body>
+        </ownedComment>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="Classifier-getOperation-_ownedParameter.0" type="Operation" direction="return">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Classifier-getOperation-_ownedParameter.0-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Classifier-getOperation-_ownedParameter.0-_upperValue" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="Classifier-getOperation-name" name="name" effect="read">
+          <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-getOperation-name-_ownedComment.0" annotatedElement="Classifier-getOperation-name">
+            <body>The name of the operation to retrieve, or null.</body>
+          </ownedComment>
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Classifier-getOperation-name-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Classifier-getOperation-name-_upperValue" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="Classifier-getOperation-parameterNames" name="parameterNames" isOrdered="true" effect="read">
+          <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-getOperation-parameterNames-_ownedComment.0" annotatedElement="Classifier-getOperation-parameterNames">
+            <body>The parameter names of the operation to retrieve, or null.</body>
+          </ownedComment>
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Classifier-getOperation-parameterNames-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Classifier-getOperation-parameterNames-_upperValue" value="*"/>
+        </ownedParameter>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="Classifier-getOperation-parameterTypes" name="parameterTypes" type="Type" isOrdered="true" isUnique="false" effect="read">
+          <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-getOperation-parameterTypes-_ownedComment.0" annotatedElement="Classifier-getOperation-parameterTypes">
+            <body>The parameter types of the operation to retrieve, or null.</body>
+          </ownedComment>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Classifier-getOperation-parameterTypes-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Classifier-getOperation-parameterTypes-_upperValue" value="*"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="Classifier-getOperation.1" name="getOperation" isQuery="true">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-getOperation.1-_ownedComment.0" annotatedElement="Classifier-getOperation.1">
+          <body>Retrieves the first operation with the specified name, parameter names, and parameter types from this classifier, ignoring case if indicated.</body>
+        </ownedComment>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="Classifier-getOperation.1-_ownedParameter.0" type="Operation" direction="return">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Classifier-getOperation.1-_ownedParameter.0-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Classifier-getOperation.1-_ownedParameter.0-_upperValue" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="Classifier-getOperation.1-name" name="name" effect="read">
+          <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-getOperation.1-name-_ownedComment.0" annotatedElement="Classifier-getOperation.1-name">
+            <body>The name of the operation to retrieve, or null.</body>
+          </ownedComment>
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Classifier-getOperation.1-name-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Classifier-getOperation.1-name-_upperValue" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="Classifier-getOperation.1-parameterNames" name="parameterNames" isOrdered="true" effect="read">
+          <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-getOperation.1-parameterNames-_ownedComment.0" annotatedElement="Classifier-getOperation.1-parameterNames">
+            <body>The parameter names of the operation to retrieve, or null.</body>
+          </ownedComment>
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Classifier-getOperation.1-parameterNames-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Classifier-getOperation.1-parameterNames-_upperValue" value="*"/>
+        </ownedParameter>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="Classifier-getOperation.1-parameterTypes" name="parameterTypes" type="Type" isOrdered="true" isUnique="false" effect="read">
+          <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-getOperation.1-parameterTypes-_ownedComment.0" annotatedElement="Classifier-getOperation.1-parameterTypes">
+            <body>The parameter types of the operation to retrieve, or null.</body>
+          </ownedComment>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Classifier-getOperation.1-parameterTypes-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Classifier-getOperation.1-parameterTypes-_upperValue" value="*"/>
+        </ownedParameter>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="Classifier-getOperation.1-ignoreCase" name="ignoreCase" effect="read">
+          <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-getOperation.1-ignoreCase-_ownedComment.0" annotatedElement="Classifier-getOperation.1-ignoreCase">
+            <body>Whether to ignore case in String comparisons.</body>
+          </ownedComment>
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="Classifier-getOperations" name="getOperations" isQuery="true">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-getOperations-_ownedComment.0" annotatedElement="Classifier-getOperations">
+          <body>Retrieves the operations of this classifier.</body>
+        </ownedComment>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="Classifier-getOperations-_ownedParameter.0" type="Operation" direction="return">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Classifier-getOperations-_ownedParameter.0-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Classifier-getOperations-_ownedParameter.0-_upperValue" value="*"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="Classifier-getUsedInterfaces" name="getUsedInterfaces">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-getUsedInterfaces-_ownedComment.0" annotatedElement="Classifier-getUsedInterfaces">
+          <body>Retrieves the interfaces on which this classifier has a usage dependency.</body>
+        </ownedComment>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="Classifier-getUsedInterfaces-_ownedParameter.0" type="Interface" direction="return">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Classifier-getUsedInterfaces-_ownedParameter.0-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Classifier-getUsedInterfaces-_ownedParameter.0-_upperValue" value="*"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="Classifier-allFeatures" name="allFeatures" bodyCondition="Classifier-allFeatures-spec" isQuery="true">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-allFeatures-_ownedComment.0" annotatedElement="Classifier-allFeatures">
+          <body>The query allFeatures() gives all of the Features in the namespace of the Classifier. In general, through mechanisms such as inheritance, this will be a larger set than feature.</body>
+        </ownedComment>
+        <ownedRule xmi:type="uml:Constraint" xmi:id="Classifier-allFeatures-spec" name="spec" constrainedElement="Classifier-allFeatures">
+          <specification xmi:type="uml:OpaqueExpression" xmi:id="Classifier-allFeatures-spec-_specification">
+            <language>OCL</language>
+            <body>result = (member->select(oclIsKindOf(Feature))->collect(oclAsType(Feature))->asSet())</body>
+          </specification>
+        </ownedRule>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="Classifier-allFeatures-result" name="result" type="Feature" direction="return">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Classifier-allFeatures-result-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Classifier-allFeatures-result-_upperValue" value="*"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="Classifier-allParents" name="allParents" bodyCondition="Classifier-allParents-spec" isQuery="true">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-allParents-_ownedComment.0" annotatedElement="Classifier-allParents">
+          <body>The query allParents() gives all of the direct and indirect ancestors of a generalized Classifier.</body>
+        </ownedComment>
+        <ownedRule xmi:type="uml:Constraint" xmi:id="Classifier-allParents-spec" name="spec" constrainedElement="Classifier-allParents">
+          <specification xmi:type="uml:OpaqueExpression" xmi:id="Classifier-allParents-spec-_specification">
+            <language>OCL</language>
+            <body>result = (parents()->union(parents()->collect(allParents())->asSet()))</body>
+          </specification>
+        </ownedRule>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="Classifier-allParents-result" name="result" type="Classifier" direction="return">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Classifier-allParents-result-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Classifier-allParents-result-_upperValue" value="*"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="Classifier-conformsTo" name="conformsTo" bodyCondition="Classifier-conformsTo-spec" isQuery="true" redefinedOperation="Type-conformsTo">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-conformsTo-_ownedComment.0" annotatedElement="Classifier-conformsTo">
+          <body>The query conformsTo() gives true for a Classifier that defines a type that conforms to another. This is used, for example, in the specification of signature conformance for operations.</body>
+        </ownedComment>
+        <ownedRule xmi:type="uml:Constraint" xmi:id="Classifier-conformsTo-spec" name="spec" constrainedElement="Classifier-conformsTo">
+          <specification xmi:type="uml:OpaqueExpression" xmi:id="Classifier-conformsTo-spec-_specification">
+            <language>OCL</language>
+            <body>result = (if other.oclIsKindOf(Classifier) then&#xD;
+  let otherClassifier : Classifier = other.oclAsType(Classifier) in&#xD;
+    self = otherClassifier or allParents()->includes(otherClassifier)&#xD;
+else&#xD;
+  false&#xD;
+endif)</body>
+          </specification>
+        </ownedRule>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="Classifier-conformsTo-result" name="result" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+        </ownedParameter>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="Classifier-conformsTo-other" name="other" type="Type"/>
+      </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="Classifier-general.1" name="general" visibility="protected" bodyCondition="Classifier-general.1-spec" isQuery="true">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-general.1-_ownedComment.0" annotatedElement="Classifier-general.1">
+          <body>The general Classifiers are the ones referenced by the Generalization relationships.</body>
+        </ownedComment>
+        <ownedRule xmi:type="uml:Constraint" xmi:id="Classifier-general.1-spec" name="spec" constrainedElement="Classifier-general.1 Classifier-general">
+          <specification xmi:type="uml:OpaqueExpression" xmi:id="Classifier-general.1-spec-_specification">
+            <language>OCL</language>
+            <body>result = (parents())</body>
+          </specification>
+        </ownedRule>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="Classifier-general.1-result" name="result" type="Classifier" direction="return">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Classifier-general.1-result-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Classifier-general.1-result-_upperValue" value="*"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="Classifier-hasVisibilityOf" name="hasVisibilityOf" bodyCondition="Classifier-hasVisibilityOf-spec" isQuery="true" precondition="Classifier-hasVisibilityOf-pre">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-hasVisibilityOf-_ownedComment.0" annotatedElement="Classifier-hasVisibilityOf">
+          <body>The query hasVisibilityOf() determines whether a NamedElement is visible in the classifier. Non-private members are visible. It is only called when the argument is something owned by a parent.</body>
+        </ownedComment>
+        <ownedRule xmi:type="uml:Constraint" xmi:id="Classifier-hasVisibilityOf-pre" name="pre" constrainedElement="Classifier-hasVisibilityOf">
+          <specification xmi:type="uml:OpaqueExpression" xmi:id="Classifier-hasVisibilityOf-pre-_specification">
+            <language>OCL</language>
+            <body>allParents()->including(self)->collect(member)->includes(n)</body>
+          </specification>
+        </ownedRule>
+        <ownedRule xmi:type="uml:Constraint" xmi:id="Classifier-hasVisibilityOf-spec" name="spec" constrainedElement="Classifier-hasVisibilityOf">
+          <specification xmi:type="uml:OpaqueExpression" xmi:id="Classifier-hasVisibilityOf-spec-_specification">
+            <language>OCL</language>
+            <body>result = (n.visibility &lt;> VisibilityKind::private)</body>
+          </specification>
+        </ownedRule>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="Classifier-hasVisibilityOf-result" name="result" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+        </ownedParameter>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="Classifier-hasVisibilityOf-n" name="n" type="NamedElement"/>
+      </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="Classifier-inherit" name="inherit" bodyCondition="Classifier-inherit-spec" isQuery="true">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-inherit-_ownedComment.0" annotatedElement="Classifier-inherit">
+          <body>The query inherit() defines how to inherit a set of elements passed as its argument.  It excludes redefined elements from the result.</body>
+        </ownedComment>
+        <ownedRule xmi:type="uml:Constraint" xmi:id="Classifier-inherit-spec" name="spec" constrainedElement="Classifier-inherit">
+          <specification xmi:type="uml:OpaqueExpression" xmi:id="Classifier-inherit-spec-_specification">
+            <language>OCL</language>
+            <body>result = (inhs->reject(inh |&#xD;
+  inh.oclIsKindOf(RedefinableElement) and&#xD;
+  ownedMember->select(oclIsKindOf(RedefinableElement))->&#xD;
+    select(redefinedElement->includes(inh.oclAsType(RedefinableElement)))&#xD;
+       ->notEmpty()))</body>
+          </specification>
+        </ownedRule>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="Classifier-inherit-result" name="result" type="NamedElement" direction="return">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Classifier-inherit-result-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Classifier-inherit-result-_upperValue" value="*"/>
+        </ownedParameter>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="Classifier-inherit-inhs" name="inhs" type="NamedElement">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Classifier-inherit-inhs-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Classifier-inherit-inhs-_upperValue" value="*"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="Classifier-inheritableMembers" name="inheritableMembers" bodyCondition="Classifier-inheritableMembers-spec" isQuery="true" precondition="Classifier-inheritableMembers-pre">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-inheritableMembers-_ownedComment.0" annotatedElement="Classifier-inheritableMembers">
+          <body>The query inheritableMembers() gives all of the members of a Classifier that may be inherited in one of its descendants, subject to whatever visibility restrictions apply.</body>
+        </ownedComment>
+        <ownedRule xmi:type="uml:Constraint" xmi:id="Classifier-inheritableMembers-pre" name="pre" constrainedElement="Classifier-inheritableMembers">
+          <specification xmi:type="uml:OpaqueExpression" xmi:id="Classifier-inheritableMembers-pre-_specification">
+            <language>OCL</language>
+            <body>c.allParents()->includes(self)</body>
+          </specification>
+        </ownedRule>
+        <ownedRule xmi:type="uml:Constraint" xmi:id="Classifier-inheritableMembers-spec" name="spec" constrainedElement="Classifier-inheritableMembers">
+          <specification xmi:type="uml:OpaqueExpression" xmi:id="Classifier-inheritableMembers-spec-_specification">
+            <language>OCL</language>
+            <body>result = (member->select(m | c.hasVisibilityOf(m)))</body>
+          </specification>
+        </ownedRule>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="Classifier-inheritableMembers-result" name="result" type="NamedElement" direction="return">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Classifier-inheritableMembers-result-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Classifier-inheritableMembers-result-_upperValue" value="*"/>
+        </ownedParameter>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="Classifier-inheritableMembers-c" name="c" type="Classifier"/>
+      </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="Classifier-inheritedMember.1" name="inheritedMember" visibility="protected" bodyCondition="Classifier-inheritedMember.1-spec" isQuery="true">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-inheritedMember.1-_ownedComment.0" annotatedElement="Classifier-inheritedMember.1">
+          <body>The inheritedMember association is derived by inheriting the inheritable members of the parents.</body>
+        </ownedComment>
+        <ownedRule xmi:type="uml:Constraint" xmi:id="Classifier-inheritedMember.1-spec" name="spec" constrainedElement="Classifier-inheritedMember.1 Classifier-inheritedMember">
+          <specification xmi:type="uml:OpaqueExpression" xmi:id="Classifier-inheritedMember.1-spec-_specification">
+            <language>OCL</language>
+            <body>result = (inherit(parents()->collect(inheritableMembers(self))->asSet()))</body>
+          </specification>
+        </ownedRule>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="Classifier-inheritedMember.1-result" name="result" type="NamedElement" direction="return">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Classifier-inheritedMember.1-result-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Classifier-inheritedMember.1-result-_upperValue" value="*"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="Classifier-isTemplate" name="isTemplate" bodyCondition="Classifier-isTemplate-spec" isQuery="true" redefinedOperation="TemplateableElement-isTemplate">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-isTemplate-_ownedComment.0" annotatedElement="Classifier-isTemplate">
+          <body>The query isTemplate() returns whether this Classifier is actually a template.</body>
+        </ownedComment>
+        <ownedRule xmi:type="uml:Constraint" xmi:id="Classifier-isTemplate-spec" name="spec" constrainedElement="Classifier-isTemplate">
+          <specification xmi:type="uml:OpaqueExpression" xmi:id="Classifier-isTemplate-spec-_specification">
+            <language>OCL</language>
+            <body>result = (ownedTemplateSignature &lt;> null or general->exists(g | g.isTemplate()))</body>
+          </specification>
+        </ownedRule>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="Classifier-isTemplate-result" name="result" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="Classifier-maySpecializeType" name="maySpecializeType" bodyCondition="Classifier-maySpecializeType-spec" isQuery="true">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-maySpecializeType-_ownedComment.0" annotatedElement="Classifier-maySpecializeType">
+          <body>The query maySpecializeType() determines whether this classifier may have a generalization relationship to classifiers of the specified type. By default a classifier may specialize classifiers of the same or a more general type. It is intended to be redefined by classifiers that have different specialization constraints.</body>
+        </ownedComment>
+        <ownedRule xmi:type="uml:Constraint" xmi:id="Classifier-maySpecializeType-spec" name="spec" constrainedElement="Classifier-maySpecializeType">
+          <specification xmi:type="uml:OpaqueExpression" xmi:id="Classifier-maySpecializeType-spec-_specification">
+            <language>OCL</language>
+            <body>result = (self.oclIsKindOf(c.oclType()))</body>
+          </specification>
+        </ownedRule>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="Classifier-maySpecializeType-result" name="result" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+        </ownedParameter>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="Classifier-maySpecializeType-c" name="c" type="Classifier"/>
+      </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="Classifier-parents" name="parents" bodyCondition="Classifier-parents-spec" isQuery="true">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-parents-_ownedComment.0" annotatedElement="Classifier-parents">
+          <body>The query parents() gives all of the immediate ancestors of a generalized Classifier.</body>
+        </ownedComment>
+        <ownedRule xmi:type="uml:Constraint" xmi:id="Classifier-parents-spec" name="spec" constrainedElement="Classifier-parents">
+          <specification xmi:type="uml:OpaqueExpression" xmi:id="Classifier-parents-spec-_specification">
+            <language>OCL</language>
+            <body>result = (generalization.general->asSet())</body>
+          </specification>
+        </ownedRule>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="Classifier-parents-result" name="result" type="Classifier" direction="return">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Classifier-parents-result-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Classifier-parents-result-_upperValue" value="*"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="Classifier-directlyRealizedInterfaces" name="directlyRealizedInterfaces" bodyCondition="Classifier-directlyRealizedInterfaces-spec" isQuery="true">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-directlyRealizedInterfaces-_ownedComment.0" annotatedElement="Classifier-directlyRealizedInterfaces">
+          <body>The Interfaces directly realized by this Classifier</body>
+        </ownedComment>
+        <ownedRule xmi:type="uml:Constraint" xmi:id="Classifier-directlyRealizedInterfaces-spec" name="spec" constrainedElement="Classifier-directlyRealizedInterfaces">
+          <specification xmi:type="uml:OpaqueExpression" xmi:id="Classifier-directlyRealizedInterfaces-spec-_specification">
+            <language>OCL</language>
+            <body>result = ((clientDependency->&#xD;
+  select(oclIsKindOf(Realization) and supplier->forAll(oclIsKindOf(Interface))))->&#xD;
+      collect(supplier.oclAsType(Interface))->asSet())</body>
+          </specification>
+        </ownedRule>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="Classifier-directlyRealizedInterfaces-result" name="result" type="Interface" direction="return">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Classifier-directlyRealizedInterfaces-result-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Classifier-directlyRealizedInterfaces-result-_upperValue" value="*"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="Classifier-directlyUsedInterfaces" name="directlyUsedInterfaces" bodyCondition="Classifier-directlyUsedInterfaces-spec" isQuery="true">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-directlyUsedInterfaces-_ownedComment.0" annotatedElement="Classifier-directlyUsedInterfaces">
+          <body>The Interfaces directly used by this Classifier</body>
+        </ownedComment>
+        <ownedRule xmi:type="uml:Constraint" xmi:id="Classifier-directlyUsedInterfaces-spec" name="spec" constrainedElement="Classifier-directlyUsedInterfaces">
+          <specification xmi:type="uml:OpaqueExpression" xmi:id="Classifier-directlyUsedInterfaces-spec-_specification">
+            <language>OCL</language>
+            <body>result = ((supplierDependency->&#xD;
+  select(oclIsKindOf(Usage) and client->forAll(oclIsKindOf(Interface))))->&#xD;
+    collect(client.oclAsType(Interface))->asSet())</body>
+          </specification>
+        </ownedRule>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="Classifier-directlyUsedInterfaces-result" name="result" type="Interface" direction="return">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Classifier-directlyUsedInterfaces-result-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Classifier-directlyUsedInterfaces-result-_upperValue" value="*"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="Classifier-allRealizedInterfaces" name="allRealizedInterfaces" bodyCondition="Classifier-allRealizedInterfaces-spec" isQuery="true">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-allRealizedInterfaces-_ownedComment.0" annotatedElement="Classifier-allRealizedInterfaces">
+          <body>The Interfaces realized by this Classifier and all of its generalizations</body>
+        </ownedComment>
+        <ownedRule xmi:type="uml:Constraint" xmi:id="Classifier-allRealizedInterfaces-spec" name="spec" constrainedElement="Classifier-allRealizedInterfaces">
+          <specification xmi:type="uml:OpaqueExpression" xmi:id="Classifier-allRealizedInterfaces-spec-_specification">
+            <language>OCL</language>
+            <body>result = (directlyRealizedInterfaces()->union(self.allParents()->collect(directlyRealizedInterfaces()))->asSet())</body>
+          </specification>
+        </ownedRule>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="Classifier-allRealizedInterfaces-result" name="result" type="Interface" direction="return">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Classifier-allRealizedInterfaces-result-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Classifier-allRealizedInterfaces-result-_upperValue" value="*"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="Classifier-allUsedInterfaces" name="allUsedInterfaces" bodyCondition="Classifier-allUsedInterfaces-spec" isQuery="true">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-allUsedInterfaces-_ownedComment.0" annotatedElement="Classifier-allUsedInterfaces">
+          <body>The Interfaces used by this Classifier and all of its generalizations</body>
+        </ownedComment>
+        <ownedRule xmi:type="uml:Constraint" xmi:id="Classifier-allUsedInterfaces-spec" name="spec" constrainedElement="Classifier-allUsedInterfaces">
+          <specification xmi:type="uml:OpaqueExpression" xmi:id="Classifier-allUsedInterfaces-spec-_specification">
+            <language>OCL</language>
+            <body>result = (directlyUsedInterfaces()->union(self.allParents()->collect(directlyUsedInterfaces()))->asSet())</body>
+          </specification>
+        </ownedRule>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="Classifier-allUsedInterfaces-result" name="result" type="Interface" direction="return">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Classifier-allUsedInterfaces-result-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Classifier-allUsedInterfaces-result-_upperValue" value="*"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="Classifier-isSubstitutableFor" name="isSubstitutableFor" bodyCondition="Classifier-isSubstitutableFor-spec" isQuery="true">
+        <ownedRule xmi:type="uml:Constraint" xmi:id="Classifier-isSubstitutableFor-spec" name="spec" constrainedElement="Classifier-isSubstitutableFor">
+          <specification xmi:type="uml:OpaqueExpression" xmi:id="Classifier-isSubstitutableFor-spec-_specification">
+            <language>OCL</language>
+            <body>result = (substitution.contract->includes(contract))</body>
+          </specification>
+        </ownedRule>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="Classifier-isSubstitutableFor-contract" name="contract" type="Classifier"/>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="Classifier-isSubstitutableFor-result" name="result" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="Classifier-allAttributes" name="allAttributes" bodyCondition="Classifier-allAttributes-spec" isQuery="true">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-allAttributes-_ownedComment.0" annotatedElement="Classifier-allAttributes">
+          <body>The query allAttributes gives an ordered set of all owned and inherited attributes of the Classifier. All owned attributes appear before any inherited attributes, and the attributes inherited from any more specific parent Classifier appear before those of any more general parent Classifier. However, if the Classifier has multiple immediate parents, then the relative ordering of the sets of attributes from those parents is not defined.</body>
+        </ownedComment>
+        <ownedRule xmi:type="uml:Constraint" xmi:id="Classifier-allAttributes-spec" name="spec" constrainedElement="Classifier-allAttributes">
+          <specification xmi:type="uml:OpaqueExpression" xmi:id="Classifier-allAttributes-spec-_specification">
+            <language>OCL</language>
+            <body>result = (attribute->asSequence()->union(parents()->asSequence().allAttributes())->select(p | member->includes(p))->asOrderedSet())</body>
+          </specification>
+        </ownedRule>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="Classifier-allAttributes-result" name="result" type="Property" isOrdered="true" direction="return">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Classifier-allAttributes-result-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Classifier-allAttributes-result-_upperValue" value="*"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="Classifier-allSlottableFeatures" name="allSlottableFeatures" bodyCondition="Classifier-allSlottableFeatures-spec" isQuery="true">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-allSlottableFeatures-_ownedComment.0" annotatedElement="Classifier-allSlottableFeatures">
+          <body>All StructuralFeatures related to the Classifier that may have Slots, including direct attributes, inherited attributes, private attributes in generalizations, and memberEnds of Associations, but excluding redefined StructuralFeatures.</body>
+        </ownedComment>
+        <ownedRule xmi:type="uml:Constraint" xmi:id="Classifier-allSlottableFeatures-spec" name="spec" constrainedElement="Classifier-allSlottableFeatures">
+          <specification xmi:type="uml:OpaqueExpression" xmi:id="Classifier-allSlottableFeatures-spec-_specification">
+            <language>OCL</language>
+            <body>result = (member->select(oclIsKindOf(StructuralFeature))->&#xD;
+  collect(oclAsType(StructuralFeature))->&#xD;
+   union(self.inherit(self.allParents()->collect(p | p.attribute)->asSet())->&#xD;
+     collect(oclAsType(StructuralFeature)))->asSet())</body>
+          </specification>
+        </ownedRule>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="Classifier-allSlottableFeatures-result" name="result" type="StructuralFeature" direction="return">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Classifier-allSlottableFeatures-result-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Classifier-allSlottableFeatures-result-_upperValue" value="*"/>
+        </ownedParameter>
+      </ownedOperation>
+    </packagedElement>
     <packagedElement xmi:type="uml:Association" xmi:id="A_client_clientDependency" name="A_client_clientDependency" visibility="private" memberEnd="A_client_clientDependency-client NamedElement-clientDependency">
       <ownedEnd xmi:type="uml:Property" xmi:id="A_client_clientDependency-client" name="client" visibility="private" type="NamedElement" association="A_client_clientDependency">
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="A_client_clientDependency-client-_upperValue" value="*"/>
@@ -5145,577 +5716,6 @@ endif)</body>
         <ownedParameter xmi:type="uml:Parameter" xmi:id="BehavioralFeature-outputParameters-result" name="result" type="Parameter" isOrdered="true" direction="return">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="BehavioralFeature-outputParameters-result-_lowerValue"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="BehavioralFeature-outputParameters-result-_upperValue" value="*"/>
-        </ownedParameter>
-      </ownedOperation>
-    </packagedElement>
-    <packagedElement xmi:type="uml:Class" xmi:id="Classifier" name="Classifier" isAbstract="true">
-      <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-_ownedComment.0" annotatedElement="Classifier">
-        <body>A Classifier represents a classification of instances according to their Features.</body>
-      </ownedComment>
-      <ownedRule xmi:type="uml:Constraint" xmi:id="Classifier-specialize_type" name="specialize_type" constrainedElement="Classifier">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-specialize_type-_ownedComment.0" annotatedElement="Classifier-specialize_type">
-          <body>A Classifier may only specialize Classifiers of a valid type.</body>
-        </ownedComment>
-        <specification xmi:type="uml:OpaqueExpression" xmi:id="Classifier-specialize_type-_specification">
-          <language>OCL</language>
-          <body>parents()->forAll(c | self.maySpecializeType(c))</body>
-        </specification>
-      </ownedRule>
-      <ownedRule xmi:type="uml:Constraint" xmi:id="Classifier-maps_to_generalization_set" name="maps_to_generalization_set" constrainedElement="Classifier">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-maps_to_generalization_set-_ownedComment.0" annotatedElement="Classifier-maps_to_generalization_set">
-          <body>The Classifier that maps to a GeneralizationSet may neither be a specific nor a general Classifier in any of the Generalization relationships defined for that GeneralizationSet. In other words, a power type may not be an instance of itself nor may its instances also be its subclasses.</body>
-        </ownedComment>
-        <specification xmi:type="uml:OpaqueExpression" xmi:id="Classifier-maps_to_generalization_set-_specification">
-          <language>OCL</language>
-          <body>powertypeExtent->forAll( gs | &#xD;
-  gs.generalization->forAll( gen | &#xD;
-    not (gen.general = self) and not gen.general.allParents()->includes(self) and not (gen.specific = self) and not self.allParents()->includes(gen.specific) &#xD;
-  ))</body>
-        </specification>
-      </ownedRule>
-      <ownedRule xmi:type="uml:Constraint" xmi:id="Classifier-non_final_parents" name="non_final_parents" constrainedElement="Classifier">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-non_final_parents-_ownedComment.0" annotatedElement="Classifier-non_final_parents">
-          <body>The parents of a Classifier must be non-final.</body>
-        </ownedComment>
-        <specification xmi:type="uml:OpaqueExpression" xmi:id="Classifier-non_final_parents-_specification">
-          <language>OCL</language>
-          <body>parents()->forAll(not isFinalSpecialization)</body>
-        </specification>
-      </ownedRule>
-      <ownedRule xmi:type="uml:Constraint" xmi:id="Classifier-no_cycles_in_generalization" name="no_cycles_in_generalization" constrainedElement="Classifier">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-no_cycles_in_generalization-_ownedComment.0" annotatedElement="Classifier-no_cycles_in_generalization">
-          <body>Generalization hierarchies must be directed and acyclical. A Classifier can not be both a transitively general and transitively specific Classifier of the same Classifier.</body>
-        </ownedComment>
-        <specification xmi:type="uml:OpaqueExpression" xmi:id="Classifier-no_cycles_in_generalization-_specification">
-          <language>OCL</language>
-          <body>not allParents()->includes(self)</body>
-        </specification>
-      </ownedRule>
-      <generalization xmi:type="uml:Generalization" xmi:id="Classifier-_generalization.0" general="Namespace"/>
-      <generalization xmi:type="uml:Generalization" xmi:id="Classifier-_generalization.1" general="Type"/>
-      <generalization xmi:type="uml:Generalization" xmi:id="Classifier-_generalization.2" general="TemplateableElement"/>
-      <generalization xmi:type="uml:Generalization" xmi:id="Classifier-_generalization.3" general="RedefinableElement"/>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="Classifier-attribute" name="attribute" type="Property" isOrdered="true" isReadOnly="true" isDerived="true" isDerivedUnion="true" subsettedProperty="A_redefinitionContext_redefinableElement-redefinableElement Classifier-feature" association="A_attribute_classifier">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-attribute-_ownedComment.0" annotatedElement="Classifier-attribute">
-          <body>All of the Properties that are direct (i.e., not inherited or imported) attributes of the Classifier.</body>
-        </ownedComment>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Classifier-attribute-_lowerValue"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Classifier-attribute-_upperValue" value="*"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="Classifier-collaborationUse" name="collaborationUse" type="CollaborationUse" aggregation="composite" subsettedProperty="Element-ownedElement" association="A_collaborationUse_classifier">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-collaborationUse-_ownedComment.0" annotatedElement="Classifier-collaborationUse">
-          <body>The CollaborationUses owned by the Classifier.</body>
-        </ownedComment>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Classifier-collaborationUse-_lowerValue"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Classifier-collaborationUse-_upperValue" value="*"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="Classifier-feature" name="feature" type="Feature" isReadOnly="true" isDerived="true" isDerivedUnion="true" subsettedProperty="Namespace-member" association="A_feature_featuringClassifier">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-feature-_ownedComment.0" annotatedElement="Classifier-feature">
-          <body>Specifies each Feature directly defined in the classifier. Note that there may be members of the Classifier that are of the type Feature but are not included, e.g., inherited features.</body>
-        </ownedComment>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Classifier-feature-_lowerValue"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Classifier-feature-_upperValue" value="*"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="Classifier-general" name="general" type="Classifier" isDerived="true" association="A_general_classifier">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-general-_ownedComment.0" annotatedElement="Classifier-general">
-          <body>The generalizing Classifiers for this Classifier.</body>
-        </ownedComment>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Classifier-general-_lowerValue"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Classifier-general-_upperValue" value="*"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="Classifier-generalization" name="generalization" type="Generalization" aggregation="composite" subsettedProperty="A_source_directedRelationship-directedRelationship Element-ownedElement" association="A_generalization_specific">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-generalization-_ownedComment.0" annotatedElement="Classifier-generalization">
-          <body>The Generalization relationships for this Classifier. These Generalizations navigate to more general Classifiers in the generalization hierarchy.</body>
-        </ownedComment>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Classifier-generalization-_lowerValue"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Classifier-generalization-_upperValue" value="*"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="Classifier-inheritedMember" name="inheritedMember" type="NamedElement" isReadOnly="true" isDerived="true" subsettedProperty="Namespace-member" association="A_inheritedMember_inheritingClassifier">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-inheritedMember-_ownedComment.0" annotatedElement="Classifier-inheritedMember">
-          <body>All elements inherited by this Classifier from its general Classifiers.</body>
-        </ownedComment>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Classifier-inheritedMember-_lowerValue"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Classifier-inheritedMember-_upperValue" value="*"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="Classifier-isAbstract" name="isAbstract">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-isAbstract-_ownedComment.0" annotatedElement="Classifier-isAbstract">
-          <body>If true, the Classifier can only be instantiated by instantiating one of its specializations. An abstract Classifier is intended to be used by other Classifiers e.g., as the target of Associations or Generalizations.</body>
-        </ownedComment>
-        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
-        <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="Classifier-isAbstract-_defaultValue"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="Classifier-isFinalSpecialization" name="isFinalSpecialization">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-isFinalSpecialization-_ownedComment.0" annotatedElement="Classifier-isFinalSpecialization">
-          <body>If true, the Classifier cannot be specialized.</body>
-        </ownedComment>
-        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
-        <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="Classifier-isFinalSpecialization-_defaultValue"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="Classifier-ownedTemplateSignature" name="ownedTemplateSignature" type="RedefinableTemplateSignature" aggregation="composite" redefinedProperty="TemplateableElement-ownedTemplateSignature" subsettedProperty="A_redefinitionContext_redefinableElement-redefinableElement" association="A_ownedTemplateSignature_classifier">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-ownedTemplateSignature-_ownedComment.0" annotatedElement="Classifier-ownedTemplateSignature">
-          <body>The optional RedefinableTemplateSignature specifying the formal template parameters.</body>
-        </ownedComment>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Classifier-ownedTemplateSignature-_lowerValue"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="Classifier-ownedUseCase" name="ownedUseCase" type="UseCase" aggregation="composite" subsettedProperty="Namespace-ownedMember" association="A_ownedUseCase_classifier">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-ownedUseCase-_ownedComment.0" annotatedElement="Classifier-ownedUseCase">
-          <body>The UseCases owned by this classifier.</body>
-        </ownedComment>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Classifier-ownedUseCase-_lowerValue"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Classifier-ownedUseCase-_upperValue" value="*"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="Classifier-powertypeExtent" name="powertypeExtent" type="GeneralizationSet" association="A_powertypeExtent_powertype">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-powertypeExtent-_ownedComment.0" annotatedElement="Classifier-powertypeExtent">
-          <body>The GeneralizationSet of which this Classifier is a power type.</body>
-        </ownedComment>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Classifier-powertypeExtent-_lowerValue"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Classifier-powertypeExtent-_upperValue" value="*"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="Classifier-redefinedClassifier" name="redefinedClassifier" type="Classifier" subsettedProperty="RedefinableElement-redefinedElement" association="A_redefinedClassifier_classifier">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-redefinedClassifier-_ownedComment.0" annotatedElement="Classifier-redefinedClassifier">
-          <body>The Classifiers redefined by this Classifier.</body>
-        </ownedComment>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Classifier-redefinedClassifier-_lowerValue"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Classifier-redefinedClassifier-_upperValue" value="*"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="Classifier-representation" name="representation" type="CollaborationUse" subsettedProperty="Classifier-collaborationUse" association="A_representation_classifier">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-representation-_ownedComment.0" annotatedElement="Classifier-representation">
-          <body>A CollaborationUse which indicates the Collaboration that represents this Classifier.</body>
-        </ownedComment>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Classifier-representation-_lowerValue"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="Classifier-substitution" name="substitution" type="Substitution" aggregation="composite" subsettedProperty="Element-ownedElement NamedElement-clientDependency" association="A_substitution_substitutingClassifier">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-substitution-_ownedComment.0" annotatedElement="Classifier-substitution">
-          <body>The Substitutions owned by this Classifier.</body>
-        </ownedComment>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Classifier-substitution-_lowerValue"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Classifier-substitution-_upperValue" value="*"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="Classifier-templateParameter" name="templateParameter" type="ClassifierTemplateParameter" redefinedProperty="ParameterableElement-templateParameter" association="A_classifier_templateParameter_parameteredElement">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-templateParameter-_ownedComment.0" annotatedElement="Classifier-templateParameter">
-          <body>TheClassifierTemplateParameter that exposes this element as a formal parameter.</body>
-        </ownedComment>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Classifier-templateParameter-_lowerValue"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="Classifier-useCase" name="useCase" type="UseCase" association="A_subject_useCase">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-useCase-_ownedComment.0" annotatedElement="Classifier-useCase">
-          <body>The set of UseCases for which this Classifier is the subject.</body>
-        </ownedComment>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Classifier-useCase-_lowerValue"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Classifier-useCase-_upperValue" value="*"/>
-      </ownedAttribute>
-      <ownedOperation xmi:type="uml:Operation" xmi:id="Classifier-getAllAttributes" name="getAllAttributes" isQuery="true">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-getAllAttributes-_ownedComment.0" annotatedElement="Classifier-getAllAttributes">
-          <body>Retrieves all the attributes of this classifier, including those inherited from its parents.</body>
-        </ownedComment>
-        <ownedParameter xmi:type="uml:Parameter" xmi:id="Classifier-getAllAttributes-_ownedParameter.0" type="Property" direction="return">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Classifier-getAllAttributes-_ownedParameter.0-_lowerValue"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Classifier-getAllAttributes-_ownedParameter.0-_upperValue" value="*"/>
-        </ownedParameter>
-      </ownedOperation>
-      <ownedOperation xmi:type="uml:Operation" xmi:id="Classifier-getAllOperations" name="getAllOperations" isQuery="true">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-getAllOperations-_ownedComment.0" annotatedElement="Classifier-getAllOperations">
-          <body>Retrieves all the operations of this classifier, including those inherited from its parents.</body>
-        </ownedComment>
-        <ownedParameter xmi:type="uml:Parameter" xmi:id="Classifier-getAllOperations-_ownedParameter.0" type="Operation" direction="return">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Classifier-getAllOperations-_ownedParameter.0-_lowerValue"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Classifier-getAllOperations-_ownedParameter.0-_upperValue" value="*"/>
-        </ownedParameter>
-      </ownedOperation>
-      <ownedOperation xmi:type="uml:Operation" xmi:id="Classifier-getAllUsedInterfaces" name="getAllUsedInterfaces">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-getAllUsedInterfaces-_ownedComment.0" annotatedElement="Classifier-getAllUsedInterfaces">
-          <body>Retrieves all the interfaces on which this classifier or any of its parents has a usage dependency.</body>
-        </ownedComment>
-        <ownedParameter xmi:type="uml:Parameter" xmi:id="Classifier-getAllUsedInterfaces-_ownedParameter.0" type="Interface" direction="return">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Classifier-getAllUsedInterfaces-_ownedParameter.0-_lowerValue"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Classifier-getAllUsedInterfaces-_ownedParameter.0-_upperValue" value="*"/>
-        </ownedParameter>
-      </ownedOperation>
-      <ownedOperation xmi:type="uml:Operation" xmi:id="Classifier-getOperation" name="getOperation" isQuery="true">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-getOperation-_ownedComment.0" annotatedElement="Classifier-getOperation">
-          <body>Retrieves the first operation with the specified name, parameter names, and parameter types from this classifier.</body>
-        </ownedComment>
-        <ownedParameter xmi:type="uml:Parameter" xmi:id="Classifier-getOperation-_ownedParameter.0" type="Operation" direction="return">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Classifier-getOperation-_ownedParameter.0-_lowerValue"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Classifier-getOperation-_ownedParameter.0-_upperValue" value="1"/>
-        </ownedParameter>
-        <ownedParameter xmi:type="uml:Parameter" xmi:id="Classifier-getOperation-name" name="name" effect="read">
-          <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-getOperation-name-_ownedComment.0" annotatedElement="Classifier-getOperation-name">
-            <body>The name of the operation to retrieve, or null.</body>
-          </ownedComment>
-          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Classifier-getOperation-name-_lowerValue"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Classifier-getOperation-name-_upperValue" value="1"/>
-        </ownedParameter>
-        <ownedParameter xmi:type="uml:Parameter" xmi:id="Classifier-getOperation-parameterNames" name="parameterNames" isOrdered="true" effect="read">
-          <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-getOperation-parameterNames-_ownedComment.0" annotatedElement="Classifier-getOperation-parameterNames">
-            <body>The parameter names of the operation to retrieve, or null.</body>
-          </ownedComment>
-          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Classifier-getOperation-parameterNames-_lowerValue"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Classifier-getOperation-parameterNames-_upperValue" value="*"/>
-        </ownedParameter>
-        <ownedParameter xmi:type="uml:Parameter" xmi:id="Classifier-getOperation-parameterTypes" name="parameterTypes" type="Type" isOrdered="true" isUnique="false" effect="read">
-          <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-getOperation-parameterTypes-_ownedComment.0" annotatedElement="Classifier-getOperation-parameterTypes">
-            <body>The parameter types of the operation to retrieve, or null.</body>
-          </ownedComment>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Classifier-getOperation-parameterTypes-_lowerValue"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Classifier-getOperation-parameterTypes-_upperValue" value="*"/>
-        </ownedParameter>
-      </ownedOperation>
-      <ownedOperation xmi:type="uml:Operation" xmi:id="Classifier-getOperation.1" name="getOperation" isQuery="true">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-getOperation.1-_ownedComment.0" annotatedElement="Classifier-getOperation.1">
-          <body>Retrieves the first operation with the specified name, parameter names, and parameter types from this classifier, ignoring case if indicated.</body>
-        </ownedComment>
-        <ownedParameter xmi:type="uml:Parameter" xmi:id="Classifier-getOperation.1-_ownedParameter.0" type="Operation" direction="return">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Classifier-getOperation.1-_ownedParameter.0-_lowerValue"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Classifier-getOperation.1-_ownedParameter.0-_upperValue" value="1"/>
-        </ownedParameter>
-        <ownedParameter xmi:type="uml:Parameter" xmi:id="Classifier-getOperation.1-name" name="name" effect="read">
-          <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-getOperation.1-name-_ownedComment.0" annotatedElement="Classifier-getOperation.1-name">
-            <body>The name of the operation to retrieve, or null.</body>
-          </ownedComment>
-          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Classifier-getOperation.1-name-_lowerValue"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Classifier-getOperation.1-name-_upperValue" value="1"/>
-        </ownedParameter>
-        <ownedParameter xmi:type="uml:Parameter" xmi:id="Classifier-getOperation.1-parameterNames" name="parameterNames" isOrdered="true" effect="read">
-          <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-getOperation.1-parameterNames-_ownedComment.0" annotatedElement="Classifier-getOperation.1-parameterNames">
-            <body>The parameter names of the operation to retrieve, or null.</body>
-          </ownedComment>
-          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Classifier-getOperation.1-parameterNames-_lowerValue"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Classifier-getOperation.1-parameterNames-_upperValue" value="*"/>
-        </ownedParameter>
-        <ownedParameter xmi:type="uml:Parameter" xmi:id="Classifier-getOperation.1-parameterTypes" name="parameterTypes" type="Type" isOrdered="true" isUnique="false" effect="read">
-          <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-getOperation.1-parameterTypes-_ownedComment.0" annotatedElement="Classifier-getOperation.1-parameterTypes">
-            <body>The parameter types of the operation to retrieve, or null.</body>
-          </ownedComment>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Classifier-getOperation.1-parameterTypes-_lowerValue"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Classifier-getOperation.1-parameterTypes-_upperValue" value="*"/>
-        </ownedParameter>
-        <ownedParameter xmi:type="uml:Parameter" xmi:id="Classifier-getOperation.1-ignoreCase" name="ignoreCase" effect="read">
-          <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-getOperation.1-ignoreCase-_ownedComment.0" annotatedElement="Classifier-getOperation.1-ignoreCase">
-            <body>Whether to ignore case in String comparisons.</body>
-          </ownedComment>
-          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
-        </ownedParameter>
-      </ownedOperation>
-      <ownedOperation xmi:type="uml:Operation" xmi:id="Classifier-getOperations" name="getOperations" isQuery="true">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-getOperations-_ownedComment.0" annotatedElement="Classifier-getOperations">
-          <body>Retrieves the operations of this classifier.</body>
-        </ownedComment>
-        <ownedParameter xmi:type="uml:Parameter" xmi:id="Classifier-getOperations-_ownedParameter.0" type="Operation" direction="return">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Classifier-getOperations-_ownedParameter.0-_lowerValue"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Classifier-getOperations-_ownedParameter.0-_upperValue" value="*"/>
-        </ownedParameter>
-      </ownedOperation>
-      <ownedOperation xmi:type="uml:Operation" xmi:id="Classifier-getUsedInterfaces" name="getUsedInterfaces">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-getUsedInterfaces-_ownedComment.0" annotatedElement="Classifier-getUsedInterfaces">
-          <body>Retrieves the interfaces on which this classifier has a usage dependency.</body>
-        </ownedComment>
-        <ownedParameter xmi:type="uml:Parameter" xmi:id="Classifier-getUsedInterfaces-_ownedParameter.0" type="Interface" direction="return">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Classifier-getUsedInterfaces-_ownedParameter.0-_lowerValue"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Classifier-getUsedInterfaces-_ownedParameter.0-_upperValue" value="*"/>
-        </ownedParameter>
-      </ownedOperation>
-      <ownedOperation xmi:type="uml:Operation" xmi:id="Classifier-allFeatures" name="allFeatures" bodyCondition="Classifier-allFeatures-spec" isQuery="true">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-allFeatures-_ownedComment.0" annotatedElement="Classifier-allFeatures">
-          <body>The query allFeatures() gives all of the Features in the namespace of the Classifier. In general, through mechanisms such as inheritance, this will be a larger set than feature.</body>
-        </ownedComment>
-        <ownedRule xmi:type="uml:Constraint" xmi:id="Classifier-allFeatures-spec" name="spec" constrainedElement="Classifier-allFeatures">
-          <specification xmi:type="uml:OpaqueExpression" xmi:id="Classifier-allFeatures-spec-_specification">
-            <language>OCL</language>
-            <body>result = (member->select(oclIsKindOf(Feature))->collect(oclAsType(Feature))->asSet())</body>
-          </specification>
-        </ownedRule>
-        <ownedParameter xmi:type="uml:Parameter" xmi:id="Classifier-allFeatures-result" name="result" type="Feature" direction="return">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Classifier-allFeatures-result-_lowerValue"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Classifier-allFeatures-result-_upperValue" value="*"/>
-        </ownedParameter>
-      </ownedOperation>
-      <ownedOperation xmi:type="uml:Operation" xmi:id="Classifier-allParents" name="allParents" bodyCondition="Classifier-allParents-spec" isQuery="true">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-allParents-_ownedComment.0" annotatedElement="Classifier-allParents">
-          <body>The query allParents() gives all of the direct and indirect ancestors of a generalized Classifier.</body>
-        </ownedComment>
-        <ownedRule xmi:type="uml:Constraint" xmi:id="Classifier-allParents-spec" name="spec" constrainedElement="Classifier-allParents">
-          <specification xmi:type="uml:OpaqueExpression" xmi:id="Classifier-allParents-spec-_specification">
-            <language>OCL</language>
-            <body>result = (parents()->union(parents()->collect(allParents())->asSet()))</body>
-          </specification>
-        </ownedRule>
-        <ownedParameter xmi:type="uml:Parameter" xmi:id="Classifier-allParents-result" name="result" type="Classifier" direction="return">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Classifier-allParents-result-_lowerValue"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Classifier-allParents-result-_upperValue" value="*"/>
-        </ownedParameter>
-      </ownedOperation>
-      <ownedOperation xmi:type="uml:Operation" xmi:id="Classifier-conformsTo" name="conformsTo" bodyCondition="Classifier-conformsTo-spec" isQuery="true" redefinedOperation="Type-conformsTo">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-conformsTo-_ownedComment.0" annotatedElement="Classifier-conformsTo">
-          <body>The query conformsTo() gives true for a Classifier that defines a type that conforms to another. This is used, for example, in the specification of signature conformance for operations.</body>
-        </ownedComment>
-        <ownedRule xmi:type="uml:Constraint" xmi:id="Classifier-conformsTo-spec" name="spec" constrainedElement="Classifier-conformsTo">
-          <specification xmi:type="uml:OpaqueExpression" xmi:id="Classifier-conformsTo-spec-_specification">
-            <language>OCL</language>
-            <body>result = (if other.oclIsKindOf(Classifier) then&#xD;
-  let otherClassifier : Classifier = other.oclAsType(Classifier) in&#xD;
-    self = otherClassifier or allParents()->includes(otherClassifier)&#xD;
-else&#xD;
-  false&#xD;
-endif)</body>
-          </specification>
-        </ownedRule>
-        <ownedParameter xmi:type="uml:Parameter" xmi:id="Classifier-conformsTo-result" name="result" direction="return">
-          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
-        </ownedParameter>
-        <ownedParameter xmi:type="uml:Parameter" xmi:id="Classifier-conformsTo-other" name="other" type="Type"/>
-      </ownedOperation>
-      <ownedOperation xmi:type="uml:Operation" xmi:id="Classifier-general.1" name="general" visibility="protected" bodyCondition="Classifier-general.1-spec" isQuery="true">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-general.1-_ownedComment.0" annotatedElement="Classifier-general.1">
-          <body>The general Classifiers are the ones referenced by the Generalization relationships.</body>
-        </ownedComment>
-        <ownedRule xmi:type="uml:Constraint" xmi:id="Classifier-general.1-spec" name="spec" constrainedElement="Classifier-general.1 Classifier-general">
-          <specification xmi:type="uml:OpaqueExpression" xmi:id="Classifier-general.1-spec-_specification">
-            <language>OCL</language>
-            <body>result = (parents())</body>
-          </specification>
-        </ownedRule>
-        <ownedParameter xmi:type="uml:Parameter" xmi:id="Classifier-general.1-result" name="result" type="Classifier" direction="return">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Classifier-general.1-result-_lowerValue"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Classifier-general.1-result-_upperValue" value="*"/>
-        </ownedParameter>
-      </ownedOperation>
-      <ownedOperation xmi:type="uml:Operation" xmi:id="Classifier-hasVisibilityOf" name="hasVisibilityOf" bodyCondition="Classifier-hasVisibilityOf-spec" isQuery="true" precondition="Classifier-hasVisibilityOf-pre">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-hasVisibilityOf-_ownedComment.0" annotatedElement="Classifier-hasVisibilityOf">
-          <body>The query hasVisibilityOf() determines whether a NamedElement is visible in the classifier. Non-private members are visible. It is only called when the argument is something owned by a parent.</body>
-        </ownedComment>
-        <ownedRule xmi:type="uml:Constraint" xmi:id="Classifier-hasVisibilityOf-pre" name="pre" constrainedElement="Classifier-hasVisibilityOf">
-          <specification xmi:type="uml:OpaqueExpression" xmi:id="Classifier-hasVisibilityOf-pre-_specification">
-            <language>OCL</language>
-            <body>allParents()->including(self)->collect(member)->includes(n)</body>
-          </specification>
-        </ownedRule>
-        <ownedRule xmi:type="uml:Constraint" xmi:id="Classifier-hasVisibilityOf-spec" name="spec" constrainedElement="Classifier-hasVisibilityOf">
-          <specification xmi:type="uml:OpaqueExpression" xmi:id="Classifier-hasVisibilityOf-spec-_specification">
-            <language>OCL</language>
-            <body>result = (n.visibility &lt;> VisibilityKind::private)</body>
-          </specification>
-        </ownedRule>
-        <ownedParameter xmi:type="uml:Parameter" xmi:id="Classifier-hasVisibilityOf-result" name="result" direction="return">
-          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
-        </ownedParameter>
-        <ownedParameter xmi:type="uml:Parameter" xmi:id="Classifier-hasVisibilityOf-n" name="n" type="NamedElement"/>
-      </ownedOperation>
-      <ownedOperation xmi:type="uml:Operation" xmi:id="Classifier-inherit" name="inherit" bodyCondition="Classifier-inherit-spec" isQuery="true">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-inherit-_ownedComment.0" annotatedElement="Classifier-inherit">
-          <body>The query inherit() defines how to inherit a set of elements passed as its argument.  It excludes redefined elements from the result.</body>
-        </ownedComment>
-        <ownedRule xmi:type="uml:Constraint" xmi:id="Classifier-inherit-spec" name="spec" constrainedElement="Classifier-inherit">
-          <specification xmi:type="uml:OpaqueExpression" xmi:id="Classifier-inherit-spec-_specification">
-            <language>OCL</language>
-            <body>result = (inhs->reject(inh |&#xD;
-  inh.oclIsKindOf(RedefinableElement) and&#xD;
-  ownedMember->select(oclIsKindOf(RedefinableElement))->&#xD;
-    select(redefinedElement->includes(inh.oclAsType(RedefinableElement)))&#xD;
-       ->notEmpty()))</body>
-          </specification>
-        </ownedRule>
-        <ownedParameter xmi:type="uml:Parameter" xmi:id="Classifier-inherit-result" name="result" type="NamedElement" direction="return">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Classifier-inherit-result-_lowerValue"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Classifier-inherit-result-_upperValue" value="*"/>
-        </ownedParameter>
-        <ownedParameter xmi:type="uml:Parameter" xmi:id="Classifier-inherit-inhs" name="inhs" type="NamedElement">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Classifier-inherit-inhs-_lowerValue"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Classifier-inherit-inhs-_upperValue" value="*"/>
-        </ownedParameter>
-      </ownedOperation>
-      <ownedOperation xmi:type="uml:Operation" xmi:id="Classifier-inheritableMembers" name="inheritableMembers" bodyCondition="Classifier-inheritableMembers-spec" isQuery="true" precondition="Classifier-inheritableMembers-pre">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-inheritableMembers-_ownedComment.0" annotatedElement="Classifier-inheritableMembers">
-          <body>The query inheritableMembers() gives all of the members of a Classifier that may be inherited in one of its descendants, subject to whatever visibility restrictions apply.</body>
-        </ownedComment>
-        <ownedRule xmi:type="uml:Constraint" xmi:id="Classifier-inheritableMembers-pre" name="pre" constrainedElement="Classifier-inheritableMembers">
-          <specification xmi:type="uml:OpaqueExpression" xmi:id="Classifier-inheritableMembers-pre-_specification">
-            <language>OCL</language>
-            <body>c.allParents()->includes(self)</body>
-          </specification>
-        </ownedRule>
-        <ownedRule xmi:type="uml:Constraint" xmi:id="Classifier-inheritableMembers-spec" name="spec" constrainedElement="Classifier-inheritableMembers">
-          <specification xmi:type="uml:OpaqueExpression" xmi:id="Classifier-inheritableMembers-spec-_specification">
-            <language>OCL</language>
-            <body>result = (member->select(m | c.hasVisibilityOf(m)))</body>
-          </specification>
-        </ownedRule>
-        <ownedParameter xmi:type="uml:Parameter" xmi:id="Classifier-inheritableMembers-result" name="result" type="NamedElement" direction="return">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Classifier-inheritableMembers-result-_lowerValue"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Classifier-inheritableMembers-result-_upperValue" value="*"/>
-        </ownedParameter>
-        <ownedParameter xmi:type="uml:Parameter" xmi:id="Classifier-inheritableMembers-c" name="c" type="Classifier"/>
-      </ownedOperation>
-      <ownedOperation xmi:type="uml:Operation" xmi:id="Classifier-inheritedMember.1" name="inheritedMember" visibility="protected" bodyCondition="Classifier-inheritedMember.1-spec" isQuery="true">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-inheritedMember.1-_ownedComment.0" annotatedElement="Classifier-inheritedMember.1">
-          <body>The inheritedMember association is derived by inheriting the inheritable members of the parents.</body>
-        </ownedComment>
-        <ownedRule xmi:type="uml:Constraint" xmi:id="Classifier-inheritedMember.1-spec" name="spec" constrainedElement="Classifier-inheritedMember.1 Classifier-inheritedMember">
-          <specification xmi:type="uml:OpaqueExpression" xmi:id="Classifier-inheritedMember.1-spec-_specification">
-            <language>OCL</language>
-            <body>result = (inherit(parents()->collect(inheritableMembers(self))->asSet()))</body>
-          </specification>
-        </ownedRule>
-        <ownedParameter xmi:type="uml:Parameter" xmi:id="Classifier-inheritedMember.1-result" name="result" type="NamedElement" direction="return">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Classifier-inheritedMember.1-result-_lowerValue"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Classifier-inheritedMember.1-result-_upperValue" value="*"/>
-        </ownedParameter>
-      </ownedOperation>
-      <ownedOperation xmi:type="uml:Operation" xmi:id="Classifier-isTemplate" name="isTemplate" bodyCondition="Classifier-isTemplate-spec" isQuery="true" redefinedOperation="TemplateableElement-isTemplate">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-isTemplate-_ownedComment.0" annotatedElement="Classifier-isTemplate">
-          <body>The query isTemplate() returns whether this Classifier is actually a template.</body>
-        </ownedComment>
-        <ownedRule xmi:type="uml:Constraint" xmi:id="Classifier-isTemplate-spec" name="spec" constrainedElement="Classifier-isTemplate">
-          <specification xmi:type="uml:OpaqueExpression" xmi:id="Classifier-isTemplate-spec-_specification">
-            <language>OCL</language>
-            <body>result = (ownedTemplateSignature &lt;> null or general->exists(g | g.isTemplate()))</body>
-          </specification>
-        </ownedRule>
-        <ownedParameter xmi:type="uml:Parameter" xmi:id="Classifier-isTemplate-result" name="result" direction="return">
-          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
-        </ownedParameter>
-      </ownedOperation>
-      <ownedOperation xmi:type="uml:Operation" xmi:id="Classifier-maySpecializeType" name="maySpecializeType" bodyCondition="Classifier-maySpecializeType-spec" isQuery="true">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-maySpecializeType-_ownedComment.0" annotatedElement="Classifier-maySpecializeType">
-          <body>The query maySpecializeType() determines whether this classifier may have a generalization relationship to classifiers of the specified type. By default a classifier may specialize classifiers of the same or a more general type. It is intended to be redefined by classifiers that have different specialization constraints.</body>
-        </ownedComment>
-        <ownedRule xmi:type="uml:Constraint" xmi:id="Classifier-maySpecializeType-spec" name="spec" constrainedElement="Classifier-maySpecializeType">
-          <specification xmi:type="uml:OpaqueExpression" xmi:id="Classifier-maySpecializeType-spec-_specification">
-            <language>OCL</language>
-            <body>result = (self.oclIsKindOf(c.oclType()))</body>
-          </specification>
-        </ownedRule>
-        <ownedParameter xmi:type="uml:Parameter" xmi:id="Classifier-maySpecializeType-result" name="result" direction="return">
-          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
-        </ownedParameter>
-        <ownedParameter xmi:type="uml:Parameter" xmi:id="Classifier-maySpecializeType-c" name="c" type="Classifier"/>
-      </ownedOperation>
-      <ownedOperation xmi:type="uml:Operation" xmi:id="Classifier-parents" name="parents" bodyCondition="Classifier-parents-spec" isQuery="true">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-parents-_ownedComment.0" annotatedElement="Classifier-parents">
-          <body>The query parents() gives all of the immediate ancestors of a generalized Classifier.</body>
-        </ownedComment>
-        <ownedRule xmi:type="uml:Constraint" xmi:id="Classifier-parents-spec" name="spec" constrainedElement="Classifier-parents">
-          <specification xmi:type="uml:OpaqueExpression" xmi:id="Classifier-parents-spec-_specification">
-            <language>OCL</language>
-            <body>result = (generalization.general->asSet())</body>
-          </specification>
-        </ownedRule>
-        <ownedParameter xmi:type="uml:Parameter" xmi:id="Classifier-parents-result" name="result" type="Classifier" direction="return">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Classifier-parents-result-_lowerValue"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Classifier-parents-result-_upperValue" value="*"/>
-        </ownedParameter>
-      </ownedOperation>
-      <ownedOperation xmi:type="uml:Operation" xmi:id="Classifier-directlyRealizedInterfaces" name="directlyRealizedInterfaces" bodyCondition="Classifier-directlyRealizedInterfaces-spec" isQuery="true">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-directlyRealizedInterfaces-_ownedComment.0" annotatedElement="Classifier-directlyRealizedInterfaces">
-          <body>The Interfaces directly realized by this Classifier</body>
-        </ownedComment>
-        <ownedRule xmi:type="uml:Constraint" xmi:id="Classifier-directlyRealizedInterfaces-spec" name="spec" constrainedElement="Classifier-directlyRealizedInterfaces">
-          <specification xmi:type="uml:OpaqueExpression" xmi:id="Classifier-directlyRealizedInterfaces-spec-_specification">
-            <language>OCL</language>
-            <body>result = ((clientDependency->&#xD;
-  select(oclIsKindOf(Realization) and supplier->forAll(oclIsKindOf(Interface))))->&#xD;
-      collect(supplier.oclAsType(Interface))->asSet())</body>
-          </specification>
-        </ownedRule>
-        <ownedParameter xmi:type="uml:Parameter" xmi:id="Classifier-directlyRealizedInterfaces-result" name="result" type="Interface" direction="return">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Classifier-directlyRealizedInterfaces-result-_lowerValue"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Classifier-directlyRealizedInterfaces-result-_upperValue" value="*"/>
-        </ownedParameter>
-      </ownedOperation>
-      <ownedOperation xmi:type="uml:Operation" xmi:id="Classifier-directlyUsedInterfaces" name="directlyUsedInterfaces" bodyCondition="Classifier-directlyUsedInterfaces-spec" isQuery="true">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-directlyUsedInterfaces-_ownedComment.0" annotatedElement="Classifier-directlyUsedInterfaces">
-          <body>The Interfaces directly used by this Classifier</body>
-        </ownedComment>
-        <ownedRule xmi:type="uml:Constraint" xmi:id="Classifier-directlyUsedInterfaces-spec" name="spec" constrainedElement="Classifier-directlyUsedInterfaces">
-          <specification xmi:type="uml:OpaqueExpression" xmi:id="Classifier-directlyUsedInterfaces-spec-_specification">
-            <language>OCL</language>
-            <body>result = ((supplierDependency->&#xD;
-  select(oclIsKindOf(Usage) and client->forAll(oclIsKindOf(Interface))))->&#xD;
-    collect(client.oclAsType(Interface))->asSet())</body>
-          </specification>
-        </ownedRule>
-        <ownedParameter xmi:type="uml:Parameter" xmi:id="Classifier-directlyUsedInterfaces-result" name="result" type="Interface" direction="return">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Classifier-directlyUsedInterfaces-result-_lowerValue"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Classifier-directlyUsedInterfaces-result-_upperValue" value="*"/>
-        </ownedParameter>
-      </ownedOperation>
-      <ownedOperation xmi:type="uml:Operation" xmi:id="Classifier-allRealizedInterfaces" name="allRealizedInterfaces" bodyCondition="Classifier-allRealizedInterfaces-spec" isQuery="true">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-allRealizedInterfaces-_ownedComment.0" annotatedElement="Classifier-allRealizedInterfaces">
-          <body>The Interfaces realized by this Classifier and all of its generalizations</body>
-        </ownedComment>
-        <ownedRule xmi:type="uml:Constraint" xmi:id="Classifier-allRealizedInterfaces-spec" name="spec" constrainedElement="Classifier-allRealizedInterfaces">
-          <specification xmi:type="uml:OpaqueExpression" xmi:id="Classifier-allRealizedInterfaces-spec-_specification">
-            <language>OCL</language>
-            <body>result = (directlyRealizedInterfaces()->union(self.allParents()->collect(directlyRealizedInterfaces()))->asSet())</body>
-          </specification>
-        </ownedRule>
-        <ownedParameter xmi:type="uml:Parameter" xmi:id="Classifier-allRealizedInterfaces-result" name="result" type="Interface" direction="return">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Classifier-allRealizedInterfaces-result-_lowerValue"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Classifier-allRealizedInterfaces-result-_upperValue" value="*"/>
-        </ownedParameter>
-      </ownedOperation>
-      <ownedOperation xmi:type="uml:Operation" xmi:id="Classifier-allUsedInterfaces" name="allUsedInterfaces" bodyCondition="Classifier-allUsedInterfaces-spec" isQuery="true">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-allUsedInterfaces-_ownedComment.0" annotatedElement="Classifier-allUsedInterfaces">
-          <body>The Interfaces used by this Classifier and all of its generalizations</body>
-        </ownedComment>
-        <ownedRule xmi:type="uml:Constraint" xmi:id="Classifier-allUsedInterfaces-spec" name="spec" constrainedElement="Classifier-allUsedInterfaces">
-          <specification xmi:type="uml:OpaqueExpression" xmi:id="Classifier-allUsedInterfaces-spec-_specification">
-            <language>OCL</language>
-            <body>result = (directlyUsedInterfaces()->union(self.allParents()->collect(directlyUsedInterfaces()))->asSet())</body>
-          </specification>
-        </ownedRule>
-        <ownedParameter xmi:type="uml:Parameter" xmi:id="Classifier-allUsedInterfaces-result" name="result" type="Interface" direction="return">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Classifier-allUsedInterfaces-result-_lowerValue"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Classifier-allUsedInterfaces-result-_upperValue" value="*"/>
-        </ownedParameter>
-      </ownedOperation>
-      <ownedOperation xmi:type="uml:Operation" xmi:id="Classifier-isSubstitutableFor" name="isSubstitutableFor" bodyCondition="Classifier-isSubstitutableFor-spec" isQuery="true">
-        <ownedRule xmi:type="uml:Constraint" xmi:id="Classifier-isSubstitutableFor-spec" name="spec" constrainedElement="Classifier-isSubstitutableFor">
-          <specification xmi:type="uml:OpaqueExpression" xmi:id="Classifier-isSubstitutableFor-spec-_specification">
-            <language>OCL</language>
-            <body>result = (substitution.contract->includes(contract))</body>
-          </specification>
-        </ownedRule>
-        <ownedParameter xmi:type="uml:Parameter" xmi:id="Classifier-isSubstitutableFor-contract" name="contract" type="Classifier"/>
-        <ownedParameter xmi:type="uml:Parameter" xmi:id="Classifier-isSubstitutableFor-result" name="result" direction="return">
-          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
-        </ownedParameter>
-      </ownedOperation>
-      <ownedOperation xmi:type="uml:Operation" xmi:id="Classifier-allAttributes" name="allAttributes" bodyCondition="Classifier-allAttributes-spec" isQuery="true">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-allAttributes-_ownedComment.0" annotatedElement="Classifier-allAttributes">
-          <body>The query allAttributes gives an ordered set of all owned and inherited attributes of the Classifier. All owned attributes appear before any inherited attributes, and the attributes inherited from any more specific parent Classifier appear before those of any more general parent Classifier. However, if the Classifier has multiple immediate parents, then the relative ordering of the sets of attributes from those parents is not defined.</body>
-        </ownedComment>
-        <ownedRule xmi:type="uml:Constraint" xmi:id="Classifier-allAttributes-spec" name="spec" constrainedElement="Classifier-allAttributes">
-          <specification xmi:type="uml:OpaqueExpression" xmi:id="Classifier-allAttributes-spec-_specification">
-            <language>OCL</language>
-            <body>result = (attribute->asSequence()->union(parents()->asSequence().allAttributes())->select(p | member->includes(p))->asOrderedSet())</body>
-          </specification>
-        </ownedRule>
-        <ownedParameter xmi:type="uml:Parameter" xmi:id="Classifier-allAttributes-result" name="result" type="Property" isOrdered="true" direction="return">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Classifier-allAttributes-result-_lowerValue"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Classifier-allAttributes-result-_upperValue" value="*"/>
-        </ownedParameter>
-      </ownedOperation>
-      <ownedOperation xmi:type="uml:Operation" xmi:id="Classifier-allSlottableFeatures" name="allSlottableFeatures" bodyCondition="Classifier-allSlottableFeatures-spec" isQuery="true">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-allSlottableFeatures-_ownedComment.0" annotatedElement="Classifier-allSlottableFeatures">
-          <body>All StructuralFeatures related to the Classifier that may have Slots, including direct attributes, inherited attributes, private attributes in generalizations, and memberEnds of Associations, but excluding redefined StructuralFeatures.</body>
-        </ownedComment>
-        <ownedRule xmi:type="uml:Constraint" xmi:id="Classifier-allSlottableFeatures-spec" name="spec" constrainedElement="Classifier-allSlottableFeatures">
-          <specification xmi:type="uml:OpaqueExpression" xmi:id="Classifier-allSlottableFeatures-spec-_specification">
-            <language>OCL</language>
-            <body>result = (member->select(oclIsKindOf(StructuralFeature))->&#xD;
-  collect(oclAsType(StructuralFeature))->&#xD;
-   union(self.inherit(self.allParents()->collect(p | p.attribute)->asSet())->&#xD;
-     collect(oclAsType(StructuralFeature)))->asSet())</body>
-          </specification>
-        </ownedRule>
-        <ownedParameter xmi:type="uml:Parameter" xmi:id="Classifier-allSlottableFeatures-result" name="result" type="StructuralFeature" direction="return">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Classifier-allSlottableFeatures-result-_lowerValue"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Classifier-allSlottableFeatures-result-_upperValue" value="*"/>
         </ownedParameter>
       </ownedOperation>
     </packagedElement>
