@@ -1081,6 +1081,474 @@ endif)</body>
         </ownedParameter>
       </ownedOperation>
     </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="Property" name="Property">
+      <ownedComment xmi:type="uml:Comment" xmi:id="Property-_ownedComment.0" annotatedElement="Property">
+        <body>A Property is a StructuralFeature. A Property related by ownedAttribute to a Classifier (other than an association) represents an attribute and might also represent an association end. It relates an instance of the Classifier to a value or set of values of the type of the attribute. A Property related by memberEnd to an Association represents an end of the Association. The type of the Property is the type of the end of the Association. A Property has the capability of being a DeploymentTarget in a Deployment relationship. This enables modeling the deployment to hierarchical nodes that have Properties functioning as internal parts.  Property specializes ParameterableElement to specify that a Property can be exposed as a formal template parameter, and provided as an actual parameter in a binding of a template.</body>
+      </ownedComment>
+      <ownedRule xmi:type="uml:Constraint" xmi:id="Property-subsetting_context_conforms" name="subsetting_context_conforms" constrainedElement="Property">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Property-subsetting_context_conforms-_ownedComment.0" annotatedElement="Property-subsetting_context_conforms">
+          <body>Subsetting may only occur when the context of the subsetting property conforms to the context of the subsetted property.</body>
+        </ownedComment>
+        <specification xmi:type="uml:OpaqueExpression" xmi:id="Property-subsetting_context_conforms-_specification">
+          <language>OCL</language>
+          <body>subsettedProperty->notEmpty() implies
+  (subsettingContext()->notEmpty() and subsettingContext()->forAll (sc |
+    subsettedProperty->forAll(sp |
+      sp.subsettingContext()->exists(c | sc.conformsTo(c)))))</body>
+        </specification>
+      </ownedRule>
+      <ownedRule xmi:type="uml:Constraint" xmi:id="Property-derived_union_is_read_only" name="derived_union_is_read_only" constrainedElement="Property">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Property-derived_union_is_read_only-_ownedComment.0" annotatedElement="Property-derived_union_is_read_only">
+          <body>A derived union is read only.</body>
+        </ownedComment>
+        <specification xmi:type="uml:OpaqueExpression" xmi:id="Property-derived_union_is_read_only-_specification">
+          <language>OCL</language>
+          <body>isDerivedUnion implies isReadOnly</body>
+        </specification>
+      </ownedRule>
+      <ownedRule xmi:type="uml:Constraint" xmi:id="Property-multiplicity_of_composite" name="multiplicity_of_composite" constrainedElement="Property">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Property-multiplicity_of_composite-_ownedComment.0" annotatedElement="Property-multiplicity_of_composite">
+          <body>A multiplicity on the composing end of a composite aggregation must not have an upper bound greater than 1.</body>
+        </ownedComment>
+        <specification xmi:type="uml:OpaqueExpression" xmi:id="Property-multiplicity_of_composite-_specification">
+          <language>OCL</language>
+          <body>isComposite and association &lt;> null implies opposite.upperBound() &lt;= 1</body>
+        </specification>
+      </ownedRule>
+      <ownedRule xmi:type="uml:Constraint" xmi:id="Property-redefined_property_inherited" name="redefined_property_inherited" constrainedElement="Property">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Property-redefined_property_inherited-_ownedComment.0" annotatedElement="Property-redefined_property_inherited">
+          <body>A redefined Property must be inherited from a more general Classifier.</body>
+        </ownedComment>
+        <specification xmi:type="uml:OpaqueExpression" xmi:id="Property-redefined_property_inherited-_specification">
+          <language>OCL</language>
+          <body>(redefinedProperty->notEmpty()) implies&#xD;
+  (redefinitionContext->notEmpty() and&#xD;
+      redefinedProperty->forAll(rp|&#xD;
+        ((redefinitionContext->collect(fc|&#xD;
+          fc.allParents()))->asSet())->collect(c| c.allFeatures())->asSet()->includes(rp)))</body>
+        </specification>
+      </ownedRule>
+      <ownedRule xmi:type="uml:Constraint" xmi:id="Property-subsetting_rules" name="subsetting_rules" constrainedElement="Property">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Property-subsetting_rules-_ownedComment.0" annotatedElement="Property-subsetting_rules">
+          <body>A subsetting Property may strengthen the type of the subsetted Property, and its upper bound may be less.</body>
+        </ownedComment>
+        <specification xmi:type="uml:OpaqueExpression" xmi:id="Property-subsetting_rules-_specification">
+          <language>OCL</language>
+          <body>subsettedProperty->forAll(sp |
+  self.type.conformsTo(sp.type) and
+    ((self.upperBound()->notEmpty() and sp.upperBound()->notEmpty()) implies
+      self.upperBound() &lt;= sp.upperBound() ))</body>
+        </specification>
+      </ownedRule>
+      <ownedRule xmi:type="uml:Constraint" xmi:id="Property-binding_to_attribute" name="binding_to_attribute" constrainedElement="Property">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Property-binding_to_attribute-_ownedComment.0" annotatedElement="Property-binding_to_attribute">
+          <body>A binding of a PropertyTemplateParameter representing an attribute must be to an attribute.</body>
+        </ownedComment>
+        <specification xmi:type="uml:OpaqueExpression" xmi:id="Property-binding_to_attribute-_specification">
+          <language>OCL</language>
+          <body>(self.isAttribute()&#xD;
+and (templateParameterSubstitution->notEmpty())&#xD;
+implies (templateParameterSubstitution->forAll(ts |&#xD;
+    ts.formal.oclIsKindOf(Property)&#xD;
+    and ts.formal.oclAsType(Property).isAttribute())))</body>
+        </specification>
+      </ownedRule>
+      <ownedRule xmi:type="uml:Constraint" xmi:id="Property-derived_union_is_derived" name="derived_union_is_derived" constrainedElement="Property">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Property-derived_union_is_derived-_ownedComment.0" annotatedElement="Property-derived_union_is_derived">
+          <body>A derived union is derived.</body>
+        </ownedComment>
+        <specification xmi:type="uml:OpaqueExpression" xmi:id="Property-derived_union_is_derived-_specification">
+          <language>OCL</language>
+          <body>isDerivedUnion implies isDerived</body>
+        </specification>
+      </ownedRule>
+      <ownedRule xmi:type="uml:Constraint" xmi:id="Property-deployment_target" name="deployment_target" constrainedElement="Property">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Property-deployment_target-_ownedComment.0" annotatedElement="Property-deployment_target">
+          <body>A Property can be a DeploymentTarget if it is a kind of Node and functions as a part in the internal structure of an encompassing Node.</body>
+        </ownedComment>
+        <specification xmi:type="uml:OpaqueExpression" xmi:id="Property-deployment_target-_specification">
+          <language>OCL</language>
+          <body>deployment->notEmpty() implies owner.oclIsKindOf(Node) and Node.allInstances()->exists(n | n.part->exists(p | p = self))</body>
+        </specification>
+      </ownedRule>
+      <ownedRule xmi:type="uml:Constraint" xmi:id="Property-subsetted_property_names" name="subsetted_property_names" constrainedElement="Property">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Property-subsetted_property_names-_ownedComment.0" annotatedElement="Property-subsetted_property_names">
+          <body>A Property may not subset a Property with the same name.</body>
+        </ownedComment>
+        <specification xmi:type="uml:OpaqueExpression" xmi:id="Property-subsetted_property_names-_specification">
+          <language>OCL</language>
+          <body>subsettedProperty->forAll(sp | sp.name &lt;> name)</body>
+        </specification>
+      </ownedRule>
+      <ownedRule xmi:type="uml:Constraint" xmi:id="Property-type_of_opposite_end" name="type_of_opposite_end" constrainedElement="Property">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Property-type_of_opposite_end-_ownedComment.0" annotatedElement="Property-type_of_opposite_end">
+          <body>If a Property is a classifier-owned end of a binary Association, its owner must be the type of the opposite end.</body>
+        </ownedComment>
+        <specification xmi:type="uml:OpaqueExpression" xmi:id="Property-type_of_opposite_end-_specification">
+          <language>OCL</language>
+          <body>(opposite->notEmpty() and owningAssociation->isEmpty()) implies classifier = opposite.type</body>
+        </specification>
+      </ownedRule>
+      <ownedRule xmi:type="uml:Constraint" xmi:id="Property-qualified_is_association_end" name="qualified_is_association_end" constrainedElement="Property">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Property-qualified_is_association_end-_ownedComment.0" annotatedElement="Property-qualified_is_association_end">
+          <body>All qualified Properties must be Association ends</body>
+        </ownedComment>
+        <specification xmi:type="uml:OpaqueExpression" xmi:id="Property-qualified_is_association_end-_specification">
+          <language>OCL</language>
+          <body>qualifier->notEmpty() implies association->notEmpty()</body>
+        </specification>
+      </ownedRule>
+      <generalization xmi:type="uml:Generalization" xmi:id="Property-_generalization.0" general="ConnectableElement"/>
+      <generalization xmi:type="uml:Generalization" xmi:id="Property-_generalization.1" general="DeploymentTarget"/>
+      <generalization xmi:type="uml:Generalization" xmi:id="Property-_generalization.2" general="StructuralFeature"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="Property-default" name="default" visibility="protected" isDerived="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Property-default-_lowerValue"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="Property-aggregation" name="aggregation" type="AggregationKind">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Property-aggregation-_ownedComment.0" annotatedElement="Property-aggregation">
+          <body>Specifies the kind of aggregation that applies to the Property.</body>
+        </ownedComment>
+        <defaultValue xmi:type="uml:InstanceValue" xmi:id="Property-aggregation-_defaultValue" type="AggregationKind" instance="AggregationKind-none"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="Property-association" name="association" type="Association" subsettedProperty="A_member_memberNamespace-memberNamespace" association="A_memberEnd_association">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Property-association-_ownedComment.0" annotatedElement="Property-association">
+          <body>The Association of which this Property is a member, if any.</body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Property-association-_lowerValue"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="Property-associationEnd" name="associationEnd" type="Property" subsettedProperty="Element-owner" association="A_qualifier_associationEnd">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Property-associationEnd-_ownedComment.0" annotatedElement="Property-associationEnd">
+          <body>Designates the optional association end that owns a qualifier attribute.</body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Property-associationEnd-_lowerValue"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="Property-class" name="class" type="Class" subsettedProperty="A_attribute_classifier-classifier A_ownedAttribute_structuredClassifier-structuredClassifier NamedElement-namespace Feature-featuringClassifier RedefinableElement-redefinitionContext" association="A_ownedAttribute_class">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Property-class-_ownedComment.0" annotatedElement="Property-class">
+          <body>The Class that owns this Property, if any.</body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Property-class-_lowerValue"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="Property-datatype" name="datatype" type="DataType" subsettedProperty="A_attribute_classifier-classifier NamedElement-namespace Feature-featuringClassifier RedefinableElement-redefinitionContext" association="A_ownedAttribute_datatype">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Property-datatype-_ownedComment.0" annotatedElement="Property-datatype">
+          <body>The DataType that owns this Property, if any.</body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Property-datatype-_lowerValue"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="Property-defaultValue" name="defaultValue" type="ValueSpecification" aggregation="composite" subsettedProperty="Element-ownedElement" association="A_defaultValue_owningProperty">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Property-defaultValue-_ownedComment.0" annotatedElement="Property-defaultValue">
+          <body>A ValueSpecification that is evaluated to give a default value for the Property when an instance of the owning Classifier is instantiated.</body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Property-defaultValue-_lowerValue"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="Property-interface" name="interface" type="Interface" subsettedProperty="A_attribute_classifier-classifier NamedElement-namespace Feature-featuringClassifier RedefinableElement-redefinitionContext" association="A_ownedAttribute_interface">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Property-interface-_ownedComment.0" annotatedElement="Property-interface">
+          <body>The Interface that owns this Property, if any.</body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Property-interface-_lowerValue"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="Property-isComposite" name="isComposite" isDerived="true">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Property-isComposite-_ownedComment.0" annotatedElement="Property-isComposite">
+          <body>If isComposite is true, the object containing the attribute is a container for the object or value contained in the attribute. This is a derived value, indicating whether the aggregation of the Property is composite or not.</body>
+        </ownedComment>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+        <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="Property-isComposite-_defaultValue"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="Property-isDerived" name="isDerived">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Property-isDerived-_ownedComment.0" annotatedElement="Property-isDerived">
+          <body>Specifies whether the Property is derived, i.e., whether its value or values can be computed from other information.</body>
+        </ownedComment>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+        <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="Property-isDerived-_defaultValue"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="Property-isDerivedUnion" name="isDerivedUnion">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Property-isDerivedUnion-_ownedComment.0" annotatedElement="Property-isDerivedUnion">
+          <body>Specifies whether the property is derived as the union of all of the Properties that are constrained to subset it.</body>
+        </ownedComment>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+        <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="Property-isDerivedUnion-_defaultValue"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="Property-isID" name="isID">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Property-isID-_ownedComment.0" annotatedElement="Property-isID">
+          <body>True indicates this property can be used to uniquely identify an instance of the containing Class.</body>
+        </ownedComment>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+        <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="Property-isID-_defaultValue"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="Property-opposite" name="opposite" type="Property" isDerived="true" association="A_opposite_property">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Property-opposite-_ownedComment.0" annotatedElement="Property-opposite">
+          <body>In the case where the Property is one end of a binary association this gives the other end.</body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Property-opposite-_lowerValue"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="Property-owningAssociation" name="owningAssociation" type="Association" subsettedProperty="Feature-featuringClassifier NamedElement-namespace Property-association RedefinableElement-redefinitionContext" association="A_ownedEnd_owningAssociation">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Property-owningAssociation-_ownedComment.0" annotatedElement="Property-owningAssociation">
+          <body>The owning association of this property, if any.</body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Property-owningAssociation-_lowerValue"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="Property-qualifier" name="qualifier" type="Property" isOrdered="true" aggregation="composite" subsettedProperty="Element-ownedElement" association="A_qualifier_associationEnd">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Property-qualifier-_ownedComment.0" annotatedElement="Property-qualifier">
+          <body>An optional list of ordered qualifier attributes for the end.</body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Property-qualifier-_lowerValue"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Property-qualifier-_upperValue" value="*"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="Property-redefinedProperty" name="redefinedProperty" type="Property" subsettedProperty="RedefinableElement-redefinedElement" association="A_redefinedProperty_property">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Property-redefinedProperty-_ownedComment.0" annotatedElement="Property-redefinedProperty">
+          <body>The properties that are redefined by this property, if any.</body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Property-redefinedProperty-_lowerValue"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Property-redefinedProperty-_upperValue" value="*"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="Property-subsettedProperty" name="subsettedProperty" type="Property" association="A_subsettedProperty_property">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Property-subsettedProperty-_ownedComment.0" annotatedElement="Property-subsettedProperty">
+          <body>The properties of which this Property is constrained to be a subset, if any.</body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Property-subsettedProperty-_lowerValue"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Property-subsettedProperty-_upperValue" value="*"/>
+      </ownedAttribute>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="Property-getDefault" name="getDefault" isQuery="true">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Property-getDefault-_ownedComment.0" annotatedElement="Property-getDefault">
+          <body>Retrieves a string representation of the default value for this property.</body>
+        </ownedComment>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="Property-getDefault-result" name="result" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Property-getDefault-result-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Property-getDefault-result-_upperValue" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="Property-getOtherEnd" name="getOtherEnd">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Property-getOtherEnd-_ownedComment.0" annotatedElement="Property-getOtherEnd">
+          <body>Retrieves the other end of the (binary) association in which this property is a member end.</body>
+        </ownedComment>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="Property-getOtherEnd-_ownedParameter.0" type="Property" direction="return">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Property-getOtherEnd-_ownedParameter.0-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Property-getOtherEnd-_ownedParameter.0-_upperValue" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="Property-isSetDefault" name="isSetDefault" visibility="protected" isQuery="true">
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="Property-isSetDefault-_ownedParameter.0" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="Property-setBooleanDefaultValue" name="setBooleanDefaultValue">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Property-setBooleanDefaultValue-_ownedComment.0" annotatedElement="Property-setBooleanDefaultValue">
+          <body>Sets the default value for this property to the specified Boolean value.</body>
+        </ownedComment>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="Property-setBooleanDefaultValue-value" name="value" effect="read">
+          <ownedComment xmi:type="uml:Comment" xmi:id="Property-setBooleanDefaultValue-value-_ownedComment.0" annotatedElement="Property-setBooleanDefaultValue-value">
+            <body>The new default value.</body>
+          </ownedComment>
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="Property-setDefault" name="setDefault">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Property-setDefault-_ownedComment.0" annotatedElement="Property-setDefault">
+          <body>Sets the default value for this property based on the specified string representation.</body>
+        </ownedComment>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="Property-setDefault-newDefault" name="newDefault" effect="read">
+          <ownedComment xmi:type="uml:Comment" xmi:id="Property-setDefault-newDefault-_ownedComment.0" annotatedElement="Property-setDefault-newDefault">
+            <body>A string repesentation of the new default value.</body>
+          </ownedComment>
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="Property-setIntegerDefaultValue" name="setIntegerDefaultValue">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Property-setIntegerDefaultValue-_ownedComment.0" annotatedElement="Property-setIntegerDefaultValue">
+          <body>Sets the default value for this property to the specified integer value.</body>
+        </ownedComment>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="Property-setIntegerDefaultValue-value" name="value" effect="read">
+          <ownedComment xmi:type="uml:Comment" xmi:id="Property-setIntegerDefaultValue-value-_ownedComment.0" annotatedElement="Property-setIntegerDefaultValue-value">
+            <body>The new default value.</body>
+          </ownedComment>
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="Property-setIsComposite" name="setIsComposite" visibility="protected">
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="Property-setIsComposite-newIsComposite" name="newIsComposite" effect="read">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="Property-setIsNavigable" name="setIsNavigable">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Property-setIsNavigable-_ownedComment.0" annotatedElement="Property-setIsNavigable">
+          <body>Sets the navigability of this property as indicated.</body>
+        </ownedComment>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="Property-setIsNavigable-isNavigable" name="isNavigable" effect="read">
+          <ownedComment xmi:type="uml:Comment" xmi:id="Property-setIsNavigable-isNavigable-_ownedComment.0" annotatedElement="Property-setIsNavigable-isNavigable">
+            <body>The new navigability.</body>
+          </ownedComment>
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="Property-setNullDefaultValue" name="setNullDefaultValue">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Property-setNullDefaultValue-_ownedComment.0" annotatedElement="Property-setNullDefaultValue">
+          <body>Sets the default value for this property to the null value.</body>
+        </ownedComment>
+      </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="Property-setOpposite" name="setOpposite" visibility="protected">
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="Property-setOpposite-newOpposite" name="newOpposite" visibility="protected" type="Property" effect="read"/>
+      </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="Property-setRealDefaultValue" name="setRealDefaultValue">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Property-setRealDefaultValue-_ownedComment.0" annotatedElement="Property-setRealDefaultValue">
+          <body>Sets the default value for this property to the specified real value.</body>
+        </ownedComment>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="Property-setRealDefaultValue-value" name="value" effect="read">
+          <ownedComment xmi:type="uml:Comment" xmi:id="Property-setRealDefaultValue-value-_ownedComment.0" annotatedElement="Property-setRealDefaultValue-value">
+            <body>The new default value.</body>
+          </ownedComment>
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Real"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="Property-setStringDefaultValue" name="setStringDefaultValue">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Property-setStringDefaultValue-_ownedComment.0" annotatedElement="Property-setStringDefaultValue">
+          <body>Sets the default value for this property to the specified string value.</body>
+        </ownedComment>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="Property-setStringDefaultValue-value" name="value" effect="read">
+          <ownedComment xmi:type="uml:Comment" xmi:id="Property-setStringDefaultValue-value-_ownedComment.0" annotatedElement="Property-setStringDefaultValue-value">
+            <body>The new default value.</body>
+          </ownedComment>
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="Property-setUnlimitedNaturalDefaultValue" name="setUnlimitedNaturalDefaultValue">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Property-setUnlimitedNaturalDefaultValue-_ownedComment.0" annotatedElement="Property-setUnlimitedNaturalDefaultValue">
+          <body>Sets the default value for this property to the specified unlimited natural value.</body>
+        </ownedComment>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="Property-setUnlimitedNaturalDefaultValue-value" name="value" effect="read">
+          <ownedComment xmi:type="uml:Comment" xmi:id="Property-setUnlimitedNaturalDefaultValue-value-_ownedComment.0" annotatedElement="Property-setUnlimitedNaturalDefaultValue-value">
+            <body>The new default value.</body>
+          </ownedComment>
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#UnlimitedNatural"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="Property-unsetDefault" name="unsetDefault" visibility="protected"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="Property-isAttribute" name="isAttribute" bodyCondition="Property-isAttribute-spec" isQuery="true">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Property-isAttribute-_ownedComment.0" annotatedElement="Property-isAttribute">
+          <body>The query isAttribute() is true if the Property is defined as an attribute of some Classifier.</body>
+        </ownedComment>
+        <ownedRule xmi:type="uml:Constraint" xmi:id="Property-isAttribute-spec" name="spec" constrainedElement="Property-isAttribute">
+          <specification xmi:type="uml:OpaqueExpression" xmi:id="Property-isAttribute-spec-_specification">
+            <language>OCL</language>
+            <body>result = (not classifier->isEmpty())</body>
+          </specification>
+        </ownedRule>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="Property-isAttribute-result" name="result" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="Property-isCompatibleWith" name="isCompatibleWith" bodyCondition="Property-isCompatibleWith-spec" isQuery="true" redefinedOperation="ParameterableElement-isCompatibleWith">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Property-isCompatibleWith-_ownedComment.0" annotatedElement="Property-isCompatibleWith">
+          <body>The query isCompatibleWith() determines if this Property is compatible with the specified ParameterableElement. This Property is compatible with ParameterableElement p if the kind of this Property is thesame as or a subtype of the kind of p. Further, if p is a TypedElement, then the type of this Property must be conformant with the type of p.</body>
+        </ownedComment>
+        <ownedRule xmi:type="uml:Constraint" xmi:id="Property-isCompatibleWith-spec" name="spec" constrainedElement="Property-isCompatibleWith">
+          <specification xmi:type="uml:OpaqueExpression" xmi:id="Property-isCompatibleWith-spec-_specification">
+            <language>OCL</language>
+            <body>result = (self.oclIsKindOf(p.oclType()) and (p.oclIsKindOf(TypedElement) implies&#xD;
+self.type.conformsTo(p.oclAsType(TypedElement).type)))</body>
+          </specification>
+        </ownedRule>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="Property-isCompatibleWith-result" name="result" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+        </ownedParameter>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="Property-isCompatibleWith-p" name="p" type="ParameterableElement"/>
+      </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="Property-isComposite.1" name="isComposite" bodyCondition="Property-isComposite.1-spec" isQuery="true">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Property-isComposite.1-_ownedComment.0" annotatedElement="Property-isComposite.1">
+          <body>The value of isComposite is true only if aggregation is composite.</body>
+        </ownedComment>
+        <ownedRule xmi:type="uml:Constraint" xmi:id="Property-isComposite.1-spec" name="spec" constrainedElement="Property-isComposite.1 Property-isComposite">
+          <specification xmi:type="uml:OpaqueExpression" xmi:id="Property-isComposite.1-spec-_specification">
+            <language>OCL</language>
+            <body>result = (aggregation = AggregationKind::composite)</body>
+          </specification>
+        </ownedRule>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="Property-isComposite.1-result" name="result" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="Property-isConsistentWith" name="isConsistentWith" bodyCondition="Property-isConsistentWith-spec" isQuery="true" precondition="Property-isConsistentWith-pre" redefinedOperation="RedefinableElement-isConsistentWith">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Property-isConsistentWith-_ownedComment.0" annotatedElement="Property-isConsistentWith">
+          <body>The query isConsistentWith() specifies, for any two Properties in a context in which redefinition is possible, whether redefinition would be logically consistent. A redefining Property is consistent with a redefined Property if the type of the redefining Property conforms to the type of the redefined Property, and the multiplicity of the redefining Property (if specified) is contained in the multiplicity of the redefined Property.</body>
+        </ownedComment>
+        <ownedRule xmi:type="uml:Constraint" xmi:id="Property-isConsistentWith-pre" name="pre" constrainedElement="Property-isConsistentWith">
+          <specification xmi:type="uml:OpaqueExpression" xmi:id="Property-isConsistentWith-pre-_specification">
+            <language>OCL</language>
+            <body>redefiningElement.isRedefinitionContextValid(self)</body>
+          </specification>
+        </ownedRule>
+        <ownedRule xmi:type="uml:Constraint" xmi:id="Property-isConsistentWith-spec" name="spec" constrainedElement="Property-isConsistentWith">
+          <specification xmi:type="uml:OpaqueExpression" xmi:id="Property-isConsistentWith-spec-_specification">
+            <language>OCL</language>
+            <body>result = (redefiningElement.oclIsKindOf(Property) and 
+  let prop : Property = redefiningElement.oclAsType(Property) in 
+  (prop.type.conformsTo(self.type) and 
+  ((prop.lowerBound()->notEmpty() and self.lowerBound()->notEmpty()) implies prop.lowerBound() >= self.lowerBound()) and 
+  ((prop.upperBound()->notEmpty() and self.upperBound()->notEmpty()) implies prop.lowerBound() &lt;= self.lowerBound()) and 
+  (self.isComposite implies prop.isComposite)))</body>
+          </specification>
+        </ownedRule>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="Property-isConsistentWith-result" name="result" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+        </ownedParameter>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="Property-isConsistentWith-redefiningElement" name="redefiningElement" type="RedefinableElement"/>
+      </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="Property-isNavigable" name="isNavigable" bodyCondition="Property-isNavigable-spec" isQuery="true">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Property-isNavigable-_ownedComment.0" annotatedElement="Property-isNavigable">
+          <body>The query isNavigable() indicates whether it is possible to navigate across the property.</body>
+        </ownedComment>
+        <ownedRule xmi:type="uml:Constraint" xmi:id="Property-isNavigable-spec" name="spec" constrainedElement="Property-isNavigable">
+          <specification xmi:type="uml:OpaqueExpression" xmi:id="Property-isNavigable-spec-_specification">
+            <language>OCL</language>
+            <body>result = (not classifier->isEmpty() or association.navigableOwnedEnd->includes(self))</body>
+          </specification>
+        </ownedRule>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="Property-isNavigable-result" name="result" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="Property-opposite.1" name="opposite" visibility="protected" bodyCondition="Property-opposite.1-spec" isQuery="true">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Property-opposite.1-_ownedComment.0" annotatedElement="Property-opposite.1">
+          <body>If this property is a memberEnd of a binary association, then opposite gives the other end.</body>
+        </ownedComment>
+        <ownedRule xmi:type="uml:Constraint" xmi:id="Property-opposite.1-spec" name="spec" constrainedElement="Property-opposite.1 Property-opposite">
+          <specification xmi:type="uml:OpaqueExpression" xmi:id="Property-opposite.1-spec-_specification">
+            <language>OCL</language>
+            <body>result = (if association &lt;> null and association.memberEnd->size() = 2
+then
+    association.memberEnd->any(e | e &lt;> self)
+else
+    null
+endif)</body>
+          </specification>
+        </ownedRule>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="Property-opposite.1-result" name="result" type="Property" direction="return">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Property-opposite.1-result-_lowerValue"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="Property-subsettingContext" name="subsettingContext" bodyCondition="Property-subsettingContext-spec" isQuery="true">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Property-subsettingContext-_ownedComment.0" annotatedElement="Property-subsettingContext">
+          <body>The query subsettingContext() gives the context for subsetting a Property. It consists, in the case of an attribute, of the corresponding Classifier, and in the case of an association end, all of the Classifiers at the other ends.</body>
+        </ownedComment>
+        <ownedRule xmi:type="uml:Constraint" xmi:id="Property-subsettingContext-spec" name="spec" constrainedElement="Property-subsettingContext">
+          <specification xmi:type="uml:OpaqueExpression" xmi:id="Property-subsettingContext-spec-_specification">
+            <language>OCL</language>
+            <body>result = (if association &lt;> null
+then association.memberEnd->excluding(self)->collect(type)->asSet()
+else 
+  if classifier&lt;>null
+  then classifier->asSet()
+  else Set{} 
+  endif
+endif)</body>
+          </specification>
+        </ownedRule>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="Property-subsettingContext-result" name="result" type="Type" direction="return">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Property-subsettingContext-result-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Property-subsettingContext-result-_upperValue" value="*"/>
+        </ownedParameter>
+      </ownedOperation>
+    </packagedElement>
     <packagedElement xmi:type="uml:Association" xmi:id="A_client_clientDependency" name="A_client_clientDependency" visibility="private" memberEnd="A_client_clientDependency-client NamedElement-clientDependency">
       <ownedEnd xmi:type="uml:Property" xmi:id="A_client_clientDependency-client" name="client" visibility="private" type="NamedElement" association="A_client_clientDependency">
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="A_client_clientDependency-client-_upperValue" value="*"/>
@@ -7045,474 +7513,6 @@ and&#xD;
         </ownedComment>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="ParameterSet-parameter-_upperValue" value="*"/>
       </ownedAttribute>
-    </packagedElement>
-    <packagedElement xmi:type="uml:Class" xmi:id="Property" name="Property">
-      <ownedComment xmi:type="uml:Comment" xmi:id="Property-_ownedComment.0" annotatedElement="Property">
-        <body>A Property is a StructuralFeature. A Property related by ownedAttribute to a Classifier (other than an association) represents an attribute and might also represent an association end. It relates an instance of the Classifier to a value or set of values of the type of the attribute. A Property related by memberEnd to an Association represents an end of the Association. The type of the Property is the type of the end of the Association. A Property has the capability of being a DeploymentTarget in a Deployment relationship. This enables modeling the deployment to hierarchical nodes that have Properties functioning as internal parts.  Property specializes ParameterableElement to specify that a Property can be exposed as a formal template parameter, and provided as an actual parameter in a binding of a template.</body>
-      </ownedComment>
-      <ownedRule xmi:type="uml:Constraint" xmi:id="Property-subsetting_context_conforms" name="subsetting_context_conforms" constrainedElement="Property">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Property-subsetting_context_conforms-_ownedComment.0" annotatedElement="Property-subsetting_context_conforms">
-          <body>Subsetting may only occur when the context of the subsetting property conforms to the context of the subsetted property.</body>
-        </ownedComment>
-        <specification xmi:type="uml:OpaqueExpression" xmi:id="Property-subsetting_context_conforms-_specification">
-          <language>OCL</language>
-          <body>subsettedProperty->notEmpty() implies
-  (subsettingContext()->notEmpty() and subsettingContext()->forAll (sc |
-    subsettedProperty->forAll(sp |
-      sp.subsettingContext()->exists(c | sc.conformsTo(c)))))</body>
-        </specification>
-      </ownedRule>
-      <ownedRule xmi:type="uml:Constraint" xmi:id="Property-derived_union_is_read_only" name="derived_union_is_read_only" constrainedElement="Property">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Property-derived_union_is_read_only-_ownedComment.0" annotatedElement="Property-derived_union_is_read_only">
-          <body>A derived union is read only.</body>
-        </ownedComment>
-        <specification xmi:type="uml:OpaqueExpression" xmi:id="Property-derived_union_is_read_only-_specification">
-          <language>OCL</language>
-          <body>isDerivedUnion implies isReadOnly</body>
-        </specification>
-      </ownedRule>
-      <ownedRule xmi:type="uml:Constraint" xmi:id="Property-multiplicity_of_composite" name="multiplicity_of_composite" constrainedElement="Property">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Property-multiplicity_of_composite-_ownedComment.0" annotatedElement="Property-multiplicity_of_composite">
-          <body>A multiplicity on the composing end of a composite aggregation must not have an upper bound greater than 1.</body>
-        </ownedComment>
-        <specification xmi:type="uml:OpaqueExpression" xmi:id="Property-multiplicity_of_composite-_specification">
-          <language>OCL</language>
-          <body>isComposite and association &lt;> null implies opposite.upperBound() &lt;= 1</body>
-        </specification>
-      </ownedRule>
-      <ownedRule xmi:type="uml:Constraint" xmi:id="Property-redefined_property_inherited" name="redefined_property_inherited" constrainedElement="Property">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Property-redefined_property_inherited-_ownedComment.0" annotatedElement="Property-redefined_property_inherited">
-          <body>A redefined Property must be inherited from a more general Classifier.</body>
-        </ownedComment>
-        <specification xmi:type="uml:OpaqueExpression" xmi:id="Property-redefined_property_inherited-_specification">
-          <language>OCL</language>
-          <body>(redefinedProperty->notEmpty()) implies&#xD;
-  (redefinitionContext->notEmpty() and&#xD;
-      redefinedProperty->forAll(rp|&#xD;
-        ((redefinitionContext->collect(fc|&#xD;
-          fc.allParents()))->asSet())->collect(c| c.allFeatures())->asSet()->includes(rp)))</body>
-        </specification>
-      </ownedRule>
-      <ownedRule xmi:type="uml:Constraint" xmi:id="Property-subsetting_rules" name="subsetting_rules" constrainedElement="Property">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Property-subsetting_rules-_ownedComment.0" annotatedElement="Property-subsetting_rules">
-          <body>A subsetting Property may strengthen the type of the subsetted Property, and its upper bound may be less.</body>
-        </ownedComment>
-        <specification xmi:type="uml:OpaqueExpression" xmi:id="Property-subsetting_rules-_specification">
-          <language>OCL</language>
-          <body>subsettedProperty->forAll(sp |
-  self.type.conformsTo(sp.type) and
-    ((self.upperBound()->notEmpty() and sp.upperBound()->notEmpty()) implies
-      self.upperBound() &lt;= sp.upperBound() ))</body>
-        </specification>
-      </ownedRule>
-      <ownedRule xmi:type="uml:Constraint" xmi:id="Property-binding_to_attribute" name="binding_to_attribute" constrainedElement="Property">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Property-binding_to_attribute-_ownedComment.0" annotatedElement="Property-binding_to_attribute">
-          <body>A binding of a PropertyTemplateParameter representing an attribute must be to an attribute.</body>
-        </ownedComment>
-        <specification xmi:type="uml:OpaqueExpression" xmi:id="Property-binding_to_attribute-_specification">
-          <language>OCL</language>
-          <body>(self.isAttribute()&#xD;
-and (templateParameterSubstitution->notEmpty())&#xD;
-implies (templateParameterSubstitution->forAll(ts |&#xD;
-    ts.formal.oclIsKindOf(Property)&#xD;
-    and ts.formal.oclAsType(Property).isAttribute())))</body>
-        </specification>
-      </ownedRule>
-      <ownedRule xmi:type="uml:Constraint" xmi:id="Property-derived_union_is_derived" name="derived_union_is_derived" constrainedElement="Property">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Property-derived_union_is_derived-_ownedComment.0" annotatedElement="Property-derived_union_is_derived">
-          <body>A derived union is derived.</body>
-        </ownedComment>
-        <specification xmi:type="uml:OpaqueExpression" xmi:id="Property-derived_union_is_derived-_specification">
-          <language>OCL</language>
-          <body>isDerivedUnion implies isDerived</body>
-        </specification>
-      </ownedRule>
-      <ownedRule xmi:type="uml:Constraint" xmi:id="Property-deployment_target" name="deployment_target" constrainedElement="Property">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Property-deployment_target-_ownedComment.0" annotatedElement="Property-deployment_target">
-          <body>A Property can be a DeploymentTarget if it is a kind of Node and functions as a part in the internal structure of an encompassing Node.</body>
-        </ownedComment>
-        <specification xmi:type="uml:OpaqueExpression" xmi:id="Property-deployment_target-_specification">
-          <language>OCL</language>
-          <body>deployment->notEmpty() implies owner.oclIsKindOf(Node) and Node.allInstances()->exists(n | n.part->exists(p | p = self))</body>
-        </specification>
-      </ownedRule>
-      <ownedRule xmi:type="uml:Constraint" xmi:id="Property-subsetted_property_names" name="subsetted_property_names" constrainedElement="Property">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Property-subsetted_property_names-_ownedComment.0" annotatedElement="Property-subsetted_property_names">
-          <body>A Property may not subset a Property with the same name.</body>
-        </ownedComment>
-        <specification xmi:type="uml:OpaqueExpression" xmi:id="Property-subsetted_property_names-_specification">
-          <language>OCL</language>
-          <body>subsettedProperty->forAll(sp | sp.name &lt;> name)</body>
-        </specification>
-      </ownedRule>
-      <ownedRule xmi:type="uml:Constraint" xmi:id="Property-type_of_opposite_end" name="type_of_opposite_end" constrainedElement="Property">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Property-type_of_opposite_end-_ownedComment.0" annotatedElement="Property-type_of_opposite_end">
-          <body>If a Property is a classifier-owned end of a binary Association, its owner must be the type of the opposite end.</body>
-        </ownedComment>
-        <specification xmi:type="uml:OpaqueExpression" xmi:id="Property-type_of_opposite_end-_specification">
-          <language>OCL</language>
-          <body>(opposite->notEmpty() and owningAssociation->isEmpty()) implies classifier = opposite.type</body>
-        </specification>
-      </ownedRule>
-      <ownedRule xmi:type="uml:Constraint" xmi:id="Property-qualified_is_association_end" name="qualified_is_association_end" constrainedElement="Property">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Property-qualified_is_association_end-_ownedComment.0" annotatedElement="Property-qualified_is_association_end">
-          <body>All qualified Properties must be Association ends</body>
-        </ownedComment>
-        <specification xmi:type="uml:OpaqueExpression" xmi:id="Property-qualified_is_association_end-_specification">
-          <language>OCL</language>
-          <body>qualifier->notEmpty() implies association->notEmpty()</body>
-        </specification>
-      </ownedRule>
-      <generalization xmi:type="uml:Generalization" xmi:id="Property-_generalization.0" general="ConnectableElement"/>
-      <generalization xmi:type="uml:Generalization" xmi:id="Property-_generalization.1" general="DeploymentTarget"/>
-      <generalization xmi:type="uml:Generalization" xmi:id="Property-_generalization.2" general="StructuralFeature"/>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="Property-default" name="default" visibility="protected" isDerived="true">
-        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Property-default-_lowerValue"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="Property-aggregation" name="aggregation" type="AggregationKind">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Property-aggregation-_ownedComment.0" annotatedElement="Property-aggregation">
-          <body>Specifies the kind of aggregation that applies to the Property.</body>
-        </ownedComment>
-        <defaultValue xmi:type="uml:InstanceValue" xmi:id="Property-aggregation-_defaultValue" type="AggregationKind" instance="AggregationKind-none"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="Property-association" name="association" type="Association" subsettedProperty="A_member_memberNamespace-memberNamespace" association="A_memberEnd_association">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Property-association-_ownedComment.0" annotatedElement="Property-association">
-          <body>The Association of which this Property is a member, if any.</body>
-        </ownedComment>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Property-association-_lowerValue"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="Property-associationEnd" name="associationEnd" type="Property" subsettedProperty="Element-owner" association="A_qualifier_associationEnd">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Property-associationEnd-_ownedComment.0" annotatedElement="Property-associationEnd">
-          <body>Designates the optional association end that owns a qualifier attribute.</body>
-        </ownedComment>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Property-associationEnd-_lowerValue"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="Property-class" name="class" type="Class" subsettedProperty="A_attribute_classifier-classifier A_ownedAttribute_structuredClassifier-structuredClassifier NamedElement-namespace Feature-featuringClassifier RedefinableElement-redefinitionContext" association="A_ownedAttribute_class">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Property-class-_ownedComment.0" annotatedElement="Property-class">
-          <body>The Class that owns this Property, if any.</body>
-        </ownedComment>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Property-class-_lowerValue"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="Property-datatype" name="datatype" type="DataType" subsettedProperty="A_attribute_classifier-classifier NamedElement-namespace Feature-featuringClassifier RedefinableElement-redefinitionContext" association="A_ownedAttribute_datatype">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Property-datatype-_ownedComment.0" annotatedElement="Property-datatype">
-          <body>The DataType that owns this Property, if any.</body>
-        </ownedComment>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Property-datatype-_lowerValue"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="Property-defaultValue" name="defaultValue" type="ValueSpecification" aggregation="composite" subsettedProperty="Element-ownedElement" association="A_defaultValue_owningProperty">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Property-defaultValue-_ownedComment.0" annotatedElement="Property-defaultValue">
-          <body>A ValueSpecification that is evaluated to give a default value for the Property when an instance of the owning Classifier is instantiated.</body>
-        </ownedComment>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Property-defaultValue-_lowerValue"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="Property-interface" name="interface" type="Interface" subsettedProperty="A_attribute_classifier-classifier NamedElement-namespace Feature-featuringClassifier RedefinableElement-redefinitionContext" association="A_ownedAttribute_interface">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Property-interface-_ownedComment.0" annotatedElement="Property-interface">
-          <body>The Interface that owns this Property, if any.</body>
-        </ownedComment>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Property-interface-_lowerValue"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="Property-isComposite" name="isComposite" isDerived="true">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Property-isComposite-_ownedComment.0" annotatedElement="Property-isComposite">
-          <body>If isComposite is true, the object containing the attribute is a container for the object or value contained in the attribute. This is a derived value, indicating whether the aggregation of the Property is composite or not.</body>
-        </ownedComment>
-        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
-        <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="Property-isComposite-_defaultValue"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="Property-isDerived" name="isDerived">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Property-isDerived-_ownedComment.0" annotatedElement="Property-isDerived">
-          <body>Specifies whether the Property is derived, i.e., whether its value or values can be computed from other information.</body>
-        </ownedComment>
-        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
-        <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="Property-isDerived-_defaultValue"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="Property-isDerivedUnion" name="isDerivedUnion">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Property-isDerivedUnion-_ownedComment.0" annotatedElement="Property-isDerivedUnion">
-          <body>Specifies whether the property is derived as the union of all of the Properties that are constrained to subset it.</body>
-        </ownedComment>
-        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
-        <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="Property-isDerivedUnion-_defaultValue"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="Property-isID" name="isID">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Property-isID-_ownedComment.0" annotatedElement="Property-isID">
-          <body>True indicates this property can be used to uniquely identify an instance of the containing Class.</body>
-        </ownedComment>
-        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
-        <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="Property-isID-_defaultValue"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="Property-opposite" name="opposite" type="Property" isDerived="true" association="A_opposite_property">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Property-opposite-_ownedComment.0" annotatedElement="Property-opposite">
-          <body>In the case where the Property is one end of a binary association this gives the other end.</body>
-        </ownedComment>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Property-opposite-_lowerValue"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="Property-owningAssociation" name="owningAssociation" type="Association" subsettedProperty="Feature-featuringClassifier NamedElement-namespace Property-association RedefinableElement-redefinitionContext" association="A_ownedEnd_owningAssociation">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Property-owningAssociation-_ownedComment.0" annotatedElement="Property-owningAssociation">
-          <body>The owning association of this property, if any.</body>
-        </ownedComment>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Property-owningAssociation-_lowerValue"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="Property-qualifier" name="qualifier" type="Property" isOrdered="true" aggregation="composite" subsettedProperty="Element-ownedElement" association="A_qualifier_associationEnd">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Property-qualifier-_ownedComment.0" annotatedElement="Property-qualifier">
-          <body>An optional list of ordered qualifier attributes for the end.</body>
-        </ownedComment>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Property-qualifier-_lowerValue"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Property-qualifier-_upperValue" value="*"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="Property-redefinedProperty" name="redefinedProperty" type="Property" subsettedProperty="RedefinableElement-redefinedElement" association="A_redefinedProperty_property">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Property-redefinedProperty-_ownedComment.0" annotatedElement="Property-redefinedProperty">
-          <body>The properties that are redefined by this property, if any.</body>
-        </ownedComment>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Property-redefinedProperty-_lowerValue"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Property-redefinedProperty-_upperValue" value="*"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="Property-subsettedProperty" name="subsettedProperty" type="Property" association="A_subsettedProperty_property">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Property-subsettedProperty-_ownedComment.0" annotatedElement="Property-subsettedProperty">
-          <body>The properties of which this Property is constrained to be a subset, if any.</body>
-        </ownedComment>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Property-subsettedProperty-_lowerValue"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Property-subsettedProperty-_upperValue" value="*"/>
-      </ownedAttribute>
-      <ownedOperation xmi:type="uml:Operation" xmi:id="Property-getDefault" name="getDefault" isQuery="true">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Property-getDefault-_ownedComment.0" annotatedElement="Property-getDefault">
-          <body>Retrieves a string representation of the default value for this property.</body>
-        </ownedComment>
-        <ownedParameter xmi:type="uml:Parameter" xmi:id="Property-getDefault-result" name="result" direction="return">
-          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Property-getDefault-result-_lowerValue"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Property-getDefault-result-_upperValue" value="1"/>
-        </ownedParameter>
-      </ownedOperation>
-      <ownedOperation xmi:type="uml:Operation" xmi:id="Property-getOtherEnd" name="getOtherEnd">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Property-getOtherEnd-_ownedComment.0" annotatedElement="Property-getOtherEnd">
-          <body>Retrieves the other end of the (binary) association in which this property is a member end.</body>
-        </ownedComment>
-        <ownedParameter xmi:type="uml:Parameter" xmi:id="Property-getOtherEnd-_ownedParameter.0" type="Property" direction="return">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Property-getOtherEnd-_ownedParameter.0-_lowerValue"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Property-getOtherEnd-_ownedParameter.0-_upperValue" value="1"/>
-        </ownedParameter>
-      </ownedOperation>
-      <ownedOperation xmi:type="uml:Operation" xmi:id="Property-isSetDefault" name="isSetDefault" visibility="protected" isQuery="true">
-        <ownedParameter xmi:type="uml:Parameter" xmi:id="Property-isSetDefault-_ownedParameter.0" direction="return">
-          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
-        </ownedParameter>
-      </ownedOperation>
-      <ownedOperation xmi:type="uml:Operation" xmi:id="Property-setBooleanDefaultValue" name="setBooleanDefaultValue">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Property-setBooleanDefaultValue-_ownedComment.0" annotatedElement="Property-setBooleanDefaultValue">
-          <body>Sets the default value for this property to the specified Boolean value.</body>
-        </ownedComment>
-        <ownedParameter xmi:type="uml:Parameter" xmi:id="Property-setBooleanDefaultValue-value" name="value" effect="read">
-          <ownedComment xmi:type="uml:Comment" xmi:id="Property-setBooleanDefaultValue-value-_ownedComment.0" annotatedElement="Property-setBooleanDefaultValue-value">
-            <body>The new default value.</body>
-          </ownedComment>
-          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
-        </ownedParameter>
-      </ownedOperation>
-      <ownedOperation xmi:type="uml:Operation" xmi:id="Property-setDefault" name="setDefault">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Property-setDefault-_ownedComment.0" annotatedElement="Property-setDefault">
-          <body>Sets the default value for this property based on the specified string representation.</body>
-        </ownedComment>
-        <ownedParameter xmi:type="uml:Parameter" xmi:id="Property-setDefault-newDefault" name="newDefault" effect="read">
-          <ownedComment xmi:type="uml:Comment" xmi:id="Property-setDefault-newDefault-_ownedComment.0" annotatedElement="Property-setDefault-newDefault">
-            <body>A string repesentation of the new default value.</body>
-          </ownedComment>
-          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-        </ownedParameter>
-      </ownedOperation>
-      <ownedOperation xmi:type="uml:Operation" xmi:id="Property-setIntegerDefaultValue" name="setIntegerDefaultValue">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Property-setIntegerDefaultValue-_ownedComment.0" annotatedElement="Property-setIntegerDefaultValue">
-          <body>Sets the default value for this property to the specified integer value.</body>
-        </ownedComment>
-        <ownedParameter xmi:type="uml:Parameter" xmi:id="Property-setIntegerDefaultValue-value" name="value" effect="read">
-          <ownedComment xmi:type="uml:Comment" xmi:id="Property-setIntegerDefaultValue-value-_ownedComment.0" annotatedElement="Property-setIntegerDefaultValue-value">
-            <body>The new default value.</body>
-          </ownedComment>
-          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
-        </ownedParameter>
-      </ownedOperation>
-      <ownedOperation xmi:type="uml:Operation" xmi:id="Property-setIsComposite" name="setIsComposite" visibility="protected">
-        <ownedParameter xmi:type="uml:Parameter" xmi:id="Property-setIsComposite-newIsComposite" name="newIsComposite" effect="read">
-          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
-        </ownedParameter>
-      </ownedOperation>
-      <ownedOperation xmi:type="uml:Operation" xmi:id="Property-setIsNavigable" name="setIsNavigable">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Property-setIsNavigable-_ownedComment.0" annotatedElement="Property-setIsNavigable">
-          <body>Sets the navigability of this property as indicated.</body>
-        </ownedComment>
-        <ownedParameter xmi:type="uml:Parameter" xmi:id="Property-setIsNavigable-isNavigable" name="isNavigable" effect="read">
-          <ownedComment xmi:type="uml:Comment" xmi:id="Property-setIsNavigable-isNavigable-_ownedComment.0" annotatedElement="Property-setIsNavigable-isNavigable">
-            <body>The new navigability.</body>
-          </ownedComment>
-          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
-        </ownedParameter>
-      </ownedOperation>
-      <ownedOperation xmi:type="uml:Operation" xmi:id="Property-setNullDefaultValue" name="setNullDefaultValue">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Property-setNullDefaultValue-_ownedComment.0" annotatedElement="Property-setNullDefaultValue">
-          <body>Sets the default value for this property to the null value.</body>
-        </ownedComment>
-      </ownedOperation>
-      <ownedOperation xmi:type="uml:Operation" xmi:id="Property-setOpposite" name="setOpposite" visibility="protected">
-        <ownedParameter xmi:type="uml:Parameter" xmi:id="Property-setOpposite-newOpposite" name="newOpposite" visibility="protected" type="Property" effect="read"/>
-      </ownedOperation>
-      <ownedOperation xmi:type="uml:Operation" xmi:id="Property-setRealDefaultValue" name="setRealDefaultValue">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Property-setRealDefaultValue-_ownedComment.0" annotatedElement="Property-setRealDefaultValue">
-          <body>Sets the default value for this property to the specified real value.</body>
-        </ownedComment>
-        <ownedParameter xmi:type="uml:Parameter" xmi:id="Property-setRealDefaultValue-value" name="value" effect="read">
-          <ownedComment xmi:type="uml:Comment" xmi:id="Property-setRealDefaultValue-value-_ownedComment.0" annotatedElement="Property-setRealDefaultValue-value">
-            <body>The new default value.</body>
-          </ownedComment>
-          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Real"/>
-        </ownedParameter>
-      </ownedOperation>
-      <ownedOperation xmi:type="uml:Operation" xmi:id="Property-setStringDefaultValue" name="setStringDefaultValue">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Property-setStringDefaultValue-_ownedComment.0" annotatedElement="Property-setStringDefaultValue">
-          <body>Sets the default value for this property to the specified string value.</body>
-        </ownedComment>
-        <ownedParameter xmi:type="uml:Parameter" xmi:id="Property-setStringDefaultValue-value" name="value" effect="read">
-          <ownedComment xmi:type="uml:Comment" xmi:id="Property-setStringDefaultValue-value-_ownedComment.0" annotatedElement="Property-setStringDefaultValue-value">
-            <body>The new default value.</body>
-          </ownedComment>
-          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-        </ownedParameter>
-      </ownedOperation>
-      <ownedOperation xmi:type="uml:Operation" xmi:id="Property-setUnlimitedNaturalDefaultValue" name="setUnlimitedNaturalDefaultValue">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Property-setUnlimitedNaturalDefaultValue-_ownedComment.0" annotatedElement="Property-setUnlimitedNaturalDefaultValue">
-          <body>Sets the default value for this property to the specified unlimited natural value.</body>
-        </ownedComment>
-        <ownedParameter xmi:type="uml:Parameter" xmi:id="Property-setUnlimitedNaturalDefaultValue-value" name="value" effect="read">
-          <ownedComment xmi:type="uml:Comment" xmi:id="Property-setUnlimitedNaturalDefaultValue-value-_ownedComment.0" annotatedElement="Property-setUnlimitedNaturalDefaultValue-value">
-            <body>The new default value.</body>
-          </ownedComment>
-          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#UnlimitedNatural"/>
-        </ownedParameter>
-      </ownedOperation>
-      <ownedOperation xmi:type="uml:Operation" xmi:id="Property-unsetDefault" name="unsetDefault" visibility="protected"/>
-      <ownedOperation xmi:type="uml:Operation" xmi:id="Property-isAttribute" name="isAttribute" bodyCondition="Property-isAttribute-spec" isQuery="true">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Property-isAttribute-_ownedComment.0" annotatedElement="Property-isAttribute">
-          <body>The query isAttribute() is true if the Property is defined as an attribute of some Classifier.</body>
-        </ownedComment>
-        <ownedRule xmi:type="uml:Constraint" xmi:id="Property-isAttribute-spec" name="spec" constrainedElement="Property-isAttribute">
-          <specification xmi:type="uml:OpaqueExpression" xmi:id="Property-isAttribute-spec-_specification">
-            <language>OCL</language>
-            <body>result = (not classifier->isEmpty())</body>
-          </specification>
-        </ownedRule>
-        <ownedParameter xmi:type="uml:Parameter" xmi:id="Property-isAttribute-result" name="result" direction="return">
-          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
-        </ownedParameter>
-      </ownedOperation>
-      <ownedOperation xmi:type="uml:Operation" xmi:id="Property-isCompatibleWith" name="isCompatibleWith" bodyCondition="Property-isCompatibleWith-spec" isQuery="true" redefinedOperation="ParameterableElement-isCompatibleWith">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Property-isCompatibleWith-_ownedComment.0" annotatedElement="Property-isCompatibleWith">
-          <body>The query isCompatibleWith() determines if this Property is compatible with the specified ParameterableElement. This Property is compatible with ParameterableElement p if the kind of this Property is thesame as or a subtype of the kind of p. Further, if p is a TypedElement, then the type of this Property must be conformant with the type of p.</body>
-        </ownedComment>
-        <ownedRule xmi:type="uml:Constraint" xmi:id="Property-isCompatibleWith-spec" name="spec" constrainedElement="Property-isCompatibleWith">
-          <specification xmi:type="uml:OpaqueExpression" xmi:id="Property-isCompatibleWith-spec-_specification">
-            <language>OCL</language>
-            <body>result = (self.oclIsKindOf(p.oclType()) and (p.oclIsKindOf(TypedElement) implies&#xD;
-self.type.conformsTo(p.oclAsType(TypedElement).type)))</body>
-          </specification>
-        </ownedRule>
-        <ownedParameter xmi:type="uml:Parameter" xmi:id="Property-isCompatibleWith-result" name="result" direction="return">
-          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
-        </ownedParameter>
-        <ownedParameter xmi:type="uml:Parameter" xmi:id="Property-isCompatibleWith-p" name="p" type="ParameterableElement"/>
-      </ownedOperation>
-      <ownedOperation xmi:type="uml:Operation" xmi:id="Property-isComposite.1" name="isComposite" bodyCondition="Property-isComposite.1-spec" isQuery="true">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Property-isComposite.1-_ownedComment.0" annotatedElement="Property-isComposite.1">
-          <body>The value of isComposite is true only if aggregation is composite.</body>
-        </ownedComment>
-        <ownedRule xmi:type="uml:Constraint" xmi:id="Property-isComposite.1-spec" name="spec" constrainedElement="Property-isComposite.1 Property-isComposite">
-          <specification xmi:type="uml:OpaqueExpression" xmi:id="Property-isComposite.1-spec-_specification">
-            <language>OCL</language>
-            <body>result = (aggregation = AggregationKind::composite)</body>
-          </specification>
-        </ownedRule>
-        <ownedParameter xmi:type="uml:Parameter" xmi:id="Property-isComposite.1-result" name="result" direction="return">
-          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
-        </ownedParameter>
-      </ownedOperation>
-      <ownedOperation xmi:type="uml:Operation" xmi:id="Property-isConsistentWith" name="isConsistentWith" bodyCondition="Property-isConsistentWith-spec" isQuery="true" precondition="Property-isConsistentWith-pre" redefinedOperation="RedefinableElement-isConsistentWith">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Property-isConsistentWith-_ownedComment.0" annotatedElement="Property-isConsistentWith">
-          <body>The query isConsistentWith() specifies, for any two Properties in a context in which redefinition is possible, whether redefinition would be logically consistent. A redefining Property is consistent with a redefined Property if the type of the redefining Property conforms to the type of the redefined Property, and the multiplicity of the redefining Property (if specified) is contained in the multiplicity of the redefined Property.</body>
-        </ownedComment>
-        <ownedRule xmi:type="uml:Constraint" xmi:id="Property-isConsistentWith-pre" name="pre" constrainedElement="Property-isConsistentWith">
-          <specification xmi:type="uml:OpaqueExpression" xmi:id="Property-isConsistentWith-pre-_specification">
-            <language>OCL</language>
-            <body>redefiningElement.isRedefinitionContextValid(self)</body>
-          </specification>
-        </ownedRule>
-        <ownedRule xmi:type="uml:Constraint" xmi:id="Property-isConsistentWith-spec" name="spec" constrainedElement="Property-isConsistentWith">
-          <specification xmi:type="uml:OpaqueExpression" xmi:id="Property-isConsistentWith-spec-_specification">
-            <language>OCL</language>
-            <body>result = (redefiningElement.oclIsKindOf(Property) and 
-  let prop : Property = redefiningElement.oclAsType(Property) in 
-  (prop.type.conformsTo(self.type) and 
-  ((prop.lowerBound()->notEmpty() and self.lowerBound()->notEmpty()) implies prop.lowerBound() >= self.lowerBound()) and 
-  ((prop.upperBound()->notEmpty() and self.upperBound()->notEmpty()) implies prop.lowerBound() &lt;= self.lowerBound()) and 
-  (self.isComposite implies prop.isComposite)))</body>
-          </specification>
-        </ownedRule>
-        <ownedParameter xmi:type="uml:Parameter" xmi:id="Property-isConsistentWith-result" name="result" direction="return">
-          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
-        </ownedParameter>
-        <ownedParameter xmi:type="uml:Parameter" xmi:id="Property-isConsistentWith-redefiningElement" name="redefiningElement" type="RedefinableElement"/>
-      </ownedOperation>
-      <ownedOperation xmi:type="uml:Operation" xmi:id="Property-isNavigable" name="isNavigable" bodyCondition="Property-isNavigable-spec" isQuery="true">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Property-isNavigable-_ownedComment.0" annotatedElement="Property-isNavigable">
-          <body>The query isNavigable() indicates whether it is possible to navigate across the property.</body>
-        </ownedComment>
-        <ownedRule xmi:type="uml:Constraint" xmi:id="Property-isNavigable-spec" name="spec" constrainedElement="Property-isNavigable">
-          <specification xmi:type="uml:OpaqueExpression" xmi:id="Property-isNavigable-spec-_specification">
-            <language>OCL</language>
-            <body>result = (not classifier->isEmpty() or association.navigableOwnedEnd->includes(self))</body>
-          </specification>
-        </ownedRule>
-        <ownedParameter xmi:type="uml:Parameter" xmi:id="Property-isNavigable-result" name="result" direction="return">
-          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
-        </ownedParameter>
-      </ownedOperation>
-      <ownedOperation xmi:type="uml:Operation" xmi:id="Property-opposite.1" name="opposite" visibility="protected" bodyCondition="Property-opposite.1-spec" isQuery="true">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Property-opposite.1-_ownedComment.0" annotatedElement="Property-opposite.1">
-          <body>If this property is a memberEnd of a binary association, then opposite gives the other end.</body>
-        </ownedComment>
-        <ownedRule xmi:type="uml:Constraint" xmi:id="Property-opposite.1-spec" name="spec" constrainedElement="Property-opposite.1 Property-opposite">
-          <specification xmi:type="uml:OpaqueExpression" xmi:id="Property-opposite.1-spec-_specification">
-            <language>OCL</language>
-            <body>result = (if association &lt;> null and association.memberEnd->size() = 2
-then
-    association.memberEnd->any(e | e &lt;> self)
-else
-    null
-endif)</body>
-          </specification>
-        </ownedRule>
-        <ownedParameter xmi:type="uml:Parameter" xmi:id="Property-opposite.1-result" name="result" type="Property" direction="return">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Property-opposite.1-result-_lowerValue"/>
-        </ownedParameter>
-      </ownedOperation>
-      <ownedOperation xmi:type="uml:Operation" xmi:id="Property-subsettingContext" name="subsettingContext" bodyCondition="Property-subsettingContext-spec" isQuery="true">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Property-subsettingContext-_ownedComment.0" annotatedElement="Property-subsettingContext">
-          <body>The query subsettingContext() gives the context for subsetting a Property. It consists, in the case of an attribute, of the corresponding Classifier, and in the case of an association end, all of the Classifiers at the other ends.</body>
-        </ownedComment>
-        <ownedRule xmi:type="uml:Constraint" xmi:id="Property-subsettingContext-spec" name="spec" constrainedElement="Property-subsettingContext">
-          <specification xmi:type="uml:OpaqueExpression" xmi:id="Property-subsettingContext-spec-_specification">
-            <language>OCL</language>
-            <body>result = (if association &lt;> null
-then association.memberEnd->excluding(self)->collect(type)->asSet()
-else 
-  if classifier&lt;>null
-  then classifier->asSet()
-  else Set{} 
-  endif
-endif)</body>
-          </specification>
-        </ownedRule>
-        <ownedParameter xmi:type="uml:Parameter" xmi:id="Property-subsettingContext-result" name="result" type="Type" direction="return">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Property-subsettingContext-result-_lowerValue"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Property-subsettingContext-result-_upperValue" value="*"/>
-        </ownedParameter>
-      </ownedOperation>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="RedefinableElement" name="RedefinableElement" isAbstract="true">
       <ownedComment xmi:type="uml:Comment" xmi:id="RedefinableElement-_ownedComment.0" annotatedElement="RedefinableElement">
