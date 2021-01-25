@@ -1,6 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_dF39gF5VEeuC9dSppsphRQ" name="UML metamodel in Papyrus">
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_dF39gF5VEeuC9dSppsphRQ" name="UML metamodel in Papyrus">
   <packageImport xmi:type="uml:PackageImport" xmi:id="_gLrQ0F5VEeuC9dSppsphRQ">
     <importedPackage xmi:type="uml:Model" href="UML.metamodel-modified.uml#_0"/>
   </packageImport>
+  <packageImport xmi:type="uml:PackageImport" xmi:id="_zQXG0F8SEeuTP8NO12B6eA">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#_0"/>
+  </packageImport>
+  <packagedElement xmi:type="uml:Class" xmi:id="_yNN5sF8QEeuTP8NO12B6eA" name="Car">
+    <generalization xmi:type="uml:Generalization" xmi:id="_YGjgkF8VEeuTP8NO12B6eA" general="_SzqqoF8VEeuTP8NO12B6eA"/>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_Jkt84F8XEeu8nO-56tFL6Q" name="roofOpens">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
+    </ownedAttribute>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_SC8DMF8TEeuTP8NO12B6eA" name="move"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_8ywDEF8SEeuTP8NO12B6eA" name="Person">
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_odPtEV8TEeuTP8NO12B6eA" name="ownedCar" type="_yNN5sF8QEeuTP8NO12B6eA" association="_odLboF8TEeuTP8NO12B6eA">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_AfmiwF8oEeu8nO-56tFL6Q"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_AgDOsF8oEeu8nO-56tFL6Q" value="*"/>
+    </ownedAttribute>
+    <interfaceRealization xmi:type="uml:InterfaceRealization" xmi:id="_mdlyYF8nEeu8nO-56tFL6Q" client="_8ywDEF8SEeuTP8NO12B6eA" supplier="_FUH08F8YEeu8nO-56tFL6Q" contract="_FUH08F8YEeu8nO-56tFL6Q"/>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_fPCREF8TEeuTP8NO12B6eA" name="moveCars"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_odLboF8TEeuTP8NO12B6eA" memberEnd="_odOe8F8TEeuTP8NO12B6eA _odPtEV8TEeuTP8NO12B6eA">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_odNQ0F8TEeuTP8NO12B6eA" source="org.eclipse.papyrus">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_odNQ0V8TEeuTP8NO12B6eA" key="nature" value="UML_Nature"/>
+    </eAnnotations>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_odOe8F8TEeuTP8NO12B6eA" name="owner" type="_8ywDEF8SEeuTP8NO12B6eA" association="_odLboF8TEeuTP8NO12B6eA">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_odPGAF8TEeuTP8NO12B6eA"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_odPtEF8TEeuTP8NO12B6eA" value="1"/>
+    </ownedEnd>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_SzqqoF8VEeuTP8NO12B6eA" name="Vehicule">
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_7RCOIF8REeuTP8NO12B6eA" name="speed" visibility="public">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+    </ownedAttribute>
+    <interfaceRealization xmi:type="uml:InterfaceRealization" xmi:id="_geqV0F8nEeu8nO-56tFL6Q" client="_SzqqoF8VEeuTP8NO12B6eA" supplier="_FUH08F8YEeu8nO-56tFL6Q" contract="_FUH08F8YEeu8nO-56tFL6Q"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_63HgAF8WEeu8nO-56tFL6Q" name="Motorbike">
+    <generalization xmi:type="uml:Generalization" xmi:id="_Fooh0F8XEeu8nO-56tFL6Q" general="_SzqqoF8VEeuTP8NO12B6eA"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Interface" xmi:id="_FUH08F8YEeu8nO-56tFL6Q" name="MovingThing">
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_aM4zkF8YEeu8nO-56tFL6Q" name="move"/>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_cBTXgF8YEeu8nO-56tFL6Q" name="position"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_ytn-cF8YEeu8nO-56tFL6Q" name="Simulator"/>
+  <packagedElement xmi:type="uml:Usage" xmi:id="_8x0AMF8YEeu8nO-56tFL6Q" name="requires" client="_ytn-cF8YEeu8nO-56tFL6Q" supplier="_dF39gF5VEeuC9dSppsphRQ _cBTXgF8YEeu8nO-56tFL6Q"/>
+  <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_OqcgkF8XEeu8nO-56tFL6Q">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_OqinMF8XEeu8nO-56tFL6Q" source="http://www.eclipse.org/uml2/2.0.0/UML">
+      <references xmi:type="ecore:EPackage" href="pathmap://PAPYRUS_ACTIONLANGUAGE_PROFILE/ActionLanguage-Profile.profile.uml#_Kv8EIKFXEeS_KNX0nfvIVQ"/>
+    </eAnnotations>
+    <appliedProfile xmi:type="uml:Profile" href="pathmap://PAPYRUS_ACTIONLANGUAGE_PROFILE/ActionLanguage-Profile.profile.uml#ActionLanguage"/>
+  </profileApplication>
 </uml:Model>
