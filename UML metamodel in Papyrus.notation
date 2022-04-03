@@ -1167,7 +1167,14 @@
         <styles xmi:type="notation:FilteringStyle" xmi:id="_YacKBrMtEeyM0fsITEr4YA"/>
         <layoutConstraint xmi:type="notation:Bounds" xmi:id="_YacKB7MtEeyM0fsITEr4YA"/>
       </children>
-      <children xmi:type="notation:BasicCompartment" xmi:id="_YacKCLMtEeyM0fsITEr4YA" visible="false" type="Class_OperationCompartment">
+      <children xmi:type="notation:BasicCompartment" xmi:id="_YacKCLMtEeyM0fsITEr4YA" type="Class_OperationCompartment">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_VUA5sLMvEeyM0fsITEr4YA" source="PapyrusCSSForceValue">
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_VUA5sbMvEeyM0fsITEr4YA" key="visible" value="true"/>
+        </eAnnotations>
+        <children xmi:type="notation:Shape" xmi:id="_WzfvcLMvEeyM0fsITEr4YA" type="Operation_ClassOperationLabel">
+          <element xmi:type="uml:Operation" href="UML%20metamodel%20in%20Papyrus.uml#_fPCREF8TEeuTP8NO12B6eA"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_WzfvcbMvEeyM0fsITEr4YA"/>
+        </children>
         <styles xmi:type="notation:TitleStyle" xmi:id="_YacKCbMtEeyM0fsITEr4YA"/>
         <styles xmi:type="notation:SortingStyle" xmi:id="_YacKCrMtEeyM0fsITEr4YA"/>
         <styles xmi:type="notation:FilteringStyle" xmi:id="_YacKC7MtEeyM0fsITEr4YA"/>
