@@ -14,10 +14,6 @@
           <element xmi:type="uml:Property" href="UML.metamodel-modified.uml#Class-ownedAttribute"/>
           <layoutConstraint xmi:type="notation:Location" xmi:id="_oTKO4V8REeuTP8NO12B6eA"/>
         </children>
-        <children xmi:type="notation:Shape" xmi:id="_oTLdAF8REeuTP8NO12B6eA" type="Property_ClassAttributeLabel">
-          <element xmi:type="uml:Property" href="UML.metamodel-modified.uml#Class-ownedOperation"/>
-          <layoutConstraint xmi:type="notation:Location" xmi:id="_oTLdAV8REeuTP8NO12B6eA"/>
-        </children>
         <styles xmi:type="notation:TitleStyle" xmi:id="_P9d2ZF8REeuTP8NO12B6eA"/>
         <styles xmi:type="notation:SortingStyle" xmi:id="_P9d2ZV8REeuTP8NO12B6eA"/>
         <styles xmi:type="notation:FilteringStyle" xmi:id="_P9d2Zl8REeuTP8NO12B6eA"/>
@@ -43,8 +39,20 @@
       <children xmi:type="notation:DecorationNode" xmi:id="_U_JnkV8REeuTP8NO12B6eA" type="Class_FloatingNameLabel">
         <layoutConstraint xmi:type="notation:Location" xmi:id="_U_KOoF8REeuTP8NO12B6eA" y="15"/>
       </children>
-      <children xmi:type="notation:BasicCompartment" xmi:id="_U_KOoV8REeuTP8NO12B6eA" visible="false" type="Class_AttributeCompartment">
-        <styles xmi:type="notation:TitleStyle" xmi:id="_U_KOol8REeuTP8NO12B6eA" showTitle="true"/>
+      <children xmi:type="notation:BasicCompartment" xmi:id="_U_KOoV8REeuTP8NO12B6eA" type="Class_AttributeCompartment">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_bvdBMLMxEeyM0fsITEr4YA" source="PapyrusCSSForceValue">
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_bvdBMbMxEeyM0fsITEr4YA" key="visible" value="true"/>
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_w4TDMLMxEeyM0fsITEr4YA" key="showTitle" value="true"/>
+        </eAnnotations>
+        <children xmi:type="notation:Shape" xmi:id="_vJk3kLMxEeyM0fsITEr4YA" type="Property_ClassAttributeLabel">
+          <element xmi:type="uml:Property" href="UML.metamodel-modified.uml#BehavioredClassifier-ownedBehavior"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_vJk3kbMxEeyM0fsITEr4YA"/>
+        </children>
+        <children xmi:type="notation:Shape" xmi:id="_QbOpALMzEeyM0fsITEr4YA" type="Property_ClassAttributeLabel">
+          <element xmi:type="uml:Property" href="UML.metamodel-modified.uml#BehavioredClassifier-interfaceRealization"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_QbOpAbMzEeyM0fsITEr4YA"/>
+        </children>
+        <styles xmi:type="notation:TitleStyle" xmi:id="_U_KOol8REeuTP8NO12B6eA"/>
         <styles xmi:type="notation:SortingStyle" xmi:id="_U_KOo18REeuTP8NO12B6eA"/>
         <styles xmi:type="notation:FilteringStyle" xmi:id="_U_KOpF8REeuTP8NO12B6eA"/>
         <layoutConstraint xmi:type="notation:Bounds" xmi:id="_U_KOpV8REeuTP8NO12B6eA"/>
